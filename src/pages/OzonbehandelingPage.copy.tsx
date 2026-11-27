@@ -210,7 +210,7 @@ export const OZON_COPY = {
         <b>Eerst droog, dan ozon.</b> Ozon doodt wat er is en doorbreekt de cirkel, maar zonder
         een droge constructie keert schimmel terug. Zit er nog vocht in muur of chape, dan drogen
         we eerst, met{" "}
-        <Link to={lp("/verhuur/calculator")}>een berekend droogpakket</Link>, bevestigd door een
+        <Link to={lp("/verhuur/simulator")}>een berekend droogpakket</Link>, bevestigd door een
         vochtmeting. Pas daarna heeft een behandeling zin.
       </>
     ),
@@ -423,7 +423,7 @@ export const OZON_COPY = {
         <b>D'abord sécher, ensuite l'ozone.</b> L'ozone tue ce qui est présent et brise le cercle,
         mais sans construction sèche les moisissures reviennent. S'il reste de l'humidité dans le
         mur ou la chape, nous séchons d'abord, avec{" "}
-        <Link to={lp("/verhuur/calculator")}>un pack de séchage calculé</Link>, confirmé par une
+        <Link to={lp("/verhuur/simulator")}>un pack de séchage calculé</Link>, confirmé par une
         mesure d'humidité. Ce n'est qu'ensuite qu'un traitement a du sens.
       </>
     ),
@@ -641,7 +641,7 @@ export const OZON_COPY = {
         <b>Dry first, then ozone.</b> Ozone kills what is there and breaks the cycle, but without a
         dry structure the mould comes back. If there is still moisture in the wall or screed, we dry
         first, with{" "}
-        <Link to={lp("/verhuur/calculator")}>a calculated drying package</Link>, confirmed by a
+        <Link to={lp("/verhuur/simulator")}>a calculated drying package</Link>, confirmed by a
         moisture reading. Only then does a treatment make sense.
       </>
     ),

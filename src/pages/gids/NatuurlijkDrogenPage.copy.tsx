@@ -347,7 +347,7 @@ export const COPY = {
     wRijen: [
       ["Er staat geen datum op, zomer", "Natuurlijk drogen: verwarmen en ventileren"],
       ["Alleen pleisterwerk, dunne laag", "Vaak natuurlijk, zeker in een bewoond huis"],
-      ["De vloerlegger staat geboekt", <><Link to={lp("/verhuur/calculator")}>Droogpakket</Link> met meting en einddatum</>],
+      ["De vloerlegger staat geboekt", <><Link to={lp("/verhuur/simulator")}>Droogpakket</Link> met meting en einddatum</>],
       [`Dichte ruwbouw, winter, chape van ${dikCm} cm`, "Droogpakket, bij koude werf met bouwkachel"],
       ["U plaatst liever zelf", <><Link to={lp("/verhuur/afhalen")}>Losse toestellen</Link> aan afhaaltarief</>],
     ],
@@ -608,7 +608,7 @@ export const COPY = {
       wRijen: [
         ["Aucune date imposée, en été", "Séchage naturel : chauffer et ventiler"],
         ["Seulement du plafonnage, couche mince", "Souvent naturel, surtout dans une maison habitée"],
-        ["Le poseur de sol est réservé", <><Link to={lp("/verhuur/calculator")}>Pack de séchage</Link> avec mesure et date de fin</>],
+        ["Le poseur de sol est réservé", <><Link to={lp("/verhuur/simulator")}>Pack de séchage</Link> avec mesure et date de fin</>],
         [`Gros œuvre fermé, hiver, chape de ${n(dikCm)} cm`, "Pack de séchage, avec chauffage de chantier si le chantier est froid"],
         ["Vous préférez installer vous-même", <><Link to={lp("/verhuur/afhalen")}>Appareils seuls</Link> au tarif d'enlèvement</>],
       ],
@@ -867,7 +867,7 @@ export const COPY = {
       wRijen: [
         ["No date to meet, summer", "Natural drying: heat and ventilate"],
         ["Only plaster, thin coat", "Often natural, certainly in a lived-in house"],
-        ["The floor layer is booked", <><Link to={lp("/verhuur/calculator")}>Drying package</Link> with readings and an end date</>],
+        ["The floor layer is booked", <><Link to={lp("/verhuur/simulator")}>Drying package</Link> with readings and an end date</>],
         [`Closed shell, winter, ${n(dikCm)} cm screed`, "Drying package, with a site heater on a cold site"],
         ["You would rather set up yourself", <><Link to={lp("/verhuur/afhalen")}>Individual units</Link> at the collection rate</>],
       ],

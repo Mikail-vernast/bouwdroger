@@ -145,8 +145,8 @@ describe("ritme van de regiopagina's", () => {
     expect(pakket).toBeGreaterThanOrEqual(0);
     expect(toestellen).toBeGreaterThan(pakket);
 
-    /* En die sectie moet naar de calculator leiden, anders overtuigt ze niets. */
-    expect(container.querySelector("main a[href='/verhuur/calculator']")).not.toBeNull();
+    /* En die sectie moet naar de droogsimulator leiden, anders overtuigt ze niets. */
+    expect(container.querySelector("main a[href='/verhuur/simulator']")).not.toBeNull();
   });
 
   /*

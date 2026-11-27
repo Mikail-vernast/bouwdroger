@@ -262,7 +262,7 @@ const V3Cases = () => {
               <div className="ct">{item.tag}</div>
               <h3>{item.heading}</h3>
               <p>{item.body}</p>
-              <Link className="cgo" to={lp("/verhuur/calculator")}>
+              <Link className="cgo" to={lp("/verhuur/simulator")}>
                 {item.cta} <ArrowRightIcon size={13} strokeWidth={2.6} />
               </Link>
             </div>

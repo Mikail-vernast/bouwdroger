@@ -588,7 +588,7 @@ const VerhuurToestelPage = () => {
                   )}
                   <div className="note">
                     {t.noteVoor}{" "}
-                    <Link to={lp("/verhuur/calculator")} style={{ color: "var(--red)", fontWeight: 700 }}>
+                    <Link to={lp("/verhuur/simulator")} style={{ color: "var(--red)", fontWeight: 700 }}>
                       {t.perPakket}
                     </Link>
                   </div>
@@ -686,7 +686,7 @@ const VerhuurToestelPage = () => {
               <span className="zk">{t.goedOmTeWeten}</span>
               <b>{t.zwaarTitel}</b>
               <p>{t.zwaarTekst}</p>
-              <Link className="btn" to={lp("/verhuur/calculator")}>
+              <Link className="btn" to={lp("/verhuur/simulator")}>
                 {t.zwaarCta}
                 <ArrowRightIcon size={14} strokeWidth={2.4} />
               </Link>
@@ -699,7 +699,7 @@ const VerhuurToestelPage = () => {
           </div>
 
           <p className="af-note">
-            {t.afNoteVoor} <Link to={lp("/verhuur/calculator")}>{t.perPakket}</Link>
+            {t.afNoteVoor} <Link to={lp("/verhuur/simulator")}>{t.perPakket}</Link>
             {t.afNoteNa}
           </p>
         </div>
@@ -777,7 +777,7 @@ const VerhuurToestelPage = () => {
             <h2>{t.ctaTitel}</h2>
             <p>{t.ctaTekst}</p>
             <div className="cb">
-              <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+              <Link className="btn btn-white" to={lp("/verhuur/simulator")}>
                 {t.ctaKnop}
                 <ArrowRightIcon strokeWidth={2.4} />
               </Link>

@@ -442,7 +442,7 @@ const VerhuurPakketPage = () => {
         ogType="product"
         jsonLd={breadcrumbSchema([
           { name: t.home, path: lp("/") },
-          { name: t.crumbDroging, path: lp("/verhuur/calculator") },
+          { name: t.crumbDroging, path: lp("/verhuur/simulator") },
           { name: t.crumbPakket, path: lp("/verhuur/pakket") },
         ])}
       />
@@ -452,7 +452,7 @@ const VerhuurPakketPage = () => {
         <div className="shell">
           <div className="crumb">
             <Link to={lp("/")}>{t.home}</Link> <span>/</span>
-            <Link to={lp("/verhuur/calculator")}>{t.crumbDroging}</Link> <span>/</span>
+            <Link to={lp("/verhuur/simulator")}>{t.crumbDroging}</Link> <span>/</span>
             <span className="cur">{t.cur}</span>
           </div>
           <div className="lead-in">

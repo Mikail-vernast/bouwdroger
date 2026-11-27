@@ -157,7 +157,7 @@ const Pakketkaarten = ({ ctaLabel }: { ctaLabel?: string }) => {
           {t.pakketNa}
         </p>
       </div>
-      <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+      <Link className="btn btn-white" to={lp("/verhuur/simulator")}>
         {t.samenstellen}
         <ArrowRightIcon />
       </Link>

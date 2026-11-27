@@ -230,7 +230,7 @@ const Overzicht = () => {
                 <div className="rl-cta">
                   <h2>{t.ctaH2}</h2>
                   <p>{t.ctaP}</p>
-                  <Link className="rz-btn rz-btn-white" to={lp("/verhuur/calculator")}>
+                  <Link className="rz-btn rz-btn-white" to={lp("/verhuur/simulator")}>
                     {t.ctaKnop}
                   </Link>
                 </div>

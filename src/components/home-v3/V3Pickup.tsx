@@ -150,7 +150,7 @@ const V3Pickup = () => {
           <div className="wf-l">
             <b>{t.zwaarB}</b>
             <span>{t.zwaarS}</span>
-            <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+            <Link className="btn btn-white" to={lp("/verhuur/simulator")}>
               {t.zwaarBtn}
               <ArrowRightIcon size={14} />
             </Link>

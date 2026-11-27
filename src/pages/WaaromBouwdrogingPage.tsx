@@ -70,7 +70,7 @@ const WaaromBouwdrogingPage = () => {
             <h1 className="rv">{t.h1}</h1>
             <p className="rv d1">{t.heroP}</p>
             <div className="hcta rv d3">
-              <Link className="btn btn-white" to={lp("/verhuur/calculator")}>{t.heroCta}<Arrow /></Link>
+              <Link className="btn btn-white" to={lp("/verhuur/simulator")}>{t.heroCta}<Arrow /></Link>
               <Link className="btn btn-ghost" to={lp("/hoe-drogen-werkt")}>{t.heroCta2}</Link>
             </div>
           </div>
@@ -196,7 +196,7 @@ const WaaromBouwdrogingPage = () => {
             <span className="mbk">{t.belKick}</span>
             <h3>{t.belH3}</h3>
             <p>{t.belP}</p>
-            <Link className="btn btn-white mb-cta" to={lp("/verhuur/calculator")}>{t.belCta}<Arrow /></Link>
+            <Link className="btn btn-white mb-cta" to={lp("/verhuur/simulator")}>{t.belCta}<Arrow /></Link>
           </div>
           <img className="mb-man" src="/vernast/man-zen-crop.webp" alt={t.belAlt} style={{ width: "min(26%,260px)" }} />
         </div>

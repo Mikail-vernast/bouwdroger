@@ -404,7 +404,7 @@ export const WS_COPY = {
         <Link to={lp("/bouwdroger-huren-oost-vlaanderen")}>Oost-Vlaanderen</Link> en{" "}
         <Link to={lp("/bouwdroger-huren-vlaams-brabant")}>Vlaams-Brabant</Link>; verder weg plannen
         we de rit mee, maar leveren we evengoed. Weet u al wat u nodig heeft, dan stelt de{" "}
-        <Link to={lp("/verhuur/calculator")}>droogcalculator</Link> het pakket meteen samen.
+        <Link to={lp("/verhuur/simulator")}>droogcalculator</Link> het pakket meteen samen.
       </>
     ),
 
@@ -740,7 +740,7 @@ export const WS_COPY = {
         <Link to={lp("/bouwdroger-huren-oost-vlaanderen")}>Flandre orientale</Link> et dans le{" "}
         <Link to={lp("/bouwdroger-huren-vlaams-brabant")}>Brabant flamand</Link> ; plus loin, nous
         planifions le trajet, mais nous livrons tout autant. Vous savez déjà ce qu’il vous faut ? Le{" "}
-        <Link to={lp("/verhuur/calculator")}>calculateur de séchage</Link> compose le pack tout de
+        <Link to={lp("/verhuur/simulator")}>calculateur de séchage</Link> compose le pack tout de
         suite.
       </>
     ),
@@ -1055,7 +1055,7 @@ export const WS_COPY = {
         <Link to={lp("/bouwdroger-huren-oost-vlaanderen")}>East Flanders</Link> and{" "}
         <Link to={lp("/bouwdroger-huren-vlaams-brabant")}>Flemish Brabant</Link>; further afield we
         plan the trip in, but we deliver all the same. Already know what you need? The{" "}
-        <Link to={lp("/verhuur/calculator")}>drying calculator</Link> puts the package together
+        <Link to={lp("/verhuur/simulator")}>drying calculator</Link> puts the package together
         straight away.
       </>
     ),

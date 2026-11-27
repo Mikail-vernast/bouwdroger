@@ -293,7 +293,7 @@ const Project = () => {
                 ))}
 
                 <div className="svc-link">
-                  <Link to={lp("/verhuur/calculator")}>
+                  <Link to={lp("/verhuur/simulator")}>
                     <DryIcon /> {t.bereken}
                   </Link>
                   <Link to={lp("/machines")}>

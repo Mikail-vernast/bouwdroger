@@ -280,7 +280,7 @@ export const COPY = {
           tekst: (
             <>
               Een te klein toestel draait wekenlang op vol vermogen; een passend toestel is sneller klaar. De{" "}
-              <Link to={lp("/verhuur/calculator")}>droogcalculator</Link> rekent uit wat bij uw oppervlakte past.
+              <Link to={lp("/verhuur/simulator")}>droogcalculator</Link> rekent uit wat bij uw oppervlakte past.
             </>
           ),
         },
@@ -421,7 +421,7 @@ export const COPY = {
             </b>:{" "}
             <b className="ons">{Math.round((1 - c.perDag(o.kw) / c.perDag(CONCURRENT.kw)) * 100)} % minder
             verbruik</b>, voor een ruimte waar {o.volume} m³ aan capaciteit volstaat. Daarom rekent de{" "}
-            <Link to={lp("/verhuur/calculator")}>droogcalculator</Link> eerst uw volume uit en kiest ze pas
+            <Link to={lp("/verhuur/simulator")}>droogcalculator</Link> eerst uw volume uit en kiest ze pas
             daarna het toestel.
           </>
         ),
@@ -617,7 +617,7 @@ export const COPY = {
           tekst: (
             <>
               Un appareil trop petit tourne des semaines à pleine puissance ; un appareil adapté termine plus
-              vite. Le <Link to={lp("/verhuur/calculator")}>calculateur de séchage</Link> calcule ce qui convient
+              vite. Le <Link to={lp("/verhuur/simulator")}>calculateur de séchage</Link> calcule ce qui convient
               à votre surface.
             </>
           ),
@@ -761,7 +761,7 @@ export const COPY = {
             </b>{" "}:{" "}
             <b className="ons">{Math.round((1 - c.perDag(o.kw) / c.perDag(CONCURRENT.kw)) * 100)} % de
             consommation en moins</b>, pour une pièce où une capacité de {o.volume} m³ suffit. C'est pourquoi le{" "}
-            <Link to={lp("/verhuur/calculator")}>calculateur de séchage</Link> calcule d'abord votre volume et
+            <Link to={lp("/verhuur/simulator")}>calculateur de séchage</Link> calcule d'abord votre volume et
             ne choisit l'appareil qu'ensuite.
           </>
         ),
@@ -957,7 +957,7 @@ export const COPY = {
           tekst: (
             <>
               A machine that is too small runs at full power for weeks; a properly sized machine finishes sooner.
-              The <Link to={lp("/verhuur/calculator")}>drying calculator</Link> works out what suits your floor
+              The <Link to={lp("/verhuur/simulator")}>drying calculator</Link> works out what suits your floor
               area.
             </>
           ),
@@ -1098,7 +1098,7 @@ export const COPY = {
             </b>:{" "}
             <b className="ons">{Math.round((1 - c.perDag(o.kw) / c.perDag(CONCURRENT.kw)) * 100)}% less
             consumption</b>, for a room where {o.volume} m³ of capacity is enough. That is why the{" "}
-            <Link to={lp("/verhuur/calculator")}>drying calculator</Link> works out your volume first and
+            <Link to={lp("/verhuur/simulator")}>drying calculator</Link> works out your volume first and
             only then chooses the machine.
           </>
         ),

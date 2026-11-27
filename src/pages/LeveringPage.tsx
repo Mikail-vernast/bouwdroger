@@ -125,7 +125,7 @@ const LeveringPage = () => {
                     zwart de verwijzing naar de uitleg. Opmaak in
                     levering-fixes.css, niet inline — anders wint de inline-stijl
                     van elke latere correctie. */}
-                <a className="btn btn-licht" href={lp("/verhuur/calculator")}>{t.hero.cta}<Arrow /></a>
+                <a className="btn btn-licht" href={lp("/verhuur/simulator")}>{t.hero.cta}<Arrow /></a>
                 <a className="btn btn-zwart" href="#installatie">{t.hero.ctaUitleg}</a>
               </div>
             </div>

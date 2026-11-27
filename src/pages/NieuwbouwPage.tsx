@@ -95,7 +95,7 @@ const LEES_DOELEN: { to: string; toestel?: string }[][] = [
     { to: toestelPad("teddh30"), toestel: "teddh30" },
   ],
   [
-    { to: "/verhuur/calculator" },
+    { to: "/verhuur/simulator" },
     { to: "/prijzen" },
     { to: "/bouwdroger-huren-antwerpen" },
     { to: "/bouwdroger-huren-limburg" },
@@ -163,7 +163,7 @@ const NieuwbouwPage = () => {
             <h1>{t.heroH1}</h1>
             <p>{t.heroP}</p>
             <div className="hcta">
-              <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+              <Link className="btn btn-white" to={lp("/verhuur/simulator")}>
                 {t.ctaPakket}
                 <ArrowRightIcon />
               </Link>
@@ -415,7 +415,7 @@ const NieuwbouwPage = () => {
             <h3>{t.mbH3}</h3>
             <p>{t.mbP}</p>
             <div className="mb-cta">
-              <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+              <Link className="btn btn-white" to={lp("/verhuur/simulator")}>
                 {t.ctaPakket}
                 <ArrowRightIcon />
               </Link>

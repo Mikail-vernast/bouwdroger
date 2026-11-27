@@ -270,7 +270,7 @@ const nl = {
     {
       kop: "Kiezen en berekenen",
       links: [
-        { to: "/verhuur/calculator", label: "Bereken de prijs van uw droogpakket" },
+        { to: "/verhuur/simulator", label: "Bereken de prijs van uw droogpakket" },
         { to: "/machines", label: "Welk toestel heeft u nodig? Vergelijk het gamma" },
         { to: "/gids/stroomverbruik-bouwdroger", label: "Gids: wat kost een bouwdroger aan stroom?" },
         { to: "/gids/hoe-lang-moet-chape-drogen", label: "Gids: hoe lang moet een chape drogen?" },
@@ -534,7 +534,7 @@ const fr: typeof nl = {
     {
       kop: "Choisir et calculer",
       links: [
-        { to: "/verhuur/calculator", label: "Calculez le prix de votre pack de séchage" },
+        { to: "/verhuur/simulator", label: "Calculez le prix de votre pack de séchage" },
         { to: "/machines", label: "De quel appareil avez-vous besoin ? Comparez la gamme" },
         { to: "/gids/stroomverbruik-bouwdroger", label: "Guide : combien coûte un déshumidificateur en électricité ?" },
         { to: "/gids/hoe-lang-moet-chape-drogen", label: "Guide : combien de temps sèche une chape ?" },
@@ -797,7 +797,7 @@ const en: typeof nl = {
     {
       kop: "Choosing and calculating",
       links: [
-        { to: "/verhuur/calculator", label: "Calculate the price of your drying package" },
+        { to: "/verhuur/simulator", label: "Calculate the price of your drying package" },
         { to: "/machines", label: "Which machine do you need? Compare the range" },
         { to: "/gids/stroomverbruik-bouwdroger", label: "Guide: what does a construction dehumidifier cost in electricity?" },
         { to: "/gids/hoe-lang-moet-chape-drogen", label: "Guide: how long does screed take to dry?" },

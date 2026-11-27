@@ -182,7 +182,7 @@ const nl = {
     <>
       Schildert of behangt u te vroeg, dan kan de verf bladderen of vlekken, en sluit u
       vocht in de muur op. Moeten pleisterwerk en chape samen drogen? Kies in de{" "}
-      <Link to={lp("/verhuur/calculator")}>Calculator</Link> "pleisterwerk + chape": dat pakket is
+      <Link to={lp("/verhuur/simulator")}>Calculator</Link> "pleisterwerk + chape": dat pakket is
       berekend op muren en vloer tegelijk.
     </>
   ),
@@ -380,7 +380,7 @@ const fr: typeof nl = {
     <>
       Si vous peignez ou tapissez trop tôt, la peinture peut cloquer ou tacher, et vous
       enfermez l'humidité dans le mur. Plafonnage et chape doivent sécher ensemble ? Choisissez
-      dans le <Link to={lp("/verhuur/calculator")}>calculateur</Link> « plafonnage + chape » : ce
+      dans le <Link to={lp("/verhuur/simulator")}>calculateur</Link> « plafonnage + chape » : ce
       pack est calculé pour les murs et le sol en même temps.
     </>
   ),
@@ -576,7 +576,7 @@ const en: typeof nl = {
     <>
       If you paint or wallpaper too early, the paint can peel or stain, and you trap moisture
       in the wall. Do plaster and screed need to dry together? Choose "plaster + screed" in the{" "}
-      <Link to={lp("/verhuur/calculator")}>calculator</Link>: that package is calculated for
+      <Link to={lp("/verhuur/simulator")}>calculator</Link>: that package is calculated for
       walls and floor at the same time.
     </>
   ),

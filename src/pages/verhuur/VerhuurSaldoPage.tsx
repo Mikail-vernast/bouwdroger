@@ -276,7 +276,7 @@ const VerhuurSaldoPage = () => {
                   <a href="tel:+3236899065">03 689 90 65</a>.
                 </p>
                 <div className="fnav" style={{ marginTop: 20 }}>
-                  <Link className="btn btn-o" to={lp("/verhuur/calculator")}>
+                  <Link className="btn btn-o" to={lp("/verhuur/simulator")}>
                     {t.terug}
                   </Link>
                 </div>

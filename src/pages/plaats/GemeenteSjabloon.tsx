@@ -130,7 +130,7 @@ const COPY = {
         <b>Welk toestel u nodig heeft, hangt af van uw ruimte en niet van uw gemeente.</b> Het
         volledige gamma met capaciteiten en dagprijzen staat op{" "}
         <Link to={provPad}>de pagina over {provNaam}</Link>, of bereken uw opstelling meteen in de{" "}
-        <Link to={lp("/verhuur/calculator")}>droogcalculator</Link>. Liever zelf ophalen? Dat kan in{" "}
+        <Link to={lp("/verhuur/simulator")}>droogcalculator</Link>. Liever zelf ophalen? Dat kan in{" "}
         <Link to={lp("/afhalen")}>Aartselaar</Link>.
       </>
     ),
@@ -138,7 +138,7 @@ const COPY = {
     toestelNoot: (lp: (p: string) => string): ReactNode => (
       <>
         Bekijk de mogelijkheden voor uw project en vraag advies over de juiste opstelling.{" "}
-        <Link to={lp("/verhuur/calculator")}>Bereken het droogpakket voor uw ruimte</Link> of
+        <Link to={lp("/verhuur/simulator")}>Bereken het droogpakket voor uw ruimte</Link> of
         bekijk <Link to={lp("/machines")}>alle toestellen</Link>.
       </>
     ),
@@ -218,7 +218,7 @@ const COPY = {
         <b>L'appareil qu'il vous faut dépend de votre pièce, pas de votre commune.</b> La gamme
         complète avec capacités et prix journaliers figure sur{" "}
         <Link to={provPad}>la page de notre zone d'activité {provNaam}</Link>, ou calculez tout de suite votre
-        installation avec le <Link to={lp("/verhuur/calculator")}>calculateur de séchage</Link>.
+        installation avec le <Link to={lp("/verhuur/simulator")}>calculateur de séchage</Link>.
         Vous préférez venir chercher l'appareil ? C'est possible à{" "}
         <Link to={lp("/afhalen")}>Aartselaar</Link>.
       </>
@@ -227,7 +227,7 @@ const COPY = {
     toestelNoot: (lp: (p: string) => string): ReactNode => (
       <>
         Découvrez les possibilités pour votre projet et demandez conseil sur la bonne
-        installation. <Link to={lp("/verhuur/calculator")}>Calculez le pack de séchage pour votre pièce</Link>{" "}
+        installation. <Link to={lp("/verhuur/simulator")}>Calculez le pack de séchage pour votre pièce</Link>{" "}
         ou consultez <Link to={lp("/machines")}>tous les appareils</Link>.
       </>
     ),
@@ -308,7 +308,7 @@ const COPY = {
         <b>Which unit you need depends on your room, not on your municipality.</b> The full range
         with capacities and daily rates is on <Link to={provPad}>our page for deliveries {prov}</Link>,
         or calculate your set-up straight away in the{" "}
-        <Link to={lp("/verhuur/calculator")}>drying calculator</Link>. Prefer to collect it
+        <Link to={lp("/verhuur/simulator")}>drying calculator</Link>. Prefer to collect it
         yourself? You can, in <Link to={lp("/afhalen")}>Aartselaar</Link>.
       </>
     ),
@@ -316,7 +316,7 @@ const COPY = {
     toestelNoot: (lp: (p: string) => string): ReactNode => (
       <>
         See the options for your project and ask for advice on the right set-up.{" "}
-        <Link to={lp("/verhuur/calculator")}>Calculate the drying package for your room</Link> or
+        <Link to={lp("/verhuur/simulator")}>Calculate the drying package for your room</Link> or
         see <Link to={lp("/machines")}>all units</Link>.
       </>
     ),
@@ -541,7 +541,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
               ))}
             </dl>
             <div className="prijsknoppen">
-              <Link className={hoofdKnop(kleur)} to={lp("/verhuur/calculator")}>
+              <Link className={hoofdKnop(kleur)} to={lp("/verhuur/simulator")}>
                 {g.prijs.knopPakket}
                 <ArrowRightIcon />
               </Link>
@@ -587,7 +587,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
               <p className="lede">{t.pakketLede(route.postcode)}</p>
             </div>
             <div className="prijsknoppen">
-              <Link className={hoofdKnop(kleur)} to={lp("/verhuur/calculator")}>
+              <Link className={hoofdKnop(kleur)} to={lp("/verhuur/simulator")}>
                 {g.pakket.knopPakket}
                 <ArrowRightIcon />
               </Link>
@@ -735,7 +735,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
               </div>
               <p>{nadruk(gemeente.levering.alinea)}</p>
               <dl className="feiten">{feiten(t.feitenLever)}</dl>
-              <Link className="btn" to={lp("/verhuur/calculator")} style={{ marginTop: "22px" }}>
+              <Link className="btn" to={lp("/verhuur/simulator")} style={{ marginTop: "22px" }}>
                 {g.levering.reserveer}
                 <ArrowRightIcon />
               </Link>
@@ -925,7 +925,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
             )}{" "}
             {t.twijfel}{" "}
             <a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phoneLocal}</a> {t.ofKort}{" "}
-            <Link to={lp("/verhuur/calculator")}>{t.bereken}</Link>.
+            <Link to={lp("/verhuur/simulator")}>{t.bereken}</Link>.
           </div>
         </div>
       </section>
@@ -1033,7 +1033,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
           <div className="note">
             <b>{t.advies}</b> {t.adviesP}{" "}
             <a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phoneLocal}</a> {t.ofKort}{" "}
-            <Link to={lp("/verhuur/calculator")}>{t.bereken}</Link>.
+            <Link to={lp("/verhuur/simulator")}>{t.bereken}</Link>.
           </div>
         </div>
       </section>
@@ -1058,7 +1058,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
           <h3>{g.slot.h3}</h3>
           <p>{g.slot.p}</p>
           <div className="mb-cta">
-            <Link className="btn btn-white glans" to={lp("/verhuur/calculator")}>
+            <Link className="btn btn-white glans" to={lp("/verhuur/simulator")}>
               {g.slot.knop}
               <ArrowRightIcon />
             </Link>
@@ -1174,7 +1174,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
                 */}
                 <p>{nadruk(gemeente.intro[0])}</p>
                 <div className="hcta">
-                  <Link className="btn btn-white glans" to={lp("/verhuur/calculator")}>
+                  <Link className="btn btn-white glans" to={lp("/verhuur/simulator")}>
                     {g.hero.knop}
                     <ArrowRightIcon />
                   </Link>

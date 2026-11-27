@@ -8,7 +8,7 @@
  * deze site doet nu hetzelfde, via `api/funnel.ts` en de poort
  * `bouwdroger-availability` (`action: "funnel"`), met het secret dat er al is.
  *
- * Eén sessie loopt over drie pagina's: calculator → pakket → boeking. Elke pagina
+ * Eén sessie loopt over drie pagina's: calculator of simulator → pakket → boeking. Elke pagina
  * stuurt een `view` (de database telt die één keer per sessie), zodat wie
  * rechtstreeks op /verhuur/boeking landt ook als bezoeker telt en de ratio nooit
  * boven 100% uitkomt.
@@ -16,6 +16,21 @@
 
 /** `marketing_conversions.id` van "Bouwdroger huren — calculator" in Vernast. */
 export const CALCULATOR_CONVERSION_ID = "a8354178-b784-43e9-b275-b594b3c1e085";
+
+/**
+ * `marketing_conversions.id` van "Bouwdroger huren — droogsimulator" in Vernast.
+ * Sinds 27-11-2026 gaan alle knoppen naar de simulator in plaats van de
+ * calculator; de calculatorconversie blijft bestaan voor wie de calculator nog
+ * rechtstreeks opent (oude links, advertenties) en voor de historiek.
+ */
+export const SIMULATOR_CONVERSION_ID = "ded6ebf9-19b7-4077-962f-7bc6c37559be";
+
+/** Langs welke ingang de sessie de huurflow begon; bepaalt de conversie. */
+export type FunnelFlow = "calculator" | "simulator";
+
+export function conversionIdFor(flow: unknown): string {
+  return flow === "simulator" ? SIMULATOR_CONVERSION_ID : CALCULATOR_CONVERSION_ID;
+}
 
 export type FunnelEventType = "view" | "step" | "submit";
 
@@ -45,6 +60,8 @@ export interface FunnelEvent {
   utm_source?: string | null;
   utm_medium?: string | null;
   utm_campaign?: string | null;
+  /** Ingang van de sessie; zonder waarde telt het als calculator (oudere tabbladen). */
+  flow?: FunnelFlow;
 }
 
 const SESSION_ID = /^[A-Za-z0-9-]{8,64}$/;
@@ -105,7 +122,7 @@ export function funnelArgs(body: unknown): Record<string, unknown> | null {
   return {
     p_session_id: session,
     p_event_type: type,
-    p_conversion_id: CALCULATOR_CONVERSION_ID,
+    p_conversion_id: conversionIdFor(b.flow),
     p_step_index: step,
     p_step_key: text(b.step_key, 80),
     p_utm_source: text(b.utm_source, 120),

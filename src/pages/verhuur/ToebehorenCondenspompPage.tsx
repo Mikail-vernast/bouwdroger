@@ -168,7 +168,7 @@ const ToebehorenCondenspompPage = () => {
                   <span className="tb-k">{t.pakketK}</span>
                   <b>{t.pakketTitel}</b>
                   <p>{t.pakketTekst(prijs)}</p>
-                  <Link className="btn btn-red" to={lp("/verhuur/calculator")}>
+                  <Link className="btn btn-red" to={lp("/verhuur/simulator")}>
                     {t.pakketCta}
                     <ArrowRightIcon size={14} strokeWidth={2.4} />
                   </Link>
@@ -306,7 +306,7 @@ const ToebehorenCondenspompPage = () => {
             </a>
           </div>
           <p className="af-note">
-            {t.afNoteVoor} <Link to={lp("/verhuur/calculator")}>{t.afNoteLink}</Link>
+            {t.afNoteVoor} <Link to={lp("/verhuur/simulator")}>{t.afNoteLink}</Link>
             {t.afNoteNa}
           </p>
         </div>
@@ -378,7 +378,7 @@ const ToebehorenCondenspompPage = () => {
             <h2>{t.ctaTitel}</h2>
             <p>{t.ctaTekst}</p>
             <div className="cb">
-              <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+              <Link className="btn btn-white" to={lp("/verhuur/simulator")}>
                 {t.ctaKnop}
                 <ArrowRightIcon strokeWidth={2.4} />
               </Link>

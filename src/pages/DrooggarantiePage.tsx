@@ -74,7 +74,7 @@ const DrooggarantiePage = () => {
               <h1 className="rv">{t.h1}</h1>
               <p className="rv d1">{t.heroP}</p>
               <div className="hcta rv d3">
-                <Link className="btn btn-white" to={lp("/verhuur/calculator")}>{t.heroCta}<Arrow /></Link>
+                <Link className="btn btn-white" to={lp("/verhuur/simulator")}>{t.heroCta}<Arrow /></Link>
                 <a className="btn btn-ghost" href="#voorwaarden">{t.heroCta2}</a>
               </div>
             </div>
@@ -175,7 +175,7 @@ const DrooggarantiePage = () => {
               <span className="mbk">{t.mbKick}</span>
               <h3>{t.mbH3}</h3>
               <p>{t.mbP}</p>
-              <Link className="btn btn-white mb-cta" to={lp("/verhuur/calculator")}>{t.mbCta}<Arrow /></Link>
+              <Link className="btn btn-white mb-cta" to={lp("/verhuur/simulator")}>{t.mbCta}<Arrow /></Link>
             </div>
             <img className="mb-man" src="/vernast/man-duim-kabels.webp" alt={t.mbAlt} style={{ width: "min(30%,320px)" }} />
           </div>

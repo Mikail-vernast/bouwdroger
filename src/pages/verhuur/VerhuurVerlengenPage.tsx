@@ -369,7 +369,7 @@ const VerhuurVerlengenPage = () => {
                   {t.onbekendSlot}
                 </p>
                 <div className="fnav" style={{ marginTop: 20 }}>
-                  <Link className="btn btn-o" to={lp("/verhuur/calculator")}>
+                  <Link className="btn btn-o" to={lp("/verhuur/simulator")}>
                     {t.terug}
                   </Link>
                 </div>

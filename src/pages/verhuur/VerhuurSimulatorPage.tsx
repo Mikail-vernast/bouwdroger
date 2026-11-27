@@ -62,6 +62,7 @@ import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
 import "@/styles/droogsimulator.css";
+import { useFunnelMeting } from "@/hooks/useFunnelMeting";
 
 /*
   De simulator past altijd op één scherm onder de site-header — gsm, tablet en
@@ -190,6 +191,10 @@ export function DroogSimulator({ soort }: { soort: "werf" | "water" }) {
   /** Telt op bij "naar het begin" na een verstuurde aanvraag: de aanvraag begint dan opnieuw. */
   const [wsRonde, setWsRonde] = useState(0);
   const [stap, setStap] = useState(0);
+  // Marketing › Conversies in Vernast: de werfsimulator is de ingang van de huurflow
+  // ("Bouwdroger huren — droogsimulator"). De waterschadesimulator eindigt op een
+  // aanvraag, niet op een boeking, en telt hier niet mee.
+  useFunnelMeting({ step: stap, stepKey: STAPPEN[stap], flow: "simulator", enabled: soort === "werf" });
   const [actief, setActief] = useState(0);
   const [handmatig, setHandmatig] = useState(false);
   /** where the drying film is: an index into `droogfilm(...)` */

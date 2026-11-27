@@ -71,7 +71,7 @@ const COPY = {
         <b>Staat uw vraag er niet bij?</b> Bekijk <Link to={lp("/machines")}>het volledige gamma</Link>{" "}
         als u een toestel zoekt, <Link to={lp("/realisaties")}>de realisaties</Link> als u wilt zien hoe
         een werf als de uwe verliep, of bereken meteen uw opstelling in de{" "}
-        <Link to={lp("/verhuur/calculator")}>droogcalculator</Link>. Liever iemand aan de lijn? Dat kan
+        <Link to={lp("/verhuur/simulator")}>droogcalculator</Link>. Liever iemand aan de lijn? Dat kan
         ook, via <Link to={lp("/contact")}>contact</Link>.
       </>
     ),
@@ -98,7 +98,7 @@ const COPY = {
         <b>Votre question n'y figure pas ?</b> Consultez <Link to={lp("/machines")}>toute la gamme</Link>{" "}
         si vous cherchez un appareil, <Link to={lp("/realisaties")}>les réalisations</Link> si vous voulez voir
         comment s'est déroulé un chantier comme le vôtre, ou calculez directement votre installation avec le{" "}
-        <Link to={lp("/verhuur/calculator")}>calculateur de séchage</Link>. Vous préférez parler à quelqu'un ? C'est
+        <Link to={lp("/verhuur/simulator")}>calculateur de séchage</Link>. Vous préférez parler à quelqu'un ? C'est
         possible aussi, via la page <Link to={lp("/contact")}>contact</Link>.
       </>
     ),
@@ -125,7 +125,7 @@ const COPY = {
         <b>Is your question not listed?</b> Browse <Link to={lp("/machines")}>the full range</Link>{" "}
         if you are looking for a machine, <Link to={lp("/realisaties")}>our projects</Link> if you want to see how
         a site like yours went, or work out your set-up straight away in the{" "}
-        <Link to={lp("/verhuur/calculator")}>drying calculator</Link>. Rather speak to someone? You can do
+        <Link to={lp("/verhuur/simulator")}>drying calculator</Link>. Rather speak to someone? You can do
         that too, via <Link to={lp("/contact")}>contact</Link>.
       </>
     ),

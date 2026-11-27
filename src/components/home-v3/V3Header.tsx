@@ -267,7 +267,7 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
                     <b>{t.megaVraag1}</b>
                     <span>{t.megaUitleg1}</span>
                   </div>
-                  <Link className="btn-offerte" to={lp("/verhuur/calculator")}>
+                  <Link className="btn-offerte" to={lp("/verhuur/simulator")}>
                     {t.calculatorKnop}
                   </Link>
                 </div>
@@ -304,7 +304,7 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
                     <b>{t.megaVraag2}</b>
                     <span>{t.megaUitleg2}</span>
                   </div>
-                  <Link className="btn-offerte" to={lp("/verhuur/calculator")}>
+                  <Link className="btn-offerte" to={lp("/verhuur/simulator")}>
                     {t.calculatorKnop}
                   </Link>
                 </div>
@@ -328,11 +328,11 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
           <MobileNavActions open={menuOpen} onClick={() => (menuOpen ? sluitMenu() : setMenuOpen(true))} />
         </div>
 
-        <Link className="cart mnav-hide-sm" to={lp("/verhuur/calculator")} aria-label={t.winkelwagen}>
+        <Link className="cart mnav-hide-sm" to={lp("/verhuur/simulator")} aria-label={t.winkelwagen}>
           <CartIcon />
           <i id="cartCount">1</i>
         </Link>
-        <Link className="btn-offerte mnav-cta-sm" to={lp("/verhuur/calculator")}>
+        <Link className="btn-offerte mnav-cta-sm" to={lp("/verhuur/simulator")}>
           {t.calculatorKnop}
         </Link>
       </div>

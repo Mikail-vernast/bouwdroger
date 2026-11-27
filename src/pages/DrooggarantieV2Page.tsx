@@ -110,7 +110,7 @@ const DrooggarantieV2Page = () => (
             </p>
 
             <div className="dgv2-actions">
-              <Link className="btn btn-white" to="/verhuur/calculator">
+              <Link className="btn btn-white" to="/verhuur/simulator">
                 Bereken mijn droogplan <ArrowRight size={17} />
               </Link>
               <a className="btn btn-ghost" href="#zo-werkt-het">
@@ -311,7 +311,7 @@ const DrooggarantieV2Page = () => (
               <span className="kick">Drooggarantie zonder toeslag</span>
               <h2>Bereken nu uw droogplan en weet meteen waar u aan toe bent.</h2>
               <p>Uw pakket, berekende periode en all-in prijs in enkele minuten.</p>
-              <Link className="btn btn-white" to="/verhuur/calculator">
+              <Link className="btn btn-white" to="/verhuur/simulator">
                 Bereken mijn droogplan <ArrowRight size={17} />
               </Link>
             </div>

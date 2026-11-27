@@ -359,7 +359,7 @@ const VerhuurCalculatorPage = () => {
 
   // The panel number, not the position: "dikte chape" stays step 3 whether or
   // not the visitor saw the plaster question, so the funnel compares like with like.
-  useFunnelMeting({ step: index, stepKey: STEP_KEYS[index] });
+  useFunnelMeting({ step: index, stepKey: STEP_KEYS[index], flow: "calculator" });
 
   const finish = (next: Answers) => {
     const config: PackageConfig = {

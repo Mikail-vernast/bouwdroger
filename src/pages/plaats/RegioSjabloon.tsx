@@ -83,7 +83,7 @@ const COPY = {
     toestelNoot: (lp: (p: string) => string): ReactNode => (
       <>
         Twijfelt u tussen twee toestellen?{" "}
-        <Link to={lp("/verhuur/calculator")}>Bereken het droogpakket voor uw ruimte</Link> of
+        <Link to={lp("/verhuur/simulator")}>Bereken het droogpakket voor uw ruimte</Link> of
         bekijk <Link to={lp("/machines")}>het volledige gamma</Link>.
       </>
     ),
@@ -154,7 +154,7 @@ const COPY = {
     toestelNoot: (lp: (p: string) => string): ReactNode => (
       <>
         Vous hésitez entre deux appareils ?{" "}
-        <Link to={lp("/verhuur/calculator")}>Calculez le pack de séchage pour votre pièce</Link> ou
+        <Link to={lp("/verhuur/simulator")}>Calculez le pack de séchage pour votre pièce</Link> ou
         consultez <Link to={lp("/machines")}>toute la gamme</Link>.
       </>
     ),
@@ -227,7 +227,7 @@ const COPY = {
     toestelNoot: (lp: (p: string) => string): ReactNode => (
       <>
         Torn between two units?{" "}
-        <Link to={lp("/verhuur/calculator")}>Calculate the drying package for your room</Link> or
+        <Link to={lp("/verhuur/simulator")}>Calculate the drying package for your room</Link> or
         see <Link to={lp("/machines")}>the full range</Link>.
       </>
     ),
@@ -500,7 +500,7 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
                 <b style={{ color: "var(--txt)" }}>{t.leverenOnderMeer}</b>
                 {regio.towns.join(", ")}.
               </p>
-              <Link className="btn" to={lp("/verhuur/calculator")} style={{ marginTop: "22px" }}>
+              <Link className="btn" to={lp("/verhuur/simulator")} style={{ marginTop: "22px" }}>
                 {g.levering.reserveer}
                 <ArrowRightIcon />
               </Link>
@@ -593,7 +593,7 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
             <h3>{g.slot.h3}</h3>
             <p>{g.slot.p}</p>
             <div className="mb-cta">
-              <Link className="btn btn-white glans" to={lp("/verhuur/calculator")}>
+              <Link className="btn btn-white glans" to={lp("/verhuur/simulator")}>
                 {g.slot.knop}
                 <ArrowRightIcon />
               </Link>
@@ -717,7 +717,7 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
           <div className="note">
             {gemeenten.length > 0 ? t.kiesGemeente : t.gemeentenHierboven}
             {t.belOns} <a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phoneLocal}</a> {t.of}{" "}
-            <Link to={lp("/verhuur/calculator")}>{t.bereken}</Link>.
+            <Link to={lp("/verhuur/simulator")}>{t.bereken}</Link>.
           </div>
         </div>
       </section>
@@ -854,7 +854,7 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
               ))}
             </dl>
             <div className="prijsknoppen">
-              <Link className={hoofdKnop(kleur)} to={lp("/verhuur/calculator")}>
+              <Link className={hoofdKnop(kleur)} to={lp("/verhuur/simulator")}>
                 {g.prijs.knopPakket}
                 <ArrowRightIcon />
               </Link>
@@ -904,7 +904,7 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
               <p className="lede">{t.pakketLede(nl ? regio.name : waar)}</p>
             </div>
             <div className="prijsknoppen">
-              <Link className={hoofdKnop(kleur)} to={lp("/verhuur/calculator")}>
+              <Link className={hoofdKnop(kleur)} to={lp("/verhuur/simulator")}>
                 {g.pakket.knopPakket}
                 <ArrowRightIcon />
               </Link>
@@ -1048,7 +1048,7 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
                   </dl>
                 )}
                 <div className="hcta">
-                  <Link className="btn btn-white glans" to={lp("/verhuur/calculator")}>
+                  <Link className="btn btn-white glans" to={lp("/verhuur/simulator")}>
                     {g.hero.knop}
                     <ArrowRightIcon />
                   </Link>

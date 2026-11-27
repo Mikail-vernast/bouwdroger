@@ -183,7 +183,7 @@ const VHeader = () => {
                     <b>{t.megaVraag1}</b>
                     <span>{t.megaUitleg1}</span>
                   </div>
-                  <Link className="btn-offerte" to={lp("/verhuur/calculator")}>
+                  <Link className="btn-offerte" to={lp("/verhuur/simulator")}>
                     {t.calculatorKnop}
                   </Link>
                 </div>
@@ -220,7 +220,7 @@ const VHeader = () => {
                     <b>{t.megaVraag2}</b>
                     <span>{t.megaUitleg2}</span>
                   </div>
-                  <Link className="btn-offerte" to={lp("/verhuur/calculator")}>
+                  <Link className="btn-offerte" to={lp("/verhuur/simulator")}>
                     {t.calculatorKnop}
                   </Link>
                 </div>
@@ -249,7 +249,7 @@ const VHeader = () => {
           <i>1</i>
         </Link>
 
-        <Link className="btn-offerte mnav-cta-sm" to={lp("/verhuur/calculator")}>
+        <Link className="btn-offerte mnav-cta-sm" to={lp("/verhuur/simulator")}>
           {t.calculatorKnop}
         </Link>
       </div>
