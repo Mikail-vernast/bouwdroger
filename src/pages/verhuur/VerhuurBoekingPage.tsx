@@ -77,6 +77,8 @@ import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
 import "@/styles/verhuur-betaling.css";
 import { reportBookingEvent } from "@/lib/reportBookingEvent";
+import { boekingStep } from "@/lib/funnel";
+import { useFunnelMeting } from "@/hooks/useFunnelMeting";
 
 /** De extra's uit data/verhuur.ts, gekoppeld aan hun icoon uit het design. */
 /*
@@ -318,6 +320,8 @@ const VerhuurBoekingPage = () => {
     dekkingsstap al zien staan.
   */
   const [step, setStep] = useState(() => (searchParams.get("session_id") ? STEP_VERIFY : 1));
+  const funnelStep = boekingStep(step);
+  const { trackSubmit } = useFunnelMeting({ step: funnelStep?.index ?? null, stepKey: funnelStep?.key });
   const [cover, setCover] = useState(stored?.options.cover ?? "comfort");
   const [toonStap1Fouten, setToonStap1Fouten] = useState(false);
   const [extras, setExtras] = useState<Record<string, boolean>>(() =>
@@ -795,6 +799,9 @@ const VerhuurBoekingPage = () => {
           setReference(data.reference);
           setOrdered(data.order ?? null);
           setStep(STEP_DONE);
+          // Betaald: dit is de conversie. Bij een herladen bevestiging telt de
+          // database hem niet dubbel (één submit per sessie).
+          trackSubmit();
           sessionStorage.removeItem(STORAGE_KEY);
         } else {
           /*

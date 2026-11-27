@@ -20,6 +20,19 @@ export const TEXTUUR = {
   tegelvloer: "/simulator/3d/tegelvloer.webp",
 } as const;
 
+/**
+ * The cellar (kelder.ts): only loaded when a simulator asks for one, so the drying simulator
+ * never fetches them. Soil in section (1 × 3,4 m a tile) and poured concrete (1 × 1 m), the
+ * tiles of the damp simulator's cellar render (Vernast: scripts/simulator-textures).
+ */
+export const KELDER_TEXTUUR = {
+  grond: "/simulator/3d/grond.webp",
+  beton: "/simulator/3d/beton.webp",
+} as const;
+
+/** Grass for the live street (omgeving.ts), 0,6 m a tile: only fetched by a house that turns. */
+export const GRAS_TEXTUUR = "/simulator/3d/gras.webp";
+
 /*
   De interieurkit (scripts/simulator-3d/interieur.py en texturen.py): meubels als
   één GLB met een manifest, en de vloer- en wandtegels per kamersoort. Alleen
@@ -111,6 +124,24 @@ export function diagNu(): Record<string, string> {
 
 const gevraagd = new Set<string>();
 /** Haalt bestanden op de achtergrond binnen (lage prioriteit), elk hooguit één keer. */
+/**
+ * Runs `fn` once the page has settled: `wacht` ms after now, then in the browser's next idle
+ * moment. For files a later step needs: they must not compete with what is on screen now.
+ * Returns a cancel function, for an effect's cleanup.
+ */
+export function naRust(fn: () => void, wacht = 1200): () => void {
+  let idle = 0;
+  const t = window.setTimeout(() => {
+    idle = typeof window.requestIdleCallback === "function"
+      ? window.requestIdleCallback(fn, { timeout: 3000 })
+      : window.setTimeout(fn, 0);
+  }, wacht);
+  return () => {
+    window.clearTimeout(t);
+    if (idle && typeof window.cancelIdleCallback === "function") window.cancelIdleCallback(idle);
+  };
+}
+
 export function voorlaad(urls: readonly string[], als: "image" | "fetch" = "fetch"): void {
   for (const href of urls) {
     if (gevraagd.has(href)) continue;

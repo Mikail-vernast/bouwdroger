@@ -35,6 +35,8 @@ import {
   totalCapacity,
 } from "@/lib/verhuur";
 import { breadcrumbSchema } from "@/lib/schema";
+import { FUNNEL_STEP_PAKKET } from "@/lib/funnel";
+import { useFunnelMeting } from "@/hooks/useFunnelMeting";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
 
@@ -377,6 +379,7 @@ const COPY = {
 const INC_ICONS = [DropletPinIcon, TruckIcon, FileCheckIcon, ChatIcon, RefreshIcon];
 
 const VerhuurPakketPage = () => {
+  useFunnelMeting({ step: FUNNEL_STEP_PAKKET, stepKey: "Pakket" });
   const t = useCopy(COPY);
   const taal = useTaal();
   const lp = useLokaalPad();

@@ -297,6 +297,12 @@ const NL_ROUTES: RouteRecord[] = [
         }),
       },
       {
+        path: "verhuur/waterschade-simulator",
+        lazy: async () => ({
+          Component: (await import("./pages/verhuur/VerhuurWaterschadeSimulatorPage")).default,
+        }),
+      },
+      {
         path: "verhuur/pakket",
         lazy: async () => ({
           Component: (await import("./pages/verhuur/VerhuurPakketPage")).default,

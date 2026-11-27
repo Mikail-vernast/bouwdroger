@@ -49,11 +49,11 @@ const FloatingWhatsApp = () => {
   // De droogsimulator vult precies één scherm en zet zijn Volgende-knop
   // rechtsonder — net waar deze knop zweeft. Zijn eigen kop heeft al een
   // belknop, dus hier blijft hij weg.
-  if (nlPad === "/verhuur/simulator") return null;
+  if (nlPad === "/verhuur/simulator" || nlPad === "/verhuur/waterschade-simulator") return null;
 
   return (
     <a
-      href="https://wa.me/3236899065"
+      href="https://wa.me/3233185045"
       target="_blank"
       rel="noopener noreferrer"
       onMouseEnter={() => setIsHovered(true)}

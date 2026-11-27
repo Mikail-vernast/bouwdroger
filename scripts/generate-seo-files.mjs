@@ -167,6 +167,7 @@ const ROUTE_SOURCES = {
   "/verhuur/calculator": "src/pages/verhuur/VerhuurCalculatorPage.tsx",
   "/verhuur/pakket": "src/pages/verhuur/VerhuurPakketPage.tsx",
   "/verhuur/simulator": "src/pages/verhuur/VerhuurSimulatorPage.tsx",
+  "/verhuur/waterschade-simulator": "src/pages/verhuur/VerhuurSimulatorPage.tsx",
   "/luchtontvochtiger-huren": "src/pages/LuchtontvochtigerHurenPage.tsx",
   "/chape-drogen": "src/pages/ChapeDrogenPage.tsx",
   "/pleisterwerk-drogen": "src/pages/PleisterwerkDrogenPage.tsx",

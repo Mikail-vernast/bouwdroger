@@ -380,6 +380,18 @@ function meubelsVan(stukken: Stuk[], kit: Manifest): Meubel[] {
   return stukken.flatMap((st) => meubelVan(st, maat) ?? []);
 }
 
+/**
+ * Fetches the furniture before the house opens, with the same loaders and inputs as below, so
+ * the component finds them in the cache. The model is the largest file of the house (~650 kB):
+ * a closed house shows none of it, so it no longer delays the first picture.
+ */
+// eslint-disable-next-line react-refresh/only-export-components
+export function laadInterieurVooraf(): void {
+  useLoader.preload(GLTFLoader, INTERIEUR.glb);
+  useLoader.preload(FileLoader, INTERIEUR.manifest, (ld) => { (ld as FileLoader).setResponseType("json"); });
+  useLoader.preload(TextureLoader, TEX_NAMEN.map((n) => INTERIEUR.tex[n]));
+}
+
 export default function Interieur(props: Props) {
   const { laag, kamers, openingen, ramen, trappen, w, l, act, binnenRef, inrichtingRef, snij, zicht, nat, onVakken, onMeubels, wijk } = props;
   const gltf = useLoader(GLTFLoader, INTERIEUR.glb);

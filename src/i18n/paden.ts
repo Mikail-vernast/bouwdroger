@@ -44,6 +44,7 @@ export const STATISCH: Record<string, Vertaling> = {
   /* Verhuurfunnel */
   "/verhuur/calculator": { fr: "/location/calculateur", en: "/rental/calculator" },
   "/verhuur/simulator": { fr: "/location/simulateur", en: "/rental/simulator" },
+  "/verhuur/waterschade-simulator": { fr: "/location/simulateur-degats-des-eaux", en: "/rental/water-damage-simulator" },
   "/verhuur/pakket": { fr: "/location/pack", en: "/rental/package" },
   "/verhuur/afhalen": { fr: "/location/enlevement", en: "/rental/collection" },
   "/verhuur/boeking": { fr: "/location/reservation", en: "/rental/booking" },

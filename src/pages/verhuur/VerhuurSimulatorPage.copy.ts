@@ -41,6 +41,12 @@ export interface SimCopy {
   kruimelHome: string;
   kruimel: string;
   h1: string;
+  /** De waterschadesimulator: eigen pagina, eigen schema en kruimel. */
+  serviceWs: { name: string; description: string; serviceType: string };
+  kruimelWs: string;
+  h1Ws: string;
+  /** Link op de eerste vraag van de werfsimulator naar de waterschadesimulator. */
+  naarWaterschade: string;
   vragen: string;
   stapVan: (nr: number, totaal: number, naam: string) => string;
   vraagVan: (nr: number, totaal: number) => string;
@@ -232,6 +238,14 @@ export const COPY: Copy<SimCopy> = {
     },
     kruimelHome: "Home",
     kruimel: "Droogsimulator",
+    serviceWs: {
+      name: "Waterschade droogsimulator",
+      description: "Duid aan waar het nat is en vraag hulp aan: wij plannen de bouwdrogers voor uw waterschade.",
+      serviceType: "Waterschade drogen",
+    },
+    kruimelWs: "Waterschade droogsimulator",
+    h1Ws: "Waterschade droogsimulator: duid aan waar het nat is",
+    naarWaterschade: "Waterschade in een bewoonde woning? Naar de waterschadesimulator →",
     h1: "Droogsimulator: zie welke bouwdrogers uw woning nodig heeft",
     vragen: "Vragen",
     stapVan: (nr, totaal, naam) => `Stap ${nr} van ${totaal}: ${naam}`,
@@ -419,6 +433,14 @@ export const COPY: Copy<SimCopy> = {
     },
     kruimelHome: "Accueil",
     kruimel: "Simulateur de séchage",
+    serviceWs: {
+      name: "Simulateur de séchage dégâts des eaux",
+      description: "Indiquez où c'est mouillé et demandez de l'aide : nous planifions les déshumidificateurs pour votre dégât des eaux.",
+      serviceType: "Séchage après dégât des eaux",
+    },
+    kruimelWs: "Simulateur dégâts des eaux",
+    h1Ws: "Simulateur de séchage dégâts des eaux : indiquez où c'est mouillé",
+    naarWaterschade: "Un dégât des eaux dans une maison habitée ? Vers le simulateur dégâts des eaux →",
     h1: "Simulateur de séchage : découvrez de quels déshumidificateurs votre logement a besoin",
     vragen: "Questions",
     stapVan: (nr, totaal, naam) => `Étape ${nr} sur ${totaal} : ${naam}`,
@@ -605,6 +627,14 @@ export const COPY: Copy<SimCopy> = {
     },
     kruimelHome: "Home",
     kruimel: "Drying simulator",
+    serviceWs: {
+      name: "Water damage drying simulator",
+      description: "Show where it is wet and ask for help: we plan the dehumidifiers for your water damage.",
+      serviceType: "Water damage drying",
+    },
+    kruimelWs: "Water damage simulator",
+    h1Ws: "Water damage drying simulator: show where it is wet",
+    naarWaterschade: "Water damage in a lived-in home? Go to the water damage simulator →",
     h1: "Drying simulator: see which construction dehumidifiers your home needs",
     vragen: "Questions",
     stapVan: (nr, totaal, naam) => `Step ${nr} of ${totaal}: ${naam}`,

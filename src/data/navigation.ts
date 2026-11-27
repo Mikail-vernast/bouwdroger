@@ -197,6 +197,7 @@ export const SERVICE: NavLinkItem[] = [
 export const KIEZEN: NavLinkItem[] = [
   { label: "Bereken uw droogpakket", path: "/verhuur/calculator" },
   { label: "Droogsimulator voor uw woning", path: "/verhuur/simulator" },
+  { label: "Droogsimulator bij waterschade", path: "/verhuur/waterschade-simulator" },
   { label: "Ons volledige gamma", path: "/machines" },
 ];
 
@@ -400,6 +401,7 @@ export const LABEL_FR: Record<string, string> = {
   "Zelf afhalen in Aartselaar": "Enlèvement à Aartselaar",
   "Bereken uw droogpakket": "Calculez votre pack de séchage",
   "Droogsimulator voor uw woning": "Simulateur de séchage pour votre logement",
+  "Droogsimulator bij waterschade": "Simulateur de séchage dégâts des eaux",
   "Ons volledige gamma": "Toute notre gamme",
   "Losse toestellen afhalen": "Appareils à enlever",
   /* Bedrijf */
@@ -521,6 +523,7 @@ export const LABEL_EN: Record<string, string> = {
   "Zelf afhalen in Aartselaar": "Collect it yourself in Aartselaar",
   "Bereken uw droogpakket": "Calculate your drying package",
   "Droogsimulator voor uw woning": "Drying simulator for your home",
+  "Droogsimulator bij waterschade": "Water damage drying simulator",
   "Ons volledige gamma": "Our full range",
   "Losse toestellen afhalen": "Collect individual units",
   /* Bedrijf */
