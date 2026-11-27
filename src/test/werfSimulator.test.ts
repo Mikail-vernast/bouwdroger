@@ -68,7 +68,7 @@ function* alleAntwoorden(): Generator<Antwoord> {
                 if (!wat) continue;
                 for (const verwarmt of [true, false]) {
                   const antwoorden: SimAnswers = {
-                    woning, verdiepingen, dak, size, wat, fase, verwarmt, tempo: "gemiddeld",
+                    woning, verdiepingen, dak, size, wat, fase, verwarmt,
                     pd: laagWaarde(pd, DEFAULT_PD),
                     cd: laagWaarde(cd, DEFAULT_CD),
                   };
@@ -151,7 +151,9 @@ describe("werfsimulator → pakketpagina → boeking → Vernast", () => {
   for (const a of alleAntwoorden()) {
     if (!a.resultaat) continue;
     // Precies de link die de knop "Bekijk en boek" in het droogplan maakt.
-    const link = `${configToQuery(a.resultaat.config)}${extraNaarQuery(a.resultaat.extra)}`;
+    // Geen extra's in de link: het tempo is er uit, dus het droogplan legt nooit
+    // een toestel bovenop het pakket. Regel 174 bewijst dat ook omgekeerd.
+    const link = configToQuery(a.resultaat.config);
     if (!perLink.has(link)) {
       perLink.set(link, {
         items: a.resultaat.items.filter((it) => it.q > 0).map((it) => ({ k: it.k, q: it.q })),
