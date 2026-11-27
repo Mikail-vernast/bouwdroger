@@ -143,3 +143,30 @@ export function maskHouseNumber(raw: string): string {
 export function isValidHouseNumber(raw: string): boolean {
   return /^\d{1,5}/.test(maskHouseNumber(raw).trim());
 }
+
+/**
+ * A VAT number. Belgian ones (`BE` + 10 digits, or just the digits) are written the way
+ * invoices show them, `BE 0123.456.789`, already while typing. A number with another
+ * country prefix (`NL123456789B01`) keeps its own format: upper case, no spaces.
+ */
+export function maskBtw(raw: string): string {
+  const cleaned = raw.toUpperCase().replace(/[^A-Z0-9]/g, "");
+  const land = /^[A-Z]{2}/.exec(cleaned)?.[0];
+  if (land && land !== "BE") return cleaned.slice(0, 16);
+  const cijfers = cleaned.replace(/^BE/, "").replace(/\D/g, "").slice(0, 10);
+  if (!cijfers) return land ? "BE" : "";
+  const groepen = [cijfers.slice(0, 4), cijfers.slice(4, 7), cijfers.slice(7, 10)].filter(Boolean);
+  return `BE ${groepen.join(".")}`;
+}
+
+/**
+ * A company name: letters, digits and the punctuation names use (& . , - ' ( ) / +).
+ * Same whitespace rules as `maskName`.
+ */
+export function maskBedrijf(raw: string): string {
+  return raw
+    .replace(/[^\p{L}\d\s&.,'’()/+-]/gu, "")
+    .replace(/\s+/g, " ")
+    .replace(/^\s+/, "")
+    .slice(0, 120);
+}
