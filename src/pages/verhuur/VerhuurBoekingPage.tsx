@@ -11,7 +11,7 @@ import OptieInfo from "@/components/verhuur/OptieInfo";
 import { STRIPE_APPEARANCE } from "@/lib/stripeAppearance";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
-import { isValidEmail, isValidPhone, maskEmail, maskPhone } from "@/lib/inputMask";
+import { isValidEmail, isValidPhone, maskBedrijf, maskBtw, maskEmail, maskName, maskPhone, maskPostcode, maskStreet } from "@/lib/inputMask";
 import {
   ArrowRightIcon,
   BoltIcon,
@@ -1627,9 +1627,10 @@ const VerhuurBoekingPage = () => {
                     <input
                       type="text"
                       id="fName"
+                      autoComplete="name"
                       placeholder={t.naamPlaceholder}
                       value={customer.name}
-                      onChange={(e) => setCustomer({ ...customer, name: e.target.value })}
+                      onChange={(e) => setCustomer({ ...customer, name: maskName(e.target.value) })}
                     />
                   </div>
                   <div className="fld">
@@ -1670,9 +1671,10 @@ const VerhuurBoekingPage = () => {
                       <input
                         type="text"
                         id="fComp"
+                        autoComplete="organization"
                         placeholder={t.bedrijfPlaceholder}
                         value={customer.company}
-                        onChange={(e) => setCustomer({ ...customer, company: e.target.value })}
+                        onChange={(e) => setCustomer({ ...customer, company: maskBedrijf(e.target.value) })}
                       />
                     </div>
                     <div className="fld">
@@ -1682,7 +1684,7 @@ const VerhuurBoekingPage = () => {
                         id="fBtw"
                         placeholder="BE 0123.456.789"
                         value={customer.vat}
-                        onChange={(e) => setCustomer({ ...customer, vat: e.target.value })}
+                        onChange={(e) => setCustomer({ ...customer, vat: maskBtw(e.target.value) })}
                       />
                     </div>
                   </div>
@@ -1694,9 +1696,10 @@ const VerhuurBoekingPage = () => {
                     <input
                       type="text"
                       id="fAddr"
+                      autoComplete="address-line1"
                       placeholder={t.adresPlaceholder}
                       value={customer.addr}
-                      onChange={(e) => setCustomer({ ...customer, addr: e.target.value })}
+                      onChange={(e) => setCustomer({ ...customer, addr: maskStreet(e.target.value) })}
                     />
                   </div>
                 </div>
@@ -1706,12 +1709,18 @@ const VerhuurBoekingPage = () => {
                     <input
                       type="text"
                       id="fPost"
-                      inputMode="numeric"
+                      // Belgisch: vier cijfers. Nederlands: vier cijfers en twee letters (1234 AB);
+                      // het oude veld liet alleen cijfers toe, en dus geen Nederlandse postcode.
+                      inputMode={customer.land === "NL" ? "text" : "numeric"}
+                      autoComplete="postal-code"
                       placeholder={t.postcodePlaceholder}
-                      maxLength={4}
+                      maxLength={customer.land === "NL" ? 7 : 4}
                       value={customer.post}
                       onChange={(e) =>
-                        setCustomer({ ...customer, post: e.target.value.replace(/\D/g, "") })
+                        setCustomer({
+                          ...customer,
+                          post: customer.land === "NL" ? maskPostcode(e.target.value) : e.target.value.replace(/\D/g, "").slice(0, 4),
+                        })
                       }
                     />
                   </div>
@@ -1720,9 +1729,10 @@ const VerhuurBoekingPage = () => {
                     <input
                       type="text"
                       id="fCity"
+                      autoComplete="address-level2"
                       placeholder={t.gemeentePlaceholder}
                       value={customer.city}
-                      onChange={(e) => setCustomer({ ...customer, city: e.target.value })}
+                      onChange={(e) => setCustomer({ ...customer, city: maskName(e.target.value) })}
                     />
                   </div>
                 </div>

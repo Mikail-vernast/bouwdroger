@@ -71,8 +71,14 @@ describe("zoekPlaatsen", () => {
 
   it("toont bij een postcode uit beide landen allebei, België eerst", () => {
     const uit = zoekPlaatsen(PLAATSEN, "9051");
-    expect(uit.map((p) => p.land)).toEqual(["BE", "NL"]);
-    expect(uit[1].naam).toBe("Stiens");
+    expect(uit.map((p) => p.land)).toEqual(["BE", "BE", "NL"]);
+    expect(uit[2].naam).toBe("Stiens");
+  });
+
+  it("toont bij een postcode elke plaats die erop ligt", () => {
+    // Op 2500 liggen Lier en Koningshooikt; eerst stond alleen Koningshooikt er.
+    expect(zoekPlaatsen(PLAATSEN, "2500").map((p) => p.naam).sort()).toEqual(["Koningshooikt", "Lier"]);
+    expect(zoekPlaatsen(PLAATSEN, "2970").map((p) => p.naam)).toContain("Schilde");
   });
 
   it("laat de Nederlandse naamgenoot van een Belgische stad in de lijst staan", () => {
