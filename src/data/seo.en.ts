@@ -192,6 +192,11 @@ export const SEO_EN: Record<SeoSleutel, SeoEntry> = {
     description:
       "Choose your home, floors, screed or plaster and the building stage. See straight away which dehumidifiers go in which room and what the drying package costs.",
   },
+  verhuurWaterschadeSimulator: {
+    title: "Water damage simulator: show us where it is wet | Vernast",
+    description:
+      "Leak, flood or firefighting water? Show in the 3D home where it is wet and ask for help straight away. We plan the dehumidifiers and deliver within 24 hours.",
+  },
   verhuurAfhalen: {
     title: "Hire individual units and collect in Aartselaar | Vernast",
     description:

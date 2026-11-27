@@ -18,7 +18,10 @@ import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const DIST = "dist";
-const PAGINAS = ["verhuur/simulator.html", "fr/location/simulateur.html", "en/rental/simulator.html"];
+const PAGINAS = [
+  "verhuur/simulator.html", "fr/location/simulateur.html", "en/rental/simulator.html",
+  "verhuur/waterschade-simulator.html", "fr/location/simulateur-degats-des-eaux.html", "en/rental/water-damage-simulator.html",
+];
 const STRAAT = ["/simulator/straat/halfopen-b80-achter-mini.webp", "/simulator/straat/halfopen-b80-voor-mini.webp"];
 
 const chunk = readdirSync(join(DIST, "assets")).find((f) => /^IsoHouse3D-[\w-]+\.js$/.test(f));

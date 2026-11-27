@@ -49,7 +49,7 @@ const FloatingWhatsApp = () => {
   // De droogsimulator vult precies één scherm en zet zijn Volgende-knop
   // rechtsonder — net waar deze knop zweeft. Zijn eigen kop heeft al een
   // belknop, dus hier blijft hij weg.
-  if (nlPad === "/verhuur/simulator") return null;
+  if (nlPad === "/verhuur/simulator" || nlPad === "/verhuur/waterschade-simulator") return null;
 
   return (
     <a

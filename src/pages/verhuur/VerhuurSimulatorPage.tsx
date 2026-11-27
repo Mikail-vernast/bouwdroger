@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import IsoHouse from "@/components/simulator/IsoHouse";
 import IsoHouseAuto from "@/components/simulator/IsoHouseAuto";
@@ -35,7 +35,9 @@ import {
   programmaVan,
   plaatsToestellen,
   simResultaat,
-  snapOppervlakte,
+  laagWaarde,
+  pakketMaat,
+  watVoor,
   standaardProgramma,
   verdiepingNaam,
   type Dak,
@@ -116,8 +118,11 @@ const DAK_FOTO: Partial<Record<Dak, string>> = {
 };
 // Korte daknamen voor de keuzeknoppen (drie op een half paneel): `dakKort` in de COPY.
 const MATEN = SIZE_VALUES.map(Number);
-/** The slider steps: the catalogue sizes, then "more than the largest". */
-const OPP_STAPPEN = [...MATEN.map(String), "custom"];
+/**
+ * The slider steps: only the catalogue sizes. The werf simulator has no "more than the
+ * largest" stop, so every answer ends on a package that exists (see werfSimulator.test.ts).
+ */
+const OPP_STAPPEN = MATEN.map(String);
 const GROOTSTE = MATEN[MATEN.length - 1] ?? 300;
 
 interface State extends Omit<SimAnswers, "woning" | "wat" | "fase" | "verwarmt" | "tempo" | "ruimtes"> {
@@ -133,7 +138,7 @@ const START: State = {
   woning: null,
   verdiepingen: 2,
   dak: "zadeldak",
-  size: snapOppervlakte(geschatteOppervlakte("halfopen", 2)),
+  size: pakketMaat(geschatteOppervlakte("halfopen", 2)),
   pd: DEFAULT_PD,
   cd: DEFAULT_CD,
   fase: null,
@@ -142,19 +147,6 @@ const START: State = {
   kamers: [],
 };
 
-
-/**
- * Wat er nat is, afgeleid uit de fase en de twee diktes: alleen de lagen die er in
- * die fase liggen tellen ("geen" laat een laag weg). Nooit opgeslagen, zodat het
- * niet kan achterlopen op de fase of de diktes.
- */
-function watVoor(fase: Fase, pd: string, cd: string): Wat | null {
-  const lagen = LAGEN_PER_FASE[fase];
-  if (lagen.length === 0) return "waterschade";
-  const muur = lagen.includes("pd") && pd !== "geen";
-  const vloer = lagen.includes("cd") && cd !== "geen";
-  return muur && vloer ? "beide" : muur ? "pleister" : vloer ? "chape" : null;
-}
 
 /** Antwoorden aanvullen tot een volledige set voor de rekenkern. */
 function volledig(s: State, wat: Wat | null): SimAnswers {
@@ -166,28 +158,32 @@ function volledig(s: State, wat: Wat | null): SimAnswers {
     size: s.size,
     wat: wat ?? "beide",
     // "geen" = die laag is droog; wat laat ze al weg, de waarde moet alleen geldig zijn.
-    pd: s.pd === "onbekend" || s.pd === "geen" ? DEFAULT_PD : s.pd,
-    cd: s.cd === "onbekend" || s.cd === "geen" ? DEFAULT_CD : s.cd,
+    pd: laagWaarde(s.pd, DEFAULT_PD),
+    cd: laagWaarde(s.cd, DEFAULT_CD),
     fase,
     verwarmt: s.verwarmt ?? FASE[fase].verwarmtWaarschijnlijk,
     tempo: s.tempo ?? "gemiddeld",
   };
 }
 
-const VerhuurSimulatorPage = () => {
+/**
+ * De droogsimulator, in twee varianten met elk een eigen pagina (Brent, 27-11-2026):
+ * "werf" droogt een werf en eindigt op een pakket uit de catalogus, "water" is de
+ * waterschade-aanvraag in hetzelfde 3D-huis. Ze deelden eerst één pagina met een
+ * keuzescherm vooraf.
+ */
+export function DroogSimulator({ soort }: { soort: "werf" | "water" }) {
   const t = useCopy(COPY);
   const taal = useTaal();
   const lp = useLokaalPad();
   const toon = useToonBedrag();
-  const seo = useSeo("verhuurSimulator");
+  const seo = useSeo(soort === "water" ? "verhuurWaterschadeSimulator" : "verhuurSimulator");
+  const navigate = useNavigate();
+  const pad = soort === "water" ? "/verhuur/waterschade-simulator" : "/verhuur/simulator";
+  const dienst = soort === "water" ? t.serviceWs : t.service;
   const cat = catInTaal(taal);
   const STAPPEN = t.stappen;
   const [s, setS] = useState<State>(START);
-  /**
-   * Eerste vraag: een werf drogen of waterschade. Waterschade gaat niet door de simulator
-   * maar meteen naar een aanvraag: die klant wil hulp, geen berekening (Brent, 23-11-2026).
-   */
-  const [soort, setSoort] = useState<"werf" | "water" | null>(null);
   /** Wat de bezoeker bij waterschade aanvinkte: de natte verdiepingen kleuren in het 3D-huis. */
   const [ws, setWs] = useState<Pick<WsAntwoorden, "plekken" | "nat"> | null>(null);
   const [stap, setStap] = useState(0);
@@ -231,7 +227,7 @@ const VerhuurSimulatorPage = () => {
     (w: Woning) => {
       if (!heeftStraat(w) || budget3D() === "geen") return;
       const l = w === "appartement" ? 1 : Math.max(2, lagen);
-      voorlaad(straatBeelden(w, woningBreedte(w, snapOppervlakte(geschatteOppervlakte(w, l)), l), "mini"), "image");
+      voorlaad(straatBeelden(w, woningBreedte(w, pakketMaat(geschatteOppervlakte(w, l)), l), "mini"), "image");
     },
     [lagen],
   );
@@ -359,7 +355,7 @@ const VerhuurSimulatorPage = () => {
       // elk huis dat je daarna koos. Hetzelfde type opnieuw kiezen houdt het dak.
       const d = w === prev.woning ? prev.dak : WONING[w].dakToegelaten[0];
       // Een ander woningtype heeft een andere indeling: de kamers beginnen opnieuw.
-      return { ...prev, woning: w, verdiepingen, dak: d, kamers: [], size: snapOppervlakte(geschatteOppervlakte(w, verdiepingen)) };
+      return { ...prev, woning: w, verdiepingen, dak: d, kamers: [], size: pakketMaat(geschatteOppervlakte(w, verdiepingen)) };
     });
 
   /** Bouwlagen of dak gewijzigd: een laag die van soort verandert (zolder wordt verdieping) begint opnieuw. */
@@ -379,7 +375,7 @@ const VerhuurSimulatorPage = () => {
       ...prev,
       verdiepingen: n,
       kamers: herschik(prev, n, prev.dak),
-      size: snapOppervlakte(geschatteOppervlakte(prev.woning ?? "halfopen", n)),
+      size: pakketMaat(geschatteOppervlakte(prev.woning ?? "halfopen", n)),
     }));
   };
 
@@ -434,7 +430,7 @@ const VerhuurSimulatorPage = () => {
   const maat = maatwerk ? `${GROOTSTE}+ m²` : `± ${s.size} m²`;
   const schatting = geschatteOppervlakte(woning, lagen);
   const opIk = Math.max(0, OPP_STAPPEN.indexOf(maatwerk ? "custom" : s.size));
-  const opSchat = Math.max(0, OPP_STAPPEN.indexOf(snapOppervlakte(schatting)));
+  const opSchat = Math.max(0, OPP_STAPPEN.indexOf(pakketMaat(schatting)));
   // Before a phase is chosen, neither answer is shown as picked.
   const verwarmd = s.verwarmt ?? (s.fase ? FASE[s.fase].verwarmtWaarschijnlijk : null);
 
@@ -464,9 +460,7 @@ const VerhuurSimulatorPage = () => {
   const wsVerd = wsPlekken.includes("zolder") ? lagen - 1 : wsPlekken.includes("verdieping") ? 1 : 0;
   const stageKop = soort === "water"
     ? { eyebrow: t.wsStage.eyebrow, titel: wsPlekken.length ? t.wsStage.nat(wsPlekken.map((p) => t.wsStage.plek[p]).join(" en ")) : t.wsStage.leeg }
-    : soort === null
-      ? { eyebrow: t.wsStage.keuzeEyebrow, titel: t.keuzeKop }
-      : kop;
+    : kop;
 
   /** De lagen van deze fase; zonder lagen valt de diktevraag (stap 4) weg. */
   const faseLagen = s.fase ? LAGEN_PER_FASE[s.fase] : (["pd", "cd"] as const);
@@ -504,19 +498,19 @@ const VerhuurSimulatorPage = () => {
   );
 
   return (
-    <div className="vh-calc ds-sim" data-stap={stap} data-soort={soort ?? "keuze"} ref={root}>
+    <div className="vh-calc ds-sim" data-stap={stap} data-soort={soort} ref={root}>
       <PageMeta
         {...seo}
         jsonLd={[
           serviceSchema({
-            name: t.service.name,
-            description: t.service.description,
-            path: lp("/verhuur/simulator"),
-            serviceType: t.service.serviceType,
+            name: dienst.name,
+            description: dienst.description,
+            path: lp(pad),
+            serviceType: dienst.serviceType,
           }),
           breadcrumbSchema([
             { name: t.kruimelHome, path: lp("/") },
-            { name: t.kruimel, path: lp("/verhuur/simulator") },
+            { name: soort === "water" ? t.kruimelWs : t.kruimel, path: lp(pad) },
           ]),
         ]}
       />
@@ -530,7 +524,7 @@ const VerhuurSimulatorPage = () => {
       <div className="ds-app">
 
         <main className="ds-main">
-          <h1 className="sr-only">{t.h1}</h1>
+          <h1 className="sr-only">{soort === "water" ? t.h1Ws : t.h1}</h1>
 
           {/* ───────────── vraagpaneel ───────────── */}
           <section className="ds-panel" aria-label={t.vragen}>
@@ -548,29 +542,8 @@ const VerhuurSimulatorPage = () => {
             </div>
 
             {soort === "water" ? (
-              <WaterschadeAanvraag onTerug={() => { setSoort(null); setWs(null); }} onWijzig={(a) => setWs({ plekken: a.plekken, nat: a.nat })} />
-            ) : soort === null ? (
-              <>
-                <div className="ds-body" key="keuze">
-                  <h2>{t.keuzeKop}</h2>
-                  <p className="ds-sub">{t.keuzeSub}</p>
-                  <div className="ds-daken ds-daken--twee" role="radiogroup" aria-label={t.keuzeKop}>
-                    {(["werf", "water"] as const).map((k) => (
-                      <button key={k} type="button" role="radio" aria-checked={false} className="ds-dak" onClick={() => setSoort(k)}>
-                        <img src={`/simulator/keuze-${k}.webp`} alt="" decoding="async" style={k === "water" ? { objectPosition: "center 30%" } : undefined} />
-                        {k === "water" && <span className="ds-dak-tag">{t.keuzeTag}</span>}
-                        <span className="ds-dak-t">
-                          <b>{t.keuze[k].label}</b>
-                          <small>{t.keuze[k].sub}</small>
-                        </span>
-                        <i className="ds-dak-v" aria-hidden="true" />
-                      </button>
-                    ))}
-                  </div>
-                  <p className="ds-beloftes">{t.funnel.beloftes.map((v) => <span key={v}>✓ {v}</span>)}</p>
-                </div>
-                <div className="ds-foot" />
-              </>
+              // Terug vanaf de eerste vraag (of na het versturen): naar de waterschadepagina.
+              <WaterschadeAanvraag onTerug={() => navigate(lp("/waterschade"))} onWijzig={(a) => setWs({ plekken: a.plekken, nat: a.nat })} />
             ) : (
             <>
             <div className="ds-body" key={`${stap}-${toonDak ? 0 : 1}`}>
@@ -578,6 +551,8 @@ const VerhuurSimulatorPage = () => {
                 <>
                   <h2>{t.s1Kop}</h2>
                   <p className="ds-sub">{t.s1Sub}</p>
+                  {/* Waterschade heeft een eigen simulator; wie hier verkeerd binnenkomt, vindt hem meteen. */}
+                  <Link className="ds-naar-ws" to={lp("/verhuur/waterschade-simulator")}>{t.naarWaterschade}</Link>
                   <div className="ds-cards" role="radiogroup" aria-label={t.typeWoning}>
                     {WONINGEN.map((w) => (
                       <button key={w} type="button" role="radio" aria-checked={s.woning === w} className={`ds-card${s.woning === w ? " sel" : ""}`} onClick={() => kiesWoning(w)}
@@ -670,7 +645,7 @@ const VerhuurSimulatorPage = () => {
                         onChange={(e) => setS((p) => ({ ...p, size: OPP_STAPPEN[Number(e.target.value)] }))}
                       />
                       <i className="ds-opp-tick" aria-hidden="true" />
-                      <span className="ds-opp-schaal" aria-hidden="true"><span>{MATEN[0]} m²</span><span>{GROOTSTE}+ m²</span></span>
+                      <span className="ds-opp-schaal" aria-hidden="true"><span>{MATEN[0]} m²</span><span>{GROOTSTE} m²</span></span>
                     </div>
                     {!maatwerk && opIk !== opSchat && (
                       <button type="button" className="ds-opp-terug" onClick={() => setS((p) => ({ ...p, size: OPP_STAPPEN[opSchat] }))}>
@@ -837,7 +812,10 @@ const VerhuurSimulatorPage = () => {
             </div>
 
             <div className="ds-foot">
-              <button className={stap === 4 && resultaat ? "ds-rond" : "ds-back"} type="button" aria-label={t.terug} onClick={() => (stap === 0 ? setSoort(null) : stap === 1 && !toonDak && WONING[woning].dakToegelaten.length > 1 ? setDeel(0) : naar(terug))}>
+              <button className={stap === 4 && resultaat ? "ds-rond" : "ds-back"} type="button" aria-label={t.terug}
+                // De eerste vraag heeft geen vorige: de knop houdt zijn plaats, zodat de balk niet verspringt.
+                style={stap === 0 ? { visibility: "hidden" } : undefined}
+                onClick={() => (stap === 0 ? undefined : stap === 1 && !toonDak && WONING[woning].dakToegelaten.length > 1 ? setDeel(0) : naar(terug))}>
                 {stap === 4 && resultaat ? (
                   <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M12 4l-6 6 6 6" /></svg>
                 ) : (
@@ -984,7 +962,9 @@ const VerhuurSimulatorPage = () => {
 
     </div>
   );
-};
+}
+
+const VerhuurSimulatorPage = () => <DroogSimulator soort="werf" />;
 
 /*
   Het verschil tussen rijwoning, halfopen en open bebouwing is het aantal
