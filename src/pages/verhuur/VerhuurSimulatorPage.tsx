@@ -36,6 +36,7 @@ import {
   plaatsToestellen,
   simResultaat,
   laagWaarde,
+  maxBouwlagen,
   pakketMaat,
   watVoor,
   standaardProgramma,
@@ -352,7 +353,8 @@ export function DroogSimulator({ soort }: { soort: "werf" | "water" }) {
     setS((prev) => {
       // Hetzelfde type opnieuw aanklikken verandert niets: de keuzes van stap 2 blijven staan.
       if (w === prev.woning) return prev;
-      const verdiepingen = w === "appartement" ? 1 : Math.max(2, prev.verdiepingen);
+      // Niet meer bouwlagen dan dit type toelaat: open bebouwing met vier lagen past in geen pakket.
+      const verdiepingen = w === "appartement" ? 1 : Math.min(maxBouwlagen(w), Math.max(2, prev.verdiepingen));
       // Een ander woningtype begint met zijn eigen standaarddak (zadeldak, plat bij
       // een appartement); anders bleef het platte dak van een appartement hangen op
       // elk huis dat je daarna koos. Hetzelfde type opnieuw kiezen houdt het dak.
@@ -413,7 +415,7 @@ export function DroogSimulator({ soort }: { soort: "werf" | "water" }) {
   const handSeg = segmenten.find((sg) => sg.modus === "drogen" && sg.v === verd);
   const filmSeg = stap === 4 ? (handmatig ? handSeg : segment) : undefined;
   const toonVerd = stap === 4 && filmSeg ? filmSeg.v : verd;
-  const maxLagen = woning === "appartement" ? 2 : MAX_VERDIEPINGEN;
+  const maxLagen = maxBouwlagen(woning);
   const maatwerk = isMaatwerk(antwoorden);
   const totaalKamers = aantallen.reduce((a, b) => a + b, 0);
   // Staat een bouwlaag op haar maximum door de oppervlakte (niet door de gevel), dan zeggen we hoe het meer wordt.

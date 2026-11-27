@@ -16,7 +16,9 @@ import {
   WONING,
   geschatteOppervlakte,
   laagWaarde,
+  maxBouwlagen,
   pakketMaat,
+  snapOppervlakte,
   simResultaat,
   watVoor,
   type Fase,
@@ -52,9 +54,8 @@ function* alleAntwoorden(): Generator<Antwoord> {
   const pds = [...PD_VALUES, "geen", "onbekend"];
   const cds = [...CD_VALUES, "geen", "onbekend"];
   for (const woning of Object.keys(WONING) as Woning[]) {
-    // Zoals de pagina: een appartement heeft hoogstens twee bouwlagen.
-    const maxLagen = woning === "appartement" ? 2 : MAX_VERDIEPINGEN;
-    for (let verdiepingen = 1; verdiepingen <= maxLagen; verdiepingen++) {
+    // Zoals de pagina: hoogstens zoveel bouwlagen als in het grootste pakket past.
+    for (let verdiepingen = 1; verdiepingen <= maxBouwlagen(woning); verdiepingen++) {
       // De schuif biedt de catalogusmaten; de schatting is waar hij begint.
       const maten = new Set([...SIZE_VALUES, pakketMaat(geschatteOppervlakte(woning, verdiepingen))]);
       for (const dak of WONING[woning].dakToegelaten) {
@@ -95,6 +96,33 @@ describe("pakketmaat van de werfsimulator", () => {
   it("gaat nooit boven het grootste pakket", () => {
     expect(pakketMaat(Number(GROOTSTE) + 1)).toBe(GROOTSTE);
     expect(pakketMaat(10_000)).toBe(GROOTSTE);
+  });
+});
+
+describe("bouwlagen van de werfsimulator", () => {
+  it("laat geen woning toe die groter geschat wordt dan het grootste pakket", () => {
+    for (const woning of Object.keys(WONING) as Woning[]) {
+      const n = maxBouwlagen(woning);
+      expect(n, woning).toBeGreaterThanOrEqual(1);
+      expect(geschatteOppervlakte(woning, n), woning).toBeLessThanOrEqual(Number(GROOTSTE));
+      // Wie een bouwlaag meer kiest, komt erboven: de grens is niet strenger dan nodig.
+      if (n < (woning === "appartement" ? 2 : MAX_VERDIEPINGEN)) {
+        expect(geschatteOppervlakte(woning, n + 1), woning).toBeGreaterThan(Number(GROOTSTE));
+      }
+    }
+  });
+  it("een appartement heeft hoogstens twee bouwlagen", () => {
+    expect(maxBouwlagen("appartement")).toBeLessThanOrEqual(2);
+  });
+  it("open bebouwing stopt op drie bouwlagen (vier wordt ± 374 m²)", () => {
+    expect(maxBouwlagen("open")).toBe(3);
+  });
+  it("de schatting valt nooit buiten de catalogus, ook niet ongemerkt afgekapt", () => {
+    for (const woning of Object.keys(WONING) as Woning[]) {
+      for (let n = 1; n <= maxBouwlagen(woning); n++) {
+        expect(snapOppervlakte(geschatteOppervlakte(woning, n)), `${woning} ${n}`).not.toBe("custom");
+      }
+    }
   });
 });
 

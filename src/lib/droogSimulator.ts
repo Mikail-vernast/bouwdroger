@@ -48,6 +48,7 @@ import {
   Fase,
   LAGEN_PER_FASE,
   MAX_KAMERS,
+  MAX_VERDIEPINGEN,
   MIN_KAMERS,
   WONING,
   Wat,
@@ -122,6 +123,20 @@ export function snapOppervlakte(m2: number): string {
 export function pakketMaat(m2: number): string {
   const hit = snapOppervlakte(m2);
   return hit === "custom" ? SIZE_VALUES[SIZE_VALUES.length - 1] : hit;
+}
+
+/**
+ * Hoeveel bouwlagen de werfsimulator per woningtype toelaat: zoveel als er passen
+ * zonder dat de geschatte oppervlakte boven het grootste pakket uitkomt (open
+ * bebouwing met vier lagen wordt ± 374 m²). Een appartement heeft er hoogstens twee.
+ * Zo begint de schuif nooit op een maat die de catalogus niet heeft.
+ */
+export function maxBouwlagen(woning: Woning): number {
+  const plafond = woning === "appartement" ? 2 : MAX_VERDIEPINGEN;
+  const grootste = Number(SIZE_VALUES[SIZE_VALUES.length - 1]);
+  let n = 1;
+  while (n < plafond && geschatteOppervlakte(woning, n + 1) <= grootste) n++;
+  return n;
 }
 
 /**
