@@ -195,7 +195,6 @@ export const SERVICE: NavLinkItem[] = [
  * `path`.
  */
 export const KIEZEN: NavLinkItem[] = [
-  { label: "Bereken uw droogpakket", path: "/verhuur/simulator" },
   { label: "Droogsimulator voor uw woning", path: "/verhuur/simulator" },
   { label: "Droogsimulator bij waterschade", path: "/verhuur/waterschade-simulator" },
   { label: "Ons volledige gamma", path: "/machines" },

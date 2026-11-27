@@ -32,7 +32,7 @@ const VFooter = () => (
               <Link to="/verhuur/simulator">Chape drogen</Link>
             </li>
             <li>
-              <Link to="/verhuur/simulator">Waterschade drogen</Link>
+              <Link to="/verhuur/waterschade-simulator">Waterschade drogen</Link>
             </li>
             <li>
               <Link to="/verhuur/simulator">Kelder drogen</Link>

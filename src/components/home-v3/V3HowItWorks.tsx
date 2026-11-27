@@ -83,8 +83,8 @@ const COPY = {
         step: "Stap 01",
         tab: "Bereken uw pakket",
         heading: "U berekent, wij dimensioneren.",
-        body: "Geef uw oppervlakte, plafondhoogte en situatie in. De Calculator berekent uw volume en stelt het exacte pakket samen: toestellen, droogtijd en één all-in prijs.",
-        linkLabel: "Start de Calculator →",
+        body: "Kies uw woning, de verdiepingen, de bouwfase en wat er moet drogen. De droogsimulator stelt het exacte pakket samen: toestellen, droogtijd en één all-in prijs.",
+        linkLabel: "Start de droogsimulator →",
         linkTo: "/verhuur/simulator",
       },
       {
@@ -160,8 +160,8 @@ const COPY = {
         step: "Étape 01",
         tab: "Calculez votre pack",
         heading: "Vous calculez, nous dimensionnons.",
-        body: "Indiquez votre surface, la hauteur sous plafond et votre situation. Le calculateur détermine votre volume et compose le pack exact : appareils, durée de séchage et un prix tout compris.",
-        linkLabel: "Lancer le calculateur →",
+        body: "Choisissez votre logement, les étages, la phase du chantier et ce qui doit sécher. Le simulateur compose le pack exact : appareils, durée de séchage et un prix tout compris.",
+        linkLabel: "Lancer le simulateur →",
         linkTo: "/verhuur/simulator",
       },
       {
@@ -234,8 +234,8 @@ const COPY = {
         step: "Step 01",
         tab: "Calculate your package",
         heading: "You calculate, we size it.",
-        body: "Enter your floor area, ceiling height and situation. The Calculator works out your volume and puts together the exact package: units, drying time and one all-in price.",
-        linkLabel: "Start the Calculator →",
+        body: "Choose your property, the floors, the building phase and what needs drying. The drying simulator puts together the exact package: units, drying time and one all-in price.",
+        linkLabel: "Start the drying simulator →",
         linkTo: "/verhuur/simulator",
       },
       {
