@@ -1,28 +1,29 @@
 /**
- * Dimensioning by drying tempo: how many devices for "snel", "gemiddeld" or
- * "rustig", and what that costs.
+ * Hoeveel toestellen een woning nodig heeft, en wat dat kost.
  *
- * Ported from the rekenmodel in the Vernast Droogcatalogus (artifact
- * XvgTeexMxAGLEdhJJ6B8x4, section Calculator): water load from layer
- * thickness, device output corrected for temperature and humidity, a diffusion
- * floor the material sets, and a tempo that is a WINDOW in days. The set of
- * driers is the smallest one whose drying time lands inside that window.
+ * Waterlast uit de laagdikte, toestelopbrengst gecorrigeerd voor temperatuur en
+ * luchtvochtigheid, en een diffusievloer die het materiaal zet. Het materiaal
+ * bepaalt de termijn — niet de klant.
  *
- * Prices are the role prices from the tariff list (CAT[k].w2, per two weeks)
- * times the week multiplier. The tariff list stops at four weeks; 5–8 use the
- * multipliers the catalogue proposes.
+ * De keuze tussen "snel", "gemiddeld" en "rustig" is er op 26-11-2026 uit. Ze
+ * werd al niet meer gevraagd, maar stond nog overal: het venster bepaalde welke
+ * set gekozen werd, en bij "snel" kwam er een droger bij. Op 200 m² gaven alle
+ * drie dezelfde uitkomst, dus het venster koos in de praktijk niets — het
+ * verhulde alleen dat de set op liters alleen gekozen werd.
+ *
+ * NOG TE DOEN: de dekkingsregel. Een droger ontvochtigt alleen de lucht die hij
+ * rondpompt, en dit bestand eist daar niets over — vandaar één droger voor
+ * 200 m² over twee verdiepingen. De regel is `luchtdebiet ÷ 3` per toestel
+ * (drie luchtwissels per uur), per bouwlaag toegepast; ze reproduceert de
+ * pakketten in de catalogus. Zolang ze hier niet staat, is `items` niet
+ * bruikbaar om een pakket mee samen te stellen; `water` is dat wel.
+ *
+ * Prijzen zijn de rolprijzen uit de tarieflijst (CAT[k].w2, per twee weken)
+ * maal de weekstaffel. Die lijst stopt bij vier weken; 5 – 8 gebruiken de
+ * vermenigvuldigers die de catalogus voorstelt.
  */
 // Relative, like everything in src/lib: api/ runs outside the Vite alias.
 import { CAT, WEEKS, type DeviceKey } from "../data/verhuur.js";
-
-export type Tempo = "snel" | "gemiddeld" | "traag";
-
-export const TEMPO: Record<Tempo, { label: string; min: number; max: number; tekst: string; uitleg: string }> = {
-  snel: { label: "Snel", min: 14, max: 21, tekst: "2 – 3 weken", uitleg: "Meer toestellen, zo snel als het materiaal toelaat." },
-  gemiddeld: { label: "Gemiddeld", min: 28, max: 35, tekst: "4 – 5 weken", uitleg: "Minder toestellen, ruim genoeg voor de meeste nieuwbouw." },
-  traag: { label: "Rustig", min: 42, max: 56, tekst: "6 – 8 weken", uitleg: "Zo weinig toestellen als mogelijk. Het goedkoopst." },
-};
-export const TEMPO_ORDER: Tempo[] = ["snel", "gemiddeld", "traag"];
 
 /** Week multiplier: tariff list for 1–4 weeks, catalogue proposal for 5–8. */
 const VOORGESTELD: Record<number, number> = { 5: 1.85, 6: 2.05, 7: 2.22, 8: 2.37 };
@@ -57,7 +58,6 @@ export interface TempoInvoer {
   pd: number;
   /** true = the client heats himself; false = our heaters go in the package */
   verwarmt: boolean;
-  tempo: Tempo;
 }
 
 export interface TempoUitkomst {
@@ -68,8 +68,6 @@ export interface TempoUitkomst {
   /** litres per 24 h, effective on site */
   capaciteit: number;
   water: number;
-  /** the window was faster than the material allows */
-  teSnel: boolean;
 }
 
 function lees(tab: [number, number][], x: number): number {
@@ -122,16 +120,13 @@ export function droogTempo(s: TempoInvoer): TempoUitkomst {
   const effS = TOESTEL.small.nominaal * rend;
   const effM = TOESTEL.medium.nominaal * rend;
 
-  const band = TEMPO[s.tempo];
-  const bandOnhaalbaar = diff > band.max;
-
-  // Fans and heaters belong to the job, not to the tempo: two fans per three rooms.
+  // Fans and heaters belong to the job, not to the set of driers: two fans per three rooms.
   const nV = Math.max(s.verd, Math.ceil(s.opp / 50), Math.ceil((s.ruim * 2) / 3));
   const nK = s.verwarmt ? 0 : Math.max(1, Math.round((s.opp * hoog) / 160));
   // The catalogue also caps the set by the site's power supply. The simulator
   // does not ask for it, so that cap is left out here; the quote checks it.
 
-  type K = { nS: number; nM: number; cap: number; dagen: number; prijs: number; past: boolean; inBand: boolean };
+  type K = { nS: number; nM: number; cap: number; dagen: number; prijs: number };
   const kandidaten: K[] = [];
   for (let a = 0; a <= 10; a++) {
     for (let m = 0; m <= 10; m++) {
@@ -139,33 +134,21 @@ export function droogTempo(s: TempoInvoer): TempoUitkomst {
       const cap = a * effS + m * effM;
       const dagen = Math.max(diff, Math.ceil(water / cap));
       const wk = Math.max(1, Math.ceil(dagen / 7));
-      kandidaten.push({
-        nS: a,
-        nM: m,
-        cap,
-        dagen,
-        prijs: (a * CAT.small.w2 + m * CAT.medium.w2) * staffel(wk),
-        past: true,
-        inBand: dagen >= band.min && dagen <= band.max,
-      });
+      kandidaten.push({ nS: a, nM: m, cap, dagen, prijs: (a * CAT.small.w2 + m * CAT.medium.w2) * staffel(wk) });
     }
   }
-  // Fewest devices first, then the cheapest, then small before medium.
-  const rangschik = (l: K[]) => [...l].sort((x, y) => x.nS + x.nM - (y.nS + y.nM) || x.prijs - y.prijs || x.nS - y.nS);
 
-  const past = kandidaten.filter((k) => k.past);
-  const inBand = rangschik(past.filter((k) => k.inBand));
-  const snelste = past.length ? Math.min(...past.map((k) => k.dagen)) : 0;
-  const traagste = past.length ? Math.max(...past.map((k) => k.dagen)) : 0;
-  // Nothing in the window: asked too fast → the fastest set that exists;
-  // asked too slow (even one drier is done early) → the slowest, cheapest set.
-  const teTraag = !bandOnhaalbaar && past.length > 0 && traagste < band.min;
-  const terugval = bandOnhaalbaar
-    ? rangschik(past.filter((k) => k.dagen === snelste))
-    : teTraag
-      ? rangschik(past.filter((k) => k.dagen === traagste))
-      : rangschik(past);
-  const gekozen = inBand[0] ?? terugval[0] ?? rangschik(kandidaten)[0];
+  // Het materiaal is het doel, niet een venster dat de klant koos: de set hoort
+  // het water weg te krijgen binnen de diffusietijd. Sneller heeft geen zin —
+  // het materiaal geeft zijn vocht niet rapper af — en trager is alleen duurder
+  // doordat de huur langer loopt.
+  const haalt = kandidaten.filter((k) => k.dagen <= diff);
+  // Goedkoopst, dan de minste toestellen. Dit is nog niet de verdeling uit de
+  // dekkingsregel; zie de kop van dit bestand.
+  const rangschik = (l: K[]) => [...l].sort((x, y) => x.prijs - y.prijs || x.nS + x.nM - (y.nS + y.nM) || x.nS - y.nS);
+  // Te veel water voor elke set: dan de snelste die bestaat.
+  const snelste = Math.min(...kandidaten.map((k) => k.dagen));
+  const gekozen = rangschik(haalt)[0] ?? rangschik(kandidaten.filter((k) => k.dagen === snelste))[0];
 
   const dagen = Math.min(gekozen.dagen, MAX_DAGEN);
   const weken = Math.max(1, Math.ceil(dagen / 7));
@@ -186,6 +169,5 @@ export function droogTempo(s: TempoInvoer): TempoUitkomst {
     prijs: Math.round(basis * staffel(weken) * 100) / 100,
     capaciteit: Math.round(gekozen.cap),
     water,
-    teSnel: bandOnhaalbaar,
   };
 }

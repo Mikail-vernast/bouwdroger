@@ -69,7 +69,7 @@ import {
 import type { Plaats } from "@/lib/plaatsZoeker";
 import { CONTACT } from "@/lib/site";
 import { useSeo } from "@/data/seo";
-import { catInTaal, coverInTaal, deliveryInTaal, extrasInTaal, packageSpecLineInTaal } from "@/data/verhuur.fr";
+import { catInTaal, coverInTaal, extrasInTaal, packageSpecLineInTaal } from "@/data/verhuur.fr";
 import { formatEuro, useCopy, useLokaalPad, useTaal } from "@/i18n/useTaal";
 import { NUMBER_LOCALE, type Taal } from "@/i18n/taal";
 import { BOEKING_COPY, regelInTaal } from "./VerhuurBoekingPage.copy";
@@ -84,8 +84,8 @@ import { reportBookingEvent } from "@/lib/reportBookingEvent";
   komen uit het portaal; een extra die hier niet staat, krijgt gewoon geen i.
 */
 const EXTRA_INFO: Record<string, { sleutel: "rapport" | "stroom"; foto: string }> = {
-  rapport: { sleutel: "rapport", foto: "/vernast/vochtrapport-vernast-v3.webp" },
-  stroom: { sleutel: "stroom", foto: "/vernast/werfstroomkast-vernast-v3.webp" },
+  rapport: { sleutel: "rapport", foto: "/vernast/vochtrapport-ipad-vernast-v4.webp" },
+  stroom: { sleutel: "stroom", foto: "/vernast/werfstroomkast-zwart-vernast-v4.webp" },
 };
 
 const ACCESS_PHOTOS: Record<Access, string> = {
@@ -126,7 +126,21 @@ const STEP_DONE = 6;
  */
 const STEP_VERIFY = 0;
 
-const SLOTS = ["08:00 – 10:00", "10:00 – 12:00", "13:00 – 15:00", "15:00 – 17:00"];
+/*
+  De avondslots staan erbij omdat werven die overdag dichtzitten anders afhaken,
+  maar ze liggen buiten de vaste ronde: die plannen we per rit in. Vandaar het
+  `laat`-vlag — de keuze mag gewoon doorgaan, met één regel eronder dat wij het
+  uur nog bevestigen. De waarde die naar de order gaat blijft het kale tijdslot.
+*/
+const SLOTS: { k: string; laat?: boolean }[] = [
+  { k: "08:00 – 10:00" },
+  { k: "10:00 – 12:00" },
+  { k: "13:00 – 15:00" },
+  { k: "15:00 – 17:00" },
+  { k: "17:00 – 19:00", laat: true },
+  { k: "19:00 – 21:00", laat: true },
+];
+const LATE_SLOTS = SLOTS.filter((s) => s.laat).map((s) => s.k);
 /** Moet gelijk lopen met `HORIZON_DAYS` in `api/availability.ts`. */
 const AVAILABILITY_HORIZON_DAYS = 60;
 
@@ -288,7 +302,6 @@ const VerhuurBoekingPage = () => {
   const datumLang = (d: Date) => langeDatum(d, taal);
   const cover_ = useMemo(() => coverInTaal(taal), [taal]);
   const extras_ = useMemo(() => extrasInTaal(taal), [taal]);
-  const delivery_ = useMemo(() => deliveryInTaal(taal), [taal]);
   const cat_ = useMemo(() => catInTaal(taal), [taal]);
   const ladderFee = taal === "nl" ? `€ ${LADDER_FEE}` : formatEuro(LADDER_FEE, taal, 0);
   const voorzienFee = taal === "nl" ? `€ ${ACCESS_PROVISION_FEE}` : formatEuro(ACCESS_PROVISION_FEE, taal, 0);
@@ -321,7 +334,11 @@ const VerhuurBoekingPage = () => {
   const [pumps, setPumps] = useState<number | null>(stored?.options.pumps ?? null);
   const floors = config.floors ?? normalizeOptions(stored?.options).floors;
   const [access, setAccess] = useState<Access>(() => normalizeOptions(stored?.options).access);
-  const [delivery, setDelivery] = useState(stored?.options.delivery ?? DELIVERY[0].k);
+  /*
+    Vast op de enige leverwijze uit `DELIVERY`: de keuzekaart is weg, maar de
+    waarde blijft meereizen naar de order en de prijsberekening.
+  */
+  const [delivery] = useState(stored?.options.delivery ?? DELIVERY[0].k);
   /*
     De standaarddatum (morgen) komt pas na mount: bij de prerender is "morgen"
     de dag na de build, in de browser de dag na vandaag. Uit de initializer gaf
@@ -333,7 +350,7 @@ const VerhuurBoekingPage = () => {
     setToday(isoDate(new Date()));
     setStartDate((current) => current || isoDate(addDays(new Date(), 1)));
   }, []);
-  const [slot, setSlot] = useState(stored?.slot ?? SLOTS[1]);
+  const [slot, setSlot] = useState(stored?.slot ?? SLOTS[1].k);
   const [customerType, setCustomerType] = useState<CustomerType>(stored?.customerType ?? "part");
   const [payment, setPayment] = useState<PaymentChoice>(stored?.options.payment ?? "online");
   /*
@@ -587,7 +604,14 @@ const VerhuurBoekingPage = () => {
     `api/checkout.ts`; dit is er om die 409 te voorkomen, niet om hem te vervangen.
   */
   const [horizonDates, setHorizonDates] = useState<string[]>([]);
-  const [datesError, setDatesError] = useState("");
+  /*
+    Alleen een vlag, geen boodschap meer. Toen de beschikbaarheid even onbereikbaar
+    was stond hier een waarschuwing in beeld die de bezoeker vooral deed twijfelen;
+    hij kan gewoon verder en wij bevestigen toch. Wat de vlag wél moet blijven doen:
+    het automatisch verzetten naar de eerstvolgende vrije dag tegenhouden, want
+    zonder lijst weten we niet welke dag dat is.
+  */
+  const [datesUnknown, setDatesUnknown] = useState(false);
   const [loadingDates, setLoadingDates] = useState(false);
 
   /*
@@ -608,7 +632,7 @@ const VerhuurBoekingPage = () => {
     if (step !== 3) return;
     let active = true;
     setLoadingDates(true);
-    setDatesError("");
+    setDatesUnknown(false);
 
     fetch("/api/availability", {
       method: "POST",
@@ -637,7 +661,7 @@ const VerhuurBoekingPage = () => {
         */
         setHorizonDates([]);
         reportBookingEvent({ code: "wizard_beschikbaarheid_onbereikbaar", config, options });
-        setDatesError(t.datesError);
+        setDatesUnknown(true);
       })
       .finally(() => {
         if (active) setLoadingDates(false);
@@ -646,8 +670,6 @@ const VerhuurBoekingPage = () => {
     return () => {
       active = false;
     };
-    // `t` volgt de taal uit de URL en verandert niet binnen één pagina.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step, config, options]);
 
   const dateBlocked = blockedDates.includes(startDate);
@@ -708,7 +730,7 @@ const VerhuurBoekingPage = () => {
   const [shiftedDate, setShiftedDate] = useState<{ from: string; to: string } | null>(null);
 
   useEffect(() => {
-    if (step !== 3 || loadingDates || datesError) return;
+    if (step !== 3 || loadingDates || datesUnknown) return;
     if (!dateBlocked) return;
     if (!nextFreeDate) {
       // Niets vrij binnen de horizon: de stap blijft dicht en de klant moet bellen.
@@ -730,7 +752,7 @@ const VerhuurBoekingPage = () => {
     });
     setShiftedDate({ from: startDate, to: nextFreeDate });
     setStartDate(nextFreeDate);
-  }, [step, loadingDates, datesError, dateBlocked, nextFreeDate, startDate, config, options, blockedDates]);
+  }, [step, loadingDates, datesUnknown, dateBlocked, nextFreeDate, startDate, config, options, blockedDates]);
 
   const sessionId = searchParams.get("session_id");
   const cancelled = searchParams.get("betaling") === "geannuleerd";
@@ -1230,7 +1252,7 @@ const VerhuurBoekingPage = () => {
                         <OptieInfo
                           knopLabel={t.infoKnop(t.monitoringKop)}
                           titel={t.optieInfo.monitoring.titel}
-                          foto="/vernast/droogmonitor-vernast-v3.webp"
+                          foto="/vernast/droogmonitor-vernast-v4.webp"
                           fotoAlt={t.optieInfo.monitoring.alt}
                           sluiten={t.fotoSluiten}
                         >
@@ -1306,22 +1328,29 @@ const VerhuurBoekingPage = () => {
                 </div>
               </div>
 
-              <div className="blk">
-                <div className="blkh toegang-kop">
-                  <h2>{t.verdiepingKop}</h2>
-                  <OptieInfo
-                    knopLabel={t.infoKnop(t.verdiepingKop)}
-                    titel={t.optieInfo.verdieping.titel}
-                    foto={ACCESS_PHOTOS[access]}
-                    fotoAlt={t.toegangKeuzes[access].alt}
-                    sluiten={t.fotoSluiten}
-                  >
-                    {t.optieInfo.verdieping.tekst}
-                    <p>{t.verdiepingSub(ladderFee, voorzienFee)}</p>
-                  </OptieInfo>
-                </div>
-                {config.floors !== undefined && (
-                  <p className="toegang-verdiepingen">{t.verdiepingenUitSimulator(floors)}</p>
+              {/*
+                Een woning die volgens de simulator alleen een gelijkvloers
+                heeft, krijgt de vraag niet: er valt niets naar boven te dragen,
+                en een kaart met "+ € 39" die het totaal niet beweegt leest als
+                een defect.
+              */}
+              {config.floors !== 0 && (
+                <div className="blk">
+                  <div className="blkh toegang-kop">
+                    <h2>{t.verdiepingKop}</h2>
+                    <OptieInfo
+                      knopLabel={t.infoKnop(t.verdiepingKop)}
+                      titel={t.optieInfo.verdieping.titel}
+                      foto={ACCESS_PHOTOS[access]}
+                      fotoAlt={t.toegangKeuzes[access].alt}
+                      sluiten={t.fotoSluiten}
+                    >
+                      {t.optieInfo.verdieping.tekst}
+                      <p>{t.verdiepingSub(ladderFee, voorzienFee)}</p>
+                    </OptieInfo>
+                  </div>
+                  {config.floors !== undefined && (
+                    <p className="toegang-verdiepingen">{t.verdiepingenUitSimulator(floors)}</p>
                 )}
                 <p className="bsub">{t.verdiepingSub(ladderFee, voorzienFee)}</p>
                 <div className="toegang-keuzes" role="group" aria-label={t.hoeBoven}>
@@ -1344,6 +1373,7 @@ const VerhuurBoekingPage = () => {
                   ))}
                 </div>
               </div>
+              )}
 
               <div className="blk">
                 <div className="blkh">
@@ -1400,32 +1430,13 @@ const VerhuurBoekingPage = () => {
                 <div className="blkh">
                   <h2>{t.leveringKop}</h2>
                 </div>
+                {/*
+                  Geen keuzekaart meer: er staat maar één leverwijze in `DELIVERY`,
+                  en een radioknop die niets te kiezen heeft leest als een vraag die
+                  er geen is. Wat hij vertelde (ophaling inbegrepen, transport buiten
+                  de regio) staat al bij de leverplaats in stap 1.
+                */}
                 <p className="bsub">{t.leveringSub(lp)}</p>
-                <div className="dopt">
-                  {delivery_.map((d) => (
-                    <div
-                      key={d.k}
-                      className={`dch${d.k === delivery ? " sel" : ""}`}
-                      onClick={() => setDelivery(d.k)}
-                      role="radio"
-                      aria-checked={d.k === delivery}
-                      tabIndex={0}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.preventDefault();
-                          setDelivery(d.k);
-                        }
-                      }}
-                    >
-                      <span className="dr" />
-                      <span>
-                        <b>{d.name}</b>
-                        <small>{d.sub}</small>
-                        <span className="dpx">{d.tag}</span>
-                      </span>
-                    </div>
-                  ))}
-                </div>
               </div>
 
               <div className="blk">
@@ -1445,11 +1456,14 @@ const VerhuurBoekingPage = () => {
                     <label htmlFor="dSlot">{t.tijdslotLevering}</label>
                     <select id="dSlot" value={slot} onChange={(e) => setSlot(e.target.value)}>
                       {SLOTS.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
+                        <option key={s.k} value={s.k}>
+                          {s.laat ? t.tijdslotLaatOptie(s.k) : s.k}
                         </option>
                       ))}
                     </select>
+                    {LATE_SLOTS.includes(slot) && (
+                      <small className="fldn">{t.tijdslotLaatNoot}</small>
+                    )}
                   </div>
                   {/*
                     Geen invoerveld: de huurtermijn volgt uit het pakket. Een
@@ -1464,13 +1478,6 @@ const VerhuurBoekingPage = () => {
                     </div>
                   </div>
                 </div>
-
-                {datesError && (
-                  <div className="plan pw" role="status">
-                    <WarnIcon />
-                    <div className="pt2">{datesError}</div>
-                  </div>
-                )}
 
                 {dateBlocked && (
                   <div className="plan pw" role="status">

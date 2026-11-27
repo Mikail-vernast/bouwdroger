@@ -15,7 +15,6 @@ export interface BoekingTeksten {
   volgende: Record<number, string>;
   verder: string;
   beschikbaarheidLaden: string;
-  datesError: string;
   geannuleerd: string;
   nietTeruggevonden: string;
   statusNietOpgehaald: string;
@@ -88,6 +87,8 @@ export interface BoekingTeksten {
   leverdatumSub: string;
   leverdatum: string;
   tijdslotLevering: string;
+  tijdslotLaatOptie: (slot: string) => string;
+  tijdslotLaatNoot: string;
   huurperiodeVast: string;
   huurperiodeDagen: (dagen: number) => string;
   huurperiodeInbegrepen: string;
@@ -176,8 +177,6 @@ const nl: BoekingTeksten = {
   },
   verder: "Verder",
   beschikbaarheidLaden: "Beschikbaarheid nakijken…",
-  datesError:
-    "We kunnen op dit moment niet nakijken welke datums nog vrij zijn. U kunt gewoon verder, wij bevestigen uw leverdatum, of bel ons op 03 689 90 65.",
   geannuleerd: "De betaling is geannuleerd. Uw keuzes staan nog klaar.",
   nietTeruggevonden:
     "We konden deze betaling niet terugvinden bij Stripe. Uw keuzes staan nog klaar, probeer gerust opnieuw af te rekenen, of bel ons op 03 689 90 65.",
@@ -280,7 +279,7 @@ const nl: BoekingTeksten = {
     },
     rapport: {
       titel: "Wanneer heeft u een officieel vochtrapport nodig?",
-      alt: "Technieker van Vernast vult een meetrapport in",
+      alt: "Technieker van Vernast registreert de meetwaarden op een iPad",
       tekst: (
         <>
           <p>
@@ -296,7 +295,7 @@ const nl: BoekingTeksten = {
     },
     stroom: {
       titel: "Wat is een werfstroomkast?",
-      alt: "Werfstroomkast met stopcontacten en zekeringen op een werf",
+      alt: "Zwarte werfstroomkast op een stalen onderstel, met blauwe stopcontacten en rode hoofdschakelaar",
       tekst: (
         <>
           <p>
@@ -347,9 +346,9 @@ const nl: BoekingTeksten = {
   hoeBoven: "Hoe bereiken we de verdiepingen?",
   verdiepingenUitSimulator: (n) => n === 0 ? "Gelijkvloers · overgenomen uit de simulator" : `Gelijkvloers + ${n} ${n === 1 ? "verdieping" : "verdiepingen"} · overgenomen uit de simulator`,
   toegangKeuzes: {
-    trap: { label: "Via de trap", sub: "Trap aanwezig op de werf", alt: "Betonnen trap op een werf" },
-    lift: { label: "Via de lift", sub: "Lift beschikbaar voor de toestellen", alt: "Open lift in een gebouw in afwerking" },
-    ladder: { label: "Via een ladder", sub: "Ladder aanwezig op de werf", alt: "Aluminium ladder naar de bovenverdieping" },
+    trap: { label: "Trap", sub: "Trap aanwezig op de werf", alt: "Betonnen trap op een werf" },
+    lift: { label: "Lift", sub: "Lift beschikbaar voor de toestellen", alt: "Open lift in een gebouw in afwerking" },
+    ladder: { label: "Ladder", sub: "Ladder aanwezig op de werf", alt: "Aluminium ladder naar de bovenverdieping" },
     geen: { label: "Niets voorzien", sub: "Wij brengen een ladder mee en dragen de toestellen", alt: "Technieker brengt een ladder mee naar de werf" },
   },
   viaTrap: "Via de trap",
@@ -380,6 +379,8 @@ const nl: BoekingTeksten = {
     "Kies een dag in onze agenda. Op basis van de droogtijd van dit pakket plannen wij de ophaling automatisch mee in, u hoeft daar niets voor te doen.",
   leverdatum: "Leverdatum",
   tijdslotLevering: "Tijdslot levering",
+  tijdslotLaatOptie: (slot) => `${slot} · op aanvraag`,
+  tijdslotLaatNoot: "Een avonduur plannen we per rit in; wij bevestigen het uur bij het telefoontje na uw order.",
   huurperiodeVast: "Huurperiode (vast per pakket)",
   huurperiodeDagen: (dagen) => `${dagen} dagen`,
   huurperiodeInbegrepen: "inbegrepen in de pakketprijs",
@@ -398,11 +399,11 @@ const nl: BoekingTeksten = {
       hierboven.
     </>
   ),
-  planning: ({ start, slot, dagen, einde, droogtijd }) => (
+  planning: ({ start, slot, dagen, einde }) => (
     <>
-      Wij leveren en installeren op <b>{start}</b> tussen <b>{slot}</b>. Uw vaste huurperiode van{" "}
-      <b>{dagen} dagen</b> loopt tot <b>{einde}</b>, de ophaling staat automatisch ingepland op die
-      dag, tussen <b>{slot}</b>. Verwachte droogtijd van dit pakket: <b>{droogtijd} dagen</b>.
+      Wij brengen alles mee, plaatsen het en stellen het af op <b>{start}</b> tussen <b>{slot}</b>,
+      en halen het na <b>{dagen} dagen</b> weer op, op <b>{einde}</b>. Na uw order bellen wij u op
+      om alles praktisch af te stemmen.
     </>
   ),
   teKort: "Korter dan de verwachte droogtijd, verlengen kan later met één klik.",
@@ -501,8 +502,6 @@ const fr: BoekingTeksten = {
   },
   verder: "Continuer",
   beschikbaarheidLaden: "Vérification des disponibilités…",
-  datesError:
-    "Nous ne pouvons pas vérifier pour le moment quelles dates sont encore libres. Vous pouvez simplement continuer, nous confirmerons votre date de livraison, ou appelez-nous au 03 689 90 65.",
   geannuleerd: "Le paiement a été annulé. Vos choix sont toujours enregistrés.",
   nietTeruggevonden:
     "Nous n'avons pas retrouvé ce paiement chez Stripe. Vos choix sont toujours enregistrés : vous pouvez réessayer de payer, ou appelez-nous au 03 689 90 65.",
@@ -604,7 +603,7 @@ const fr: BoekingTeksten = {
     },
     rapport: {
       titel: "Quand avez-vous besoin d'un rapport d'humidité officiel ?",
-      alt: "Technicien Vernast remplissant un rapport de mesure",
+      alt: "Technicien Vernast enregistrant les mesures sur un iPad",
       tekst: (
         <>
           <p>
@@ -620,7 +619,7 @@ const fr: BoekingTeksten = {
     },
     stroom: {
       titel: "Qu'est-ce qu'un coffret de chantier ?",
-      alt: "Coffret de chantier avec prises et disjoncteurs",
+      alt: "Coffret de chantier noir sur un support en acier, avec prises bleues et interrupteur principal rouge",
       tekst: (
         <>
           <p>
@@ -671,9 +670,9 @@ const fr: BoekingTeksten = {
   hoeBoven: "Comment accédons-nous aux étages ?",
   verdiepingenUitSimulator: (n) => n === 0 ? "Rez-de-chaussée · repris du simulateur" : `Rez-de-chaussée + ${n} ${n === 1 ? "étage" : "étages"} · repris du simulateur`,
   toegangKeuzes: {
-    trap: { label: "Par l’escalier", sub: "Escalier présent sur le chantier", alt: "Escalier en béton sur un chantier" },
-    lift: { label: "Par l’ascenseur", sub: "Ascenseur disponible pour les appareils", alt: "Ascenseur ouvert dans un bâtiment en finition" },
-    ladder: { label: "Par une échelle", sub: "Échelle présente sur le chantier", alt: "Échelle en aluminium vers l’étage" },
+    trap: { label: "Escalier", sub: "Escalier présent sur le chantier", alt: "Escalier en béton sur un chantier" },
+    lift: { label: "Ascenseur", sub: "Ascenseur disponible pour les appareils", alt: "Ascenseur ouvert dans un bâtiment en finition" },
+    ladder: { label: "Échelle", sub: "Échelle présente sur le chantier", alt: "Échelle en aluminium vers l’étage" },
     geen: { label: "Rien de prévu", sub: "Nous apportons une échelle et portons les appareils", alt: "Technicien apportant une échelle sur le chantier" },
   },
   viaTrap: "Par l'escalier",
@@ -704,6 +703,8 @@ const fr: BoekingTeksten = {
     "Choisissez un jour dans notre agenda. Sur la base du temps de séchage de ce pack, nous planifions automatiquement l'enlèvement : vous n'avez rien à faire.",
   leverdatum: "Date de livraison",
   tijdslotLevering: "Créneau de livraison",
+  tijdslotLaatOptie: (slot) => `${slot} · sur demande`,
+  tijdslotLaatNoot: "Un créneau en soirée se planifie par tournée ; nous confirmons l’heure lors de l’appel après votre commande.",
   huurperiodeVast: "Période de location (fixe par pack)",
   huurperiodeDagen: (dagen) => `${dagen} jours`,
   huurperiodeInbegrepen: "compris dans le prix du pack",
@@ -723,12 +724,11 @@ const fr: BoekingTeksten = {
       ci-dessus.
     </>
   ),
-  planning: ({ start, slot, dagen, einde, droogtijd }) => (
+  planning: ({ start, slot, dagen, einde }) => (
     <>
-      Nous livrons et installons le <b>{start}</b> entre <b>{slot}</b>. Votre période de location
-      fixe de <b>{dagen} jours</b> court jusqu'au <b>{einde}</b> ; l'enlèvement est automatiquement
-      planifié ce jour-là, entre <b>{slot}</b>. Temps de séchage prévu pour ce pack :{" "}
-      <b>{droogtijd} jours</b>.
+      Nous apportons tout, l'installons et le réglons le <b>{start}</b> entre <b>{slot}</b>, et nous
+      reprenons tout après <b>{dagen} jours</b>, le <b>{einde}</b>. Après votre commande, nous vous
+      appelons pour régler les détails pratiques.
     </>
   ),
   teKort: "Plus court que le temps de séchage prévu : vous pourrez prolonger plus tard en un clic.",
@@ -827,8 +827,6 @@ const en: BoekingTeksten = {
   },
   verder: "Continue",
   beschikbaarheidLaden: "Checking availability…",
-  datesError:
-    "We can't check which dates are still free right now. You can simply continue and we will confirm your delivery date, or call us on 03 689 90 65.",
   geannuleerd: "The payment was cancelled. Your choices are still saved.",
   nietTeruggevonden:
     "We couldn't find this payment at Stripe. Your choices are still saved, so feel free to try paying again, or call us on 03 689 90 65.",
@@ -930,7 +928,7 @@ const en: BoekingTeksten = {
     },
     rapport: {
       titel: "When do you need an official moisture report?",
-      alt: "Vernast technician filling in a measurement report",
+      alt: "Vernast technician recording moisture measurements on an iPad",
       tekst: (
         <>
           <p>
@@ -946,7 +944,7 @@ const en: BoekingTeksten = {
     },
     stroom: {
       titel: "What is a site power box?",
-      alt: "Site power distribution cabinet with sockets and circuit breakers",
+      alt: "Black site power cabinet on a steel stand, with blue sockets and a red main switch",
       tekst: (
         <>
           <p>
@@ -997,9 +995,9 @@ const en: BoekingTeksten = {
   hoeBoven: "How do we reach the upper floors?",
   verdiepingenUitSimulator: (n) => n === 0 ? "Ground floor · taken from the simulator" : `Ground floor + ${n} ${n === 1 ? "floor" : "floors"} · taken from the simulator`,
   toegangKeuzes: {
-    trap: { label: "By the stairs", sub: "Staircase available on site", alt: "Concrete staircase on a construction site" },
-    lift: { label: "By the lift", sub: "Lift available for the equipment", alt: "Open lift in a building under construction" },
-    ladder: { label: "By a ladder", sub: "Ladder available on site", alt: "Aluminium ladder leading upstairs" },
+    trap: { label: "Stairs", sub: "Staircase available on site", alt: "Concrete staircase on a construction site" },
+    lift: { label: "Lift", sub: "Lift available for the equipment", alt: "Open lift in a building under construction" },
+    ladder: { label: "Ladder", sub: "Ladder available on site", alt: "Aluminium ladder leading upstairs" },
     geen: { label: "Nothing available", sub: "We bring a ladder and carry the equipment", alt: "Technician bringing a ladder to the site" },
   },
   viaTrap: "By the stairs",
@@ -1030,6 +1028,8 @@ const en: BoekingTeksten = {
     "Choose a day in our diary. Based on the drying time of this package, we automatically schedule the collection too; you don't need to do anything.",
   leverdatum: "Delivery date",
   tijdslotLevering: "Delivery time slot",
+  tijdslotLaatOptie: (slot) => `${slot} · on request`,
+  tijdslotLaatNoot: "An evening slot is planned per round; we confirm the time in the call after your order.",
   huurperiodeVast: "Hire period (fixed per package)",
   huurperiodeDagen: (dagen) => `${dagen} days`,
   huurperiodeInbegrepen: "included in the package price",
@@ -1047,11 +1047,11 @@ const en: BoekingTeksten = {
       delivery date to the next free day: <b>{naar}</b>. You can still choose another day above.
     </>
   ),
-  planning: ({ start, slot, dagen, einde, droogtijd }) => (
+  planning: ({ start, slot, dagen, einde }) => (
     <>
-      We deliver and install on <b>{start}</b> between <b>{slot}</b>. Your fixed hire period of{" "}
-      <b>{dagen} days</b> runs until <b>{einde}</b>; the collection is automatically scheduled for
-      that day, between <b>{slot}</b>. Expected drying time of this package: <b>{droogtijd} days</b>.
+      We bring everything, install it and set it up on <b>{start}</b> between <b>{slot}</b>, and
+      collect it again after <b>{dagen} days</b>, on <b>{einde}</b>. After your order we call you to
+      arrange the practical details.
     </>
   ),
   teKort: "Shorter than the expected drying time; you can extend later with one click.",

@@ -299,3 +299,12 @@
 .dg-page .calcanim .ca-res span{font-size:11.5px;opacity:.85}
 .dg-page .canum{font-variant-numeric:tabular-nums}
 
+
+/* Bovenruimte onder de mobiele kop: 200px hield plaats vrij voor de
+   contactregel (~70px) plus de nav-pil, maar onder 900px verbergt
+   `src/styles/mobile-nav.css` die contactregel. Zonder deze regel begint de
+   h1 op een gsm pas ruim 160px onder de pil, tegen ~65px op een laptop.
+   128px is de waarde die `v3-content.css` voor elke schil aanhoudt. */
+@media (max-width: 900px) {
+  .dg-page .hero { padding-top: 114px; }
+}

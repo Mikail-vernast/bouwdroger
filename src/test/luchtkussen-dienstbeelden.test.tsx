@@ -16,8 +16,12 @@ describe("luchtkussen en dienstbeelden in drie talen", () => {
     const {container} = render(<HelmetProvider><MemoryRouter initialEntries={[pad]}><LuchtkussenDrogenPage /></MemoryRouter></HelmetProvider>);
     expect(container.querySelectorAll("h1")).toHaveLength(1);
     expect(container.querySelector("h1")?.textContent).toBe(titel);
-    // Herofoto, detail en de twee opstellingen; referenties en slotplaat komen erbij.
-    expect([...container.querySelectorAll("main img")].filter((i) => i.getAttribute("src")?.includes("/luchtkussen-"))).toHaveLength(4);
+    // Herofoto plus de twee opstellingen. De detailfoto bij de uitleg is sinds
+    // 26-11-2026 een tekening: twee bijna gelijke foto's onder elkaar.
+    expect([...container.querySelectorAll("main img")].filter((i) => i.getAttribute("src")?.includes("/luchtkussen-"))).toHaveLength(3);
+    expect(container.querySelector(".lk-schema svg")).not.toBeNull();
+    // De slotplaat met de bestelwagen is weg; het vraagformulier blijft.
+    expect(container.querySelector(".manband")).toBeNull();
     expect(container.textContent).toContain(taal === "fr" ? "Pourquoi ne pas simplement" : taal === "en" ? "Why not simply" : "Waarom niet gewoon");
     expect(container.querySelector("form")).not.toBeNull();
     if(taal !== "nl") expect(vertaalPad("/waterschade-luchtkussen-techniek",taal)).toBe(pad);

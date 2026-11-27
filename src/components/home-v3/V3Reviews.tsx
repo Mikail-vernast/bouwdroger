@@ -1,5 +1,6 @@
+import { useCallback, useEffect, useRef, useState } from "react";
 import { GoogleIcon, StarIcon } from "./icons";
-import { REVIEWS_LIST, type Review } from "@/data/reviews";
+import { eersteReviews, REVIEWS_LIST, type Review } from "@/data/reviews";
 import { useCopy, type Copy } from "@/i18n/useTaal";
 
 /*
@@ -54,6 +55,10 @@ interface RevCopy {
   kick: string;
   h2: string;
   lede: string;
+  vorige: string;
+  volgende: string;
+  carrousel: string;
+  naar: (n: number) => string;
 }
 
 const COPY = {
@@ -65,6 +70,10 @@ const COPY = {
     kick: "Wat klanten zeggen",
     h2: "Klanten gingen u voor.",
     lede: "Echte beoordelingen van Vernast, bij Google en Solvari. Onbewerkt, met naam en datum.",
+    vorige: "Vorige beoordelingen",
+    volgende: "Volgende beoordelingen",
+    carrousel: "Beoordelingen van klanten",
+    naar: (n) => `Naar beoordeling ${n}`,
   },
   fr: {
     sterren: (rating) => `${rating} étoiles sur 5`,
@@ -77,6 +86,10 @@ const COPY = {
     kick: "Ce que disent nos clients",
     h2: "D'autres clients vous ont précédé.",
     lede: "De vrais avis sur Vernast, sur Google et Solvari. Non retouchés, avec nom et date. Les avis sont affichés dans leur langue d'origine.",
+    vorige: "Avis précédents",
+    volgende: "Avis suivants",
+    carrousel: "Avis de clients",
+    naar: (n) => `Aller à l'avis ${n}`,
   },
   en: {
     sterren: (rating) => `${rating} out of 5 stars`,
@@ -89,6 +102,10 @@ const COPY = {
     kick: "What customers say",
     h2: "Customers who went before you.",
     lede: "Genuine reviews of Vernast, on Google and Solvari. Unedited, with name and date. Reviews are shown in their original language.",
+    vorige: "Previous reviews",
+    volgende: "Next reviews",
+    carrousel: "Customer reviews",
+    naar: (n) => `Go to review ${n}`,
   },
 } satisfies Copy<RevCopy>;
 
@@ -138,8 +155,85 @@ const ReviewCard = ({ review }: { review: Review }) => {
   );
 };
 
+const Pijl = ({ kant }: { kant: "links" | "rechts" }) => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    {kant === "links" ? <path d="M15 5 8 12l7 7" /> : <path d="m9 5 7 7-7 7" />}
+  </svg>
+);
+
+/*
+  De reviews staan in een spoor dat je doorbladert, niet in een raster dat ze
+  allemaal tegelijk toont. Het blijft een gewone `overflow-x` met
+  `scroll-snap`: zonder JavaScript is het spoor er en kun je het verschuiven,
+  wat nodig is omdat deze pagina geprerenderd wordt en de antwoordmachines die
+  HTML lezen zonder scripts uit te voeren. De knoppen en de bolletjes komen er
+  na hydratie bovenop.
+
+  Alle vijf de beoordelingen staan in de HTML -- er wordt niets bijgeladen. Dat
+  is ook de hele voorraad: van de vijftien in het portaal gaan er tien over een
+  ander vak (schilderwerk, muurinjectie, vochtbestrijding) en die horen op de
+  site van dát vak. Zie de twee selectieregels in src/data/reviews.ts.
+*/
 const V3Reviews = () => {
   const t = useCopy(COPY);
+  const spoor = useRef<HTMLDivElement>(null);
+  const [positie, setPositie] = useState(0);
+  const [eind, setEind] = useState(false);
+  const reviews = eersteReviews(REVIEWS_LIST.length);
+
+  /* De plaats van een kaart binnen het spoor. Niet `offsetLeft`: dat rekent
+     vanaf de `offsetParent` -- hier de sectie, want die is positioned -- en
+     niet vanaf het spoor. De eerste kaart stond daardoor op 220 in plaats van
+     op 0 en elke vergelijking met `scrollLeft` was er evenveel naast. */
+  const plaats = (el: HTMLElement, kaart: HTMLElement) =>
+    kaart.getBoundingClientRect().left - el.getBoundingClientRect().left + el.scrollLeft;
+
+  /* Welke kaart links staat, en of het spoor aan het einde is. */
+  const meet = useCallback(() => {
+    const el = spoor.current;
+    if (!el) return;
+    const kaarten = Array.from(el.children) as HTMLElement[];
+    let dichtst = 0;
+    let kleinste = Infinity;
+    kaarten.forEach((kaart, i) => {
+      const afstand = Math.abs(plaats(el, kaart) - el.scrollLeft);
+      if (afstand < kleinste) {
+        kleinste = afstand;
+        dichtst = i;
+      }
+    });
+    setPositie(dichtst);
+    /* 2px speling: op een scherm met een fractionele devicePixelRatio komt
+       scrollLeft een halve pixel tekort en bleef de volgende-knop aan staan. */
+    setEind(el.scrollLeft + el.clientWidth >= el.scrollWidth - 2);
+  }, []);
+
+  useEffect(() => {
+    const el = spoor.current;
+    if (!el) return;
+    meet();
+    el.addEventListener("scroll", meet, { passive: true });
+    window.addEventListener("resize", meet);
+    return () => {
+      el.removeEventListener("scroll", meet);
+      window.removeEventListener("resize", meet);
+    };
+  }, [meet]);
+
+  /* Eén klik verschuift een schermbreedte, niet één kaart: op een breed scherm
+     staan er drie naast elkaar en dan voelt kaart-voor-kaart als haperen. */
+  const blader = (richting: 1 | -1) => {
+    const el = spoor.current;
+    if (!el) return;
+    el.scrollBy({ left: richting * el.clientWidth * 0.86, behavior: "smooth" });
+  };
+
+  const naarKaart = (i: number) => {
+    const el = spoor.current;
+    const kaart = el?.children[i] as HTMLElement | undefined;
+    if (el && kaart) el.scrollTo({ left: plaats(el, kaart), behavior: "smooth" });
+  };
+
   return (
   <section className="revs" id="reviews">
     <div className="wrap">
@@ -149,10 +243,31 @@ const V3Reviews = () => {
         <p className="lede">{t.lede}</p>
       </div>
 
-      <div className="rv-grid">
-        {REVIEWS_LIST.map((review) => (
+      <div className="rv-spoor" ref={spoor} role="group" aria-label={t.carrousel}>
+        {reviews.map((review) => (
           <ReviewCard key={review.name} review={review} />
         ))}
+      </div>
+
+      <div className="rv-nav">
+        <button type="button" className="rv-pijl" onClick={() => blader(-1)} disabled={positie === 0} aria-label={t.vorige}>
+          <Pijl kant="links" />
+        </button>
+        <div className="rv-bollen">
+          {reviews.map((review, i) => (
+            <button
+              key={review.name}
+              type="button"
+              className={i === positie ? "aan" : undefined}
+              onClick={() => naarKaart(i)}
+              aria-label={t.naar(i + 1)}
+              aria-current={i === positie}
+            />
+          ))}
+        </div>
+        <button type="button" className="rv-pijl" onClick={() => blader(1)} disabled={eind} aria-label={t.volgende}>
+          <Pijl kant="rechts" />
+        </button>
       </div>
     </div>
   </section>

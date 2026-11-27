@@ -360,3 +360,12 @@
 .lv-page .ngc b{display:block;font-family:var(--fd);font-size:14px;margin-bottom:4px}
 .lv-page .ngc p{font-size:12.5px;color:var(--txt-mid);line-height:1.6;margin:0}
 
+
+/* Bovenruimte onder de mobiele kop: 200px hield plaats vrij voor de
+   contactregel (~70px) plus de nav-pil, maar onder 900px verbergt
+   `src/styles/mobile-nav.css` die contactregel. Zonder deze regel begint de
+   h1 op een gsm pas ruim 160px onder de pil, tegen ~65px op een laptop.
+   128px is de waarde die `v3-content.css` voor elke schil aanhoudt. */
+@media (max-width: 900px) {
+  .lv-page .hero { padding-top: 114px; }
+}

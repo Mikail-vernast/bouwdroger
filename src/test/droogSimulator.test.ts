@@ -36,7 +36,7 @@ import {
   WONING,
 } from "../lib/droogSimulator";
 import { SIZE_VALUES, baseItems, configPrice, configToQuery, parseConfig } from "../lib/verhuur";
-import { EMPTY_OPTIONS, bookingSummary, extraNaarQuery, extraUitQuery } from "../lib/booking";
+import { EMPTY_OPTIONS, bookingSummary, extraUitQuery } from "../lib/booking";
 
 const BASIS: SimAnswers = {
   woning: "halfopen",
@@ -71,17 +71,14 @@ describe("simResultaat", () => {
     for (const size of SIZE_VALUES) {
       for (const wat of ["pleister", "chape", "beide", "waterschade"] as const) {
         for (const verwarmt of [true, false]) {
-          for (const tempo of ["snel", "gemiddeld", "traag"] as const) {
-            const r = simResultaat({ ...BASIS, size, wat, verwarmt, tempo });
-            if (!r) continue;
-            // Wat de checkout server-side rekent: het pakket uit de link, met de
-            // extra toestellen die de link meedraagt.
-            const qs = new URLSearchParams(configToQuery(r.config) + extraNaarQuery(r.extra));
-            const boeking = bookingSummary(parseConfig(qs), { ...EMPTY_OPTIONS, dev: extraUitQuery(qs) });
-            expect(r.prijs).toBe(boeking.base);
-            expect(r.weken).toBe(boeking.weeks);
-            expect(r.items).toEqual(boeking.items);
-          }
+          const r = simResultaat({ ...BASIS, size, wat, verwarmt });
+          if (!r) continue;
+          // Wat de checkout server-side rekent: het pakket uit de link.
+          const qs = new URLSearchParams(configToQuery(r.config));
+          const boeking = bookingSummary(parseConfig(qs), { ...EMPTY_OPTIONS, dev: extraUitQuery(qs) });
+          expect(r.prijs).toBe(boeking.base);
+          expect(r.weken).toBe(boeking.weeks);
+          expect(r.items).toEqual(boeking.items);
         }
       }
     }
@@ -102,16 +99,15 @@ describe("simResultaat", () => {
     expect(LAGEN_PER_FASE.gepleisterd).toEqual(["pd", "cd"]);
   });
 
-  it("zet bij 'snel' één droger bovenop het pakket, en verandert verder niets", () => {
-    const gem = simResultaat({ ...BASIS, tempo: "gemiddeld" })!;
-    const rustig = simResultaat({ ...BASIS, tempo: "traag" })!;
-    const snel = simResultaat({ ...BASIS, tempo: "snel" })!;
-    const drogers = (r: typeof snel) => r.items.filter((it) => it.k === "small" || it.k === "medium").reduce((n, it) => n + it.q, 0);
-    expect(gem.items).toEqual(baseItems(gem.config));
-    expect(rustig.prijs).toBe(gem.prijs);
-    expect(drogers(snel)).toBe(drogers(gem) + 1);
-    expect(snel.prijs).toBeGreaterThan(gem.prijs);
-    expect(snel.weken).toBe(gem.weken);
+  /*
+    De tempokeuze is er op 26-11-2026 uit. Ze werd al niet meer gevraagd, kon de
+    termijn niet verschuiven (die ligt per pakket vast) en zette bij "snel" een
+    droger bovenop het pakket — de enige plek waar de simulator nog van de
+    catalogus afweek.
+  */
+  it("levert exact het vaste pakket, zonder toestellen erbij", () => {
+    const r = simResultaat(BASIS)!;
+    expect(r.items).toEqual(baseItems(r.config));
   });
 
   it("geeft geen pakket bij maatwerk", () => {

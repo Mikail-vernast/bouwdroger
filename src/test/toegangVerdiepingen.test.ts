@@ -53,6 +53,21 @@ describe("toegang bij de boeking", () => {
     expect(summary.lines.some((line) => /verdieping|Toegang/.test(line.l))).toBe(false);
   });
 
+  it.each([
+    ["ladder", "Plaatsing verdieping via ladder", LADDER_FEE],
+    ["geen", "Toegang voorzien door Vernast", ACCESS_PROVISION_FEE],
+  ] as const)("rekent %s ook aan zonder verdieping uit de simulator", (access, label, fee) => {
+    // Een pakket zonder simulator heeft geen floors; de kaart toonde de
+    // meerprijs wel, maar het totaal bewoog niet.
+    const config = parseConfig(new URLSearchParams("size=180&wat=beide"));
+    expect(config.floors).toBeUndefined();
+    const trap = bookingSummary(config, { ...EMPTY_OPTIONS, access: "trap" });
+    const gekozen = bookingSummary(config, { ...EMPTY_OPTIONS, access });
+    expect(gekozen.lines.find((line) => line.l === label)?.v).toBe(fee);
+    expect(gekozen.total - trap.total).toBeCloseTo(fee, 2);
+    expect(trap.lines.some((line) => /verdieping|Toegang/.test(line.l))).toBe(false);
+  });
+
   it("rekent voor niets voorzien één keer 115 euro, zonder de laddertoeslag erbij te tellen", () => {
     const config = toPackageConfig(answers);
     const trap = bookingSummary(config, { ...EMPTY_OPTIONS, access: "trap" });

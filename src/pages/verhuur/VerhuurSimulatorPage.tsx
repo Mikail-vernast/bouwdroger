@@ -8,7 +8,6 @@ import type { Antwoorden as WsAntwoorden } from "@/components/simulator/Watersch
 import { materiaalVoor } from "@/huis3d/materiaal";
 import { voorlaadToestellen } from "@/huis3d/3d/modellen";
 import { budget3D, heeftStraat, straatBeelden, voorlaad } from "@/huis3d/3d/bestanden";
-import { type Tempo } from "@/lib/droogTempo";
 import { Bouwfilm, FaseKnoppen, FaseRegels } from "@/components/simulator/Bouwfilm";
 import { DROOG_DUUR, FILM_START, FILM_WACHT, filmStatus, plaatsDuur, voortgangNa, type FilmPlan } from "@/huis3d/film";
 import { fotoSrcSet, fotoVoor, huisFoto, type FotoSleutel } from "@/components/simulator/fotos";
@@ -49,7 +48,6 @@ import {
 import { CD_VALUES, DEFAULT_CD, DEFAULT_PD, PD_VALUES, SIZE_VALUES, configToQuery } from "@/lib/verhuur";
 import { CAT } from "@/data/verhuur";
 import { catInTaal } from "@/data/verhuur.fr";
-import { extraNaarQuery } from "@/lib/booking";
 import { CONTACT } from "@/lib/site";
 import { useSeo } from "@/data/seo";
 import { NUMBER_LOCALE } from "@/i18n/taal";
@@ -120,11 +118,10 @@ const MATEN = SIZE_VALUES.map(Number);
 const OPP_STAPPEN = [...MATEN.map(String), "custom"];
 const GROOTSTE = MATEN[MATEN.length - 1] ?? 300;
 
-interface State extends Omit<SimAnswers, "woning" | "wat" | "fase" | "verwarmt" | "tempo" | "ruimtes"> {
+interface State extends Omit<SimAnswers, "woning" | "wat" | "fase" | "verwarmt" | "ruimtes"> {
   woning: Woning | null;
   fase: Fase | null;
   verwarmt: boolean | null;
-  tempo: Tempo | null;
   /** welke ruimtes per bouwlaag; een lege plek = de standaardindeling */
   kamers: (Programma | undefined)[];
 }
@@ -138,7 +135,6 @@ const START: State = {
   cd: DEFAULT_CD,
   fase: null,
   verwarmt: null,
-  tempo: null,
   kamers: [],
 };
 
@@ -170,7 +166,6 @@ function volledig(s: State, wat: Wat | null): SimAnswers {
     cd: s.cd === "onbekend" || s.cd === "geen" ? DEFAULT_CD : s.cd,
     fase,
     verwarmt: s.verwarmt ?? FASE[fase].verwarmtWaarschijnlijk,
-    tempo: s.tempo ?? "gemiddeld",
   };
 }
 
@@ -267,7 +262,7 @@ const VerhuurSimulatorPage = () => {
   const resultaat = useMemo(
     () => (wat ? simResultaat({ ...antwoorden, ruimtes: aantallen.reduce((a, b) => a + b, 0) }) : null),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [wat, s.size, s.pd, s.cd, s.fase, s.verwarmt, s.tempo, woning, lagen, sleutelPlan],
+    [wat, s.size, s.pd, s.cd, s.fase, s.verwarmt, woning, lagen, sleutelPlan],
   );
   const aantalToestellen = resultaat ? resultaat.items.reduce((n, it) => n + it.q, 0) : 0;
   const plaatsingen = useMemo(
@@ -477,8 +472,7 @@ const VerhuurSimulatorPage = () => {
   const volgende: { ok: boolean; label: string; melding?: string } =
     stap === 0 ? { ok: !!s.woning, label: t.volgende }
     /*
-      Alleen de fase is verplicht. Het tempo wordt niet meer gevraagd, en de
-      verwarmingsvraag heeft al een antwoord: `verwarmd` valt terug op wat bij
+      Alleen de fase is verplicht. De verwarmingsvraag heeft al een antwoord: `verwarmd` valt terug op wat bij
       die fase hoort (bij gepleisterd draait de verwarming meestal al). Eisen
       dat de bezoeker dat nóg eens bevestigt gaf een uitgeschakelde knop naast
       een kaart die groen stond — wie niets doet, heeft hier het juiste antwoord.
@@ -803,7 +797,7 @@ const VerhuurSimulatorPage = () => {
                       <b className="ds-plan-ok">{t.planInbegrepen}</b>
                     </li>
                   </ul>
-                  <Link className="ds-plan-knop" to={lp(`/verhuur/pakket?${configToQuery(resultaat.config)}${extraNaarQuery(resultaat.extra)}`)}>
+                  <Link className="ds-plan-knop" to={lp(`/verhuur/pakket?${configToQuery(resultaat.config)}`)}>
                     {t.planKnop} <span aria-hidden="true">→</span>
                   </Link>
                   <small className="ds-plan-knopsub">{t.planKnopSub}</small>

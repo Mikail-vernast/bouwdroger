@@ -1,6 +1,5 @@
 import type { Copy } from "@/i18n/useTaal";
 import type { DeviceKey } from "@/data/verhuur";
-import type { Tempo } from "@/lib/droogTempo";
 import type { Dak } from "@/lib/droogSimulator";
 
 /**
@@ -15,8 +14,6 @@ export interface SimCopy {
   stappen: string[];
   dakKort: { zadeldak: string; plat: string; lessenaar: string };
   toestelKort: Record<DeviceKey, string>;
-  /** De drie tempo's: label op de knop en de termijn als er nog geen pakket is. */
-  tempo: Record<Tempo, { label: string; tekst: string }>;
   kop: {
     stap1: string;
     welkeWoning: string;
@@ -204,11 +201,6 @@ export const COPY: Copy<SimCopy> = {
     stappen: ["Woning", "Verdiepingen", "Bouwfase", "Materiaal", "Droogplan"],
     dakKort: { zadeldak: "Zadeldak", plat: "Plat", lessenaar: "Lessenaar" },
     toestelKort: { small: "Bouwdroger", medium: "Droger medium", axiaal: "Ventilator", kachel: "Kachel" },
-    tempo: {
-      snel: { label: "Snel", tekst: "2 – 3 weken" },
-      gemiddeld: { label: "Gemiddeld", tekst: "4 – 5 weken" },
-      traag: { label: "Rustig", tekst: "6 – 8 weken" },
-    },
     kop: {
       stap1: "Stap 1 · Woning",
       welkeWoning: "Welke woning droogt u?",
@@ -395,11 +387,6 @@ export const COPY: Copy<SimCopy> = {
     dakKort: { zadeldak: "Deux pans", plat: "Plat", lessenaar: "Appentis" },
     // Zacht afbreekstreepje (\u00ad): op een gsm-tegel past het woord niet in één stuk.
     toestelKort: { small: "Déshumi\u00addificateur", medium: "Déshumi\u00addificateur medium", axiaal: "Ventilateur", kachel: "Chauffage" },
-    tempo: {
-      snel: { label: "Rapide", tekst: "2 – 3 semaines" },
-      gemiddeld: { label: "Moyen", tekst: "4 – 5 semaines" },
-      traag: { label: "Tranquille", tekst: "6 – 8 semaines" },
-    },
     kop: {
       stap1: "Étape 1 · Logement",
       welkeWoning: "Quel logement séchez-vous ?",
@@ -587,11 +574,6 @@ export const COPY: Copy<SimCopy> = {
     dakKort: { zadeldak: "Pitched", plat: "Flat", lessenaar: "Mono-pitch" },
     // Zacht afbreekstreepje (­), net als in het Frans: smalle tegels op een gsm.
     toestelKort: { small: "Dehumi­difier", medium: "Dehumidifier medium", axiaal: "Fan", kachel: "Heater" },
-    tempo: {
-      snel: { label: "Fast", tekst: "2 – 3 weeks" },
-      gemiddeld: { label: "Average", tekst: "4 – 5 weeks" },
-      traag: { label: "Steady", tekst: "6 – 8 weeks" },
-    },
     kop: {
       stap1: "Step 1 · Property",
       welkeWoning: "Which property are you drying?",

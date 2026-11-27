@@ -6,8 +6,9 @@ import Reveal from "@/components/Reveal";
 import FaqBlok from "@/components/content/FaqBlok";
 import ContactBlok from "@/components/content/ContactBlok";
 import VerderLezen, { type LeesGroep } from "@/components/VerderLezen";
-import { ArrowRightIcon, CheckIcon, ClipboardIcon, DropIcon, HouseIcon, PhoneIcon, ShieldIcon } from "@/components/home-v3/icons";
+import { ArrowRightIcon, CheckIcon, ClipboardIcon, HouseIcon, PhoneIcon } from "@/components/home-v3/icons";
 import { GaugeIcon, LayersIcon, ThermoIcon, WarnIcon, WindIcon } from "@/components/content/icons";
+import { WAAROM_ANIM, WerkingSchema } from "@/components/content/LuchtkussenAnim";
 import { useSeo } from "@/data/seo";
 import { getRealisatie, type Realisatie } from "@/data/realisaties";
 import { euro } from "@/data/tarieflijst";
@@ -18,7 +19,7 @@ import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import { CONTACT } from "@/lib/site";
 import { useCopy, useLokaalPad, useTaal, useToonBedrag } from "@/i18n/useTaal";
 import { NUMBER_LOCALE } from "@/i18n/taal";
-import { BEELDEN, COPY, LUCHTKUSSEN_PAD } from "./LuchtkussenDrogenPage.copy";
+import { BEELDEN, COPY, LUCHTKUSSEN_PAD, WERKING_BEELD } from "./LuchtkussenDrogenPage.copy";
 import "@/styles/v3-content.css";
 import "@/styles/luchtkussen.css";
 
@@ -52,9 +53,10 @@ const ZONE = { breed: 4, hoog: 1, bol: 0.1 };
 const KAMER_M3 = KAMER.l * KAMER.b * KAMER.h;
 const ZONE_M3 = ZONE.breed * ZONE.hoog * ZONE.bol;
 
-/* Iconen in de volgorde van de lijsten in de copy. */
-const WAAROM_ICONEN = [DropIcon, GaugeIcon, LayersIcon, ThermoIcon, ShieldIcon, HouseIcon];
+/* Iconen in de volgorde van de lijsten in de copy. De vier van het techniekblok
+   staan in LuchtkussenAnim: die bewegen, en ze zijn niet rood. */
 const STAP_ICONEN = [WarnIcon, GaugeIcon, LayersIcon, WindIcon, ClipboardIcon, CheckIcon];
+const POLIS_ICONEN = [WarnIcon, GaugeIcon, ClipboardIcon];
 
 /* Dossiers na waterschade. Geen ervan is specifiek een luchtkussenopstelling;
    de kop zegt dat ook niet. `getRealisatie` geeft undefined zodra een dossier
@@ -76,7 +78,7 @@ export default function LuchtkussenDrogenPage() {
   const taal = useTaal();
   const toon = useToonBedrag();
   const seo = useSeo("luchtkussenDrogen");
-  const [wand, detail, vloer] = BEELDEN;
+  const [wand, vloer] = BEELDEN;
 
   const getal = (n: number) => n.toLocaleString(NUMBER_LOCALE[taal], { maximumFractionDigits: 1 });
   const reken = t.reken({
@@ -123,12 +125,11 @@ export default function LuchtkussenDrogenPage() {
           <section className="hero">
             <div className="wrap hero-grid">
               <div className="hero-copy">
-                <nav className="lk-crumb" aria-label={t.home}>
-                  <Link to={lp("/")}>{t.home}</Link><span>/</span>
-                  <Link to={lp("/waterschade")}>{t.schade}</Link><span>/</span>
-                  <span aria-current="page">{t.naam}</span>
-                </nav>
-                <span className="pulse"><i /> {t.pulse}</span>
+                {/* Een platte kicker, zoals op /drooggarantie. Hier stonden een
+                    kruimelpad en een glazen pil (`.pulse`): grijs-doorschijnend
+                    op donkerrood, waardoor de bovenkant troebel oogde. Het
+                    kruimelpad blijft wél in de JSON-LD hieronder staan. */}
+                <span className="kick">{t.heroKick}</span>
                 <h1>{t.h1}</h1>
                 <p>{t.intro}</p>
                 <div className="hcta">
@@ -177,8 +178,10 @@ export default function LuchtkussenDrogenPage() {
                 </div>
               </div>
               <Reveal from="up" className="split-vis lk-vis">
-                <img src={detail} alt={t.alt[1]} width={1536} height={1024} loading="lazy" decoding="async" />
-                <p className="lk-cap">{t.captions[1]}</p>
+                {WERKING_BEELD
+                  ? <img src={WERKING_BEELD} alt={t.schema.titel} width={1536} height={1024} loading="lazy" decoding="async" />
+                  : <WerkingSchema t={t.schema} />}
+                <p className="lk-cap">{t.schema.bijschrift}</p>
               </Reveal>
             </div>
           </div>
@@ -192,12 +195,13 @@ export default function LuchtkussenDrogenPage() {
               <h2 className="sec">{t.waaromTitel}</h2>
               <p className="lede">{t.waaromIntro}</p>
             </div>
-            <div className="g3">
+            {/* Vier kaarten op één rij, niet drie met een gat ernaast. */}
+            <div className="g4">
               {t.waarom.map(({ kop, tekst }, i) => {
-                const Icon = WAAROM_ICONEN[i];
+                const Anim = WAAROM_ANIM[i];
                 return (
-                  <Reveal from="up" delay={(i % 3) * 0.08} className="kaart" key={kop}>
-                    <div className="ki"><Icon size={20} /></div>
+                  <Reveal from="up" delay={(i % 4) * 0.08} className="kaart" key={kop}>
+                    <div className="ki lka-ki"><Anim /></div>
                     <h3>{kop}</h3>
                     <p>{tekst}</p>
                   </Reveal>
@@ -222,6 +226,7 @@ export default function LuchtkussenDrogenPage() {
                   <span><LayersIcon size={17} /></span>
                   <h3>{t.vglFolie}</h3>
                 </div>
+                <p className="vskies">{t.vglKiesBij}:</p>
                 <ul>
                   {t.folie.map((item) => <li key={item}><CheckIcon size={14} strokeWidth={3} /><span>{item}</span></li>)}
                 </ul>
@@ -231,6 +236,7 @@ export default function LuchtkussenDrogenPage() {
                   <span><WindIcon size={17} /></span>
                   <h3>{t.vglRuimte}</h3>
                 </div>
+                <p className="vskies">{t.vglKiesBij}:</p>
                 <ul>
                   {t.ruimte.map((item) => <li key={item}><CheckIcon size={14} strokeWidth={3} /><span>{item}</span></li>)}
                 </ul>
@@ -316,39 +322,57 @@ export default function LuchtkussenDrogenPage() {
           </div>
         </section>
 
-        {/* ================= FAQ + SLOTPLAAT =================
-            De FAQ staat op rood; de slotplaat is daarom de witte variant
-            (`lite`), anders las ze als rood op rood. */}
-        <FaqBlok titel={t.faqTitel} vragen={t.faq} sleutel="luchtkussen">
-          <div className="manband lite">
-            <div className="mb-t">
-              <span className="mbk">{t.mbKick}</span>
-              <h3>{t.mbTitel}</h3>
-              <p>{t.mbTekst}</p>
-              <div className="mb-cta">
-                <a className="btn btn-red" href={`tel:${CONTACT.phoneE164}`}>
-                  <PhoneIcon /> {t.bel} {CONTACT.phoneLocal}
-                </a>
-                <a className="btn btn-ghost lk-ghost" href="#formulier">
-                  {t.beschrijf} <ArrowRightIcon />
-                </a>
-              </div>
+        {/* ================= VERZEKERING =================
+            Na de aanpak, want pas als duidelijk is wát we meten en vastleggen,
+            zegt "uw dossier" iets. De formulering blijft voorzichtig: wat een
+            polis dekt hangt van die polis af, en dat kunnen wij niet beoordelen
+            — dezelfde lijn als op /waterschade. */}
+        <section className="sr" id="verzekering">
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="kick">{t.polisKick}</span>
+              <h2 className="sec">{t.polisTitel}</h2>
+              <p className="lede">{t.polisIntro}</p>
             </div>
-            <img
-              className="mb-man breed bijsnijden tegenrand"
-              src="/vernast/man-bestelwagen.webp"
-              alt={t.mbAlt}
-              width={1440}
-              height={800}
-              loading="lazy"
-              decoding="async"
-            />
+            <div className="lk-polis">
+              {t.polis.map(({ kop, punten }, i) => {
+                const Icon = POLIS_ICONEN[i];
+                return (
+                  <Reveal from="up" delay={(i % 3) * 0.08} className="kaart" key={kop}>
+                    <div className="num">{i + 1}</div>
+                    <h3>{kop}</h3>
+                    <ul>
+                      {punten.map((punt) => (
+                        <li key={punt}><CheckIcon size={13} strokeWidth={3} /><span>{punt}</span></li>
+                      ))}
+                    </ul>
+                    <span className="lk-polis-ic" aria-hidden="true"><Icon size={18} /></span>
+                  </Reveal>
+                );
+              })}
+            </div>
+            <div className="lk-polis-meer">
+              <Link className="btn btn-white" to={lp("/waterschade")}>
+                {t.polisLink} <ArrowRightIcon />
+              </Link>
+              <a className="btn btn-ghost" href={`tel:${CONTACT.phoneE164}`}>
+                <PhoneIcon /> {t.bel} {CONTACT.phoneLocal}
+              </a>
+            </div>
+            <p className="lk-note">{t.polisNote}</p>
           </div>
-        </FaqBlok>
+        </section>
+
+        {/* ================= FAQ =================
+            Wit, want de verzekeringssectie erboven staat op rood en de
+            referenties eronder weer. De slotplaat met de bestelwagen stond
+            hierin; die is eruit — ze herhaalde het vraagformulier onderaan,
+            en haar tweede knop was zwart op zwart. */}
+        <FaqBlok titel={t.faqTitel} vragen={t.faq} sleutel="luchtkussen" variant="wit" vraagHref="#formulier" />
 
         {/* ================= REFERENTIES ================= */}
         {REFERENTIES.length > 0 && (
-          <section className="sw" id="referenties">
+          <section className="sr" id="referenties">
             <div className="wrap">
               <div className="sec-head mid">
                 <span className="kick">{t.refsKick}</span>
@@ -372,10 +396,12 @@ export default function LuchtkussenDrogenPage() {
           </section>
         )}
 
-        <VerderLezen titel={t.verderLezenTitel} kicker={t.verderLezenKicker} groepen={verderLezen} achtergrond="sr" />
+        <VerderLezen titel={t.verderLezenTitel} kicker={t.verderLezenKicker} groepen={verderLezen} achtergrond="sw" />
 
+        {/* Rood, zodat het formulier bij de rest van de pagina hoort in plaats
+            van als een losse witte staart te eindigen. Daardoor loopt het ritme
+            door: FAQ wit, referenties rood, verder lezen wit, formulier rood. */}
         <ContactBlok
-          achtergrond="wit"
           titel={t.contactTitel}
           lede={t.contactIntro}
           onderwerpen={t.onderwerpen}

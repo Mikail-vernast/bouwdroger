@@ -341,17 +341,28 @@ export function bookingSummary(config: PackageConfig, raw: BookingOptions): Book
     lines.push({ l: `${pumps}× condenspomp · ${days} dagen`, v: pumps * PUMP.price * days });
   }
 
+  /*
+    De toegangskeuze hing eerst aan de verdiepingteller, en dat klopte alleen
+    voor wie de simulator doorliep. Wie recht naar de boeking ging had floors 0:
+    de kaart "Via een ladder" toonde + € 39, maar het totaal bleef staan. De
+    toeslag volgt nu de keuze zelf. Enige uitzondering is een woning waarvan we
+    wéten dat ze gelijkvloers is (`config.floors === 0`) — daar vraagt de wizard
+    de keuze niet en rekenen we ze dus ook niet aan.
+  */
+  const accessLine: BookingLine =
+    options.access === "ladder"
+      ? { l: "Plaatsing verdieping via ladder", v: LADDER_FEE }
+      : options.access === "geen"
+        ? { l: "Toegang voorzien door Vernast", v: ACCESS_PROVISION_FEE }
+        : options.access === "lift"
+          ? { l: "Plaatsing op verdieping (lift)", v: 0, inc: true }
+          : { l: "Plaatsing op verdieping (trap)", v: 0, inc: true };
+
   if (options.floors > 0) {
     lines.push({ l: `Plaatsing tot verdieping ${options.floors}`, v: 0, inc: true });
-    lines.push(
-      options.access === "ladder"
-        ? { l: "Plaatsing verdieping via ladder", v: LADDER_FEE }
-        : options.access === "geen"
-          ? { l: "Toegang voorzien door Vernast", v: ACCESS_PROVISION_FEE }
-          : options.access === "lift"
-            ? { l: "Plaatsing op verdieping (lift)", v: 0, inc: true }
-            : { l: "Plaatsing op verdieping (trap)", v: 0, inc: true }
-    );
+    lines.push(accessLine);
+  } else if (config.floors !== 0 && accessLine.v > 0) {
+    lines.push(accessLine);
   }
 
   const deliveryOption = DELIVERY.find((d) => d.k === options.delivery) ?? DELIVERY[0];

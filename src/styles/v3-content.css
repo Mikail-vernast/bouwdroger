@@ -1421,8 +1421,10 @@
    desktopmarges, een kaart van 400 px in de hero, negen werven onder elkaar en
    zeventig gemeenten in één kolom. Gemeten op /bouwdroger-huren-berchem. */
 @media (max-width:620px){
-  /* De vaste kop is ~85 px hoog; 200 px erboven was loze rode ruimte. */
-  .v3c.rg-page .hero{padding-top:128px}
+  /* De bovenruimte van de hero stond hier ooit apart op 128px — "de vaste kop
+     is ~85 px hoog; 200 px erboven was loze rode ruimte". Dat gold voor élke
+     schil, en staat nu onderaan dit bestand als `.v3c .hero` onder 900px.
+     Een eigen regel hier zou daar met meer gewicht overheen gaan. */
   .v3c.rg-page .hero-copy{padding-bottom:40px}
   .v3c.rg-page .sw,.v3c.rg-page .sw2,.v3c.rg-page .sr{padding:60px 0}
   .v3c.rg-page .sec-head{margin-bottom:28px}
@@ -1473,3 +1475,18 @@
 .v3c .hero .feiten.kortom > div{display:grid;grid-template-columns:150px 1fr;gap:4px 16px;padding:9px 16px;font-size:13.5px}
 .v3c .hero .feiten.kortom dd{text-align:left;font-weight:600}
 @media (max-width:560px){.v3c .hero .feiten.kortom > div{grid-template-columns:1fr}}
+
+/* ============ BOVENRUIMTE ONDER DE MOBIELE KOP ============
+   `.v3c .hero` draagt 200px bovenruimte om de vaste kop te klaren: de
+   contactregel (~70px) plus de nav-pil. Onder 900px verbergt
+   `src/styles/mobile-nav.css` die contactregel — het telefoonnummer staat dan
+   in de balk zelf — maar de 200px bleef staan. Gemeten op /prijzen bij 390px:
+   de pil eindigt op 74px en de h1 begon pas op 237px, dus 163px loze rode
+   ruimte tegenover 64px op een laptop.
+
+   128px is dezelfde waarde die de locatiepagina's hierboven al kozen toen dit
+   daar apart opgemerkt werd (`.v3c.rg-page .hero` onder 620px). Die regel
+   weegt zwaarder en blijft dus winnen, met hetzelfde getal. */
+@media (max-width:900px){
+  .v3c .hero{padding-top:114px}
+}

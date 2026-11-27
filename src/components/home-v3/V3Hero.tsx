@@ -6,13 +6,21 @@ import { ArrowRightIcon, GoogleIcon } from "./icons";
 
 /**
  * De drie zwevende trust-kaartjes over de team-banner. In het design staan ze
- * absoluut gepositioneerd in de hoeken van de hero (`.h-note > span`), elk met
- * een icoonvakje (`.hni`) en een titel + ondertitel (`.hnt`). Onder 1080px
+ * absoluut gepositioneerd in de hoeken van de hero (`.hn`), elk met een
+ * icoonvakje (`.hni`) en een titel + ondertitel (`.hnt`). Elk kaartje is een
+ * link naar de pagina die zijn belofte waarmaakt (`pad` in `ICONS`): de
+ * drooggarantie verloor zijn knop in de hero en hangt nu aan het derde kaartje. Onder 1080px
  * verbergt het design ze — vandaar dat de HTML géén begintoestand mag dragen
  * die de prerender onzichtbaar maakt; deze markup is altijd zichtbaar.
+ *
+ * Twee lagen per kaartje: `.hn` zweeft, `.hn-glas` is de glasplaat die op de
+ * muis reageert. Beide bewegingen zijn een `transform`, en op één element wint
+ * de doorlopende animatie altijd van de hover-regel — dan gebeurde er bij het
+ * aanwijzen letterlijk niets.
  */
 const ICONS = [
   {
+    pad: "/verhuur/calculator",
     icon: (
       <>
         <rect x="4" y="3" width="16" height="18" rx="2" />
@@ -22,8 +30,8 @@ const ICONS = [
       </>
     ),
   },
-  { icon: <path d="M20 6 9 17l-5-5" /> },
-  { icon: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" /> },
+  { pad: "/prijzen", icon: <path d="M20 6 9 17l-5-5" /> },
+  { pad: "/drooggarantie", icon: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" /> },
 ];
 
 type HeroCopy = {
@@ -32,7 +40,7 @@ type HeroCopy = {
   h1: string;
   intro: string;
   cta: string;
-  garantie: string;
+  afhalen: string;
   alt: string;
 };
 
@@ -48,7 +56,7 @@ const COPY = {
     intro:
       "Geen standaard bouwdroger, maar een compleet droogpakket op maat van uw woning. Digitaal geboekt, energiezuinig gedimensioneerd, professioneel geïnstalleerd en één vaste all-in prijs. Niet droog binnen de berekende periode? Kosteloos verder huren.",
     cta: "Bereken uw bouwdroging",
-    garantie: "Bekijk de drooggarantie",
+    afhalen: "Bouwdrogers afhalen",
     alt: "Het Vernast-team met het volledige toestellengamma",
   },
   fr: {
@@ -62,7 +70,7 @@ const COPY = {
     intro:
       "Pas un simple déshumidificateur de chantier, mais un pack de séchage complet adapté à votre habitation. Réservé en ligne, dimensionné pour consommer peu, installé par des professionnels et un prix fixe tout compris. Pas sec dans la période calculée ? Vous continuez à louer sans frais.",
     cta: "Calculez votre séchage",
-    garantie: "Voir la garantie de séchage",
+    afhalen: "Enlever des déshumidificateurs",
     alt: "L'équipe Vernast avec toute la gamme d'appareils",
   },
   en: {
@@ -76,7 +84,7 @@ const COPY = {
     intro:
       "Not a standard construction dehumidifier, but a complete drying package tailored to your home. Booked online, sized to save energy, professionally installed and one fixed all-in price. Not dry within the calculated period? Keep hiring at no extra cost.",
     cta: "Calculate your building drying",
-    garantie: "View the drying guarantee",
+    afhalen: "Collect dehumidifiers",
     alt: "The Vernast team with the full range of units",
   },
 } satisfies Copy<HeroCopy>;
@@ -133,8 +141,8 @@ const V3Hero = () => {
             witte ernaast blijft de eerste. `btn-dark` bestaat al in
             home-v3.css, inclusief hover naar puur zwart.
           */}
-          <Link className="btn btn-dark" to={lp("/drooggarantie")}>
-            {t.garantie}
+          <Link className="btn btn-dark" to={lp("/verhuur/afhalen")}>
+            {t.afhalen}
           </Link>
         </div>
       </div>
@@ -181,26 +189,28 @@ const V3Hero = () => {
     {/* De drie zwevende kaartjes over de banner — zie ICONS/COPY en .h-note in home-v3.css. */}
     <div className="h-note">
       {t.notes.map((note, i) => (
-        <span key={note.title}>
-          <i className="hni">
-            <svg
-              width="17"
-              height="17"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              {ICONS[i].icon}
-            </svg>
-          </i>
-          <span className="hnt">
-            <b>{note.title}</b>
-            <small>{note.sub}</small>
+        <Link className="hn" key={note.title} to={lp(ICONS[i].pad)}>
+          <span className="hn-glas">
+            <i className="hni">
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {ICONS[i].icon}
+              </svg>
+            </i>
+            <span className="hnt">
+              <b>{note.title}</b>
+              <small>{note.sub}</small>
+            </span>
           </span>
-        </span>
+        </Link>
       ))}
     </div>
   </section>

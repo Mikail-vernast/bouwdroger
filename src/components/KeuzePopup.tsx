@@ -4,6 +4,7 @@ import "@/styles/keuze-popup.css";
 import { ACTIEVE_TALEN, taalUitPad, type Taal } from "@/i18n/taal";
 import { wisselPad } from "@/i18n/paden";
 import { bewaarVoorkeur, kies, type Copy, type Klant } from "@/i18n/useTaal";
+import Vlag from "@/components/Vlag";
 
 /**
  * De keuzepopup bij het eerste bezoek: taal, particulier/bedrijf en land.
@@ -31,7 +32,6 @@ interface Tekst {
   werf: string;
   landLabel: string;
   landen: Record<Land, string>;
-  buitenBelgie: string;
   verder: string;
   sluiten: string;
   /*
@@ -57,8 +57,6 @@ const COPY: Copy<Tekst> = {
     werf: "Je werf ligt in",
     landLabel: "Land van je werf",
     landen: { BE: "België", NL: "Nederland", LU: "Luxemburg", FR: "Frankrijk", XX: "Ander land" },
-    buitenBelgie:
-      "We leveren en installeren in België. Vanuit dit land kun je een toestel afhalen in ons magazijn, of je neemt contact op voor een levering op maat.",
     verder: "Ga verder",
     sluiten: "Sluiten",
     badge: "Nr. 1 Droogservice",
@@ -77,8 +75,6 @@ const COPY: Copy<Tekst> = {
     werf: "Votre chantier :",
     landLabel: "Pays du chantier",
     landen: { BE: "Belgique", NL: "Pays-Bas", LU: "Luxembourg", FR: "France", XX: "Autre pays" },
-    buitenBelgie:
-      "Nous livrons et installons en Belgique. Depuis ce pays, vous pouvez venir chercher un appareil à notre dépôt, ou nous contacter pour une livraison sur mesure.",
     verder: "Continuer",
     sluiten: "Fermer",
     badge: "Service de séchage n° 1",
@@ -97,8 +93,6 @@ const COPY: Copy<Tekst> = {
     werf: "Your site is in",
     landLabel: "Country of your site",
     landen: { BE: "Belgium", NL: "Netherlands", LU: "Luxembourg", FR: "France", XX: "Other country" },
-    buitenBelgie:
-      "We deliver and install in Belgium. From this country, you can collect a unit from our depot, or contact us about a custom delivery.",
     verder: "Continue",
     sluiten: "Close",
     badge: "No. 1 Drying Service",
@@ -106,47 +100,6 @@ const COPY: Copy<Tekst> = {
 };
 
 const TAALNAAM: Record<Taal, string> = { nl: "Nederlands", fr: "Français", en: "English" };
-
-/* Vlaggen per taal: Nederlands = Nederland, Français = Frankrijk, English = VK. */
-const Vlag = ({ taal }: { taal: Taal }) => {
-  const id = `kp-vl-${taal}`;
-  const inhoud = {
-    nl: (
-      <>
-        <rect y="3" width="26" height="6.7" fill="#AE1C28" />
-        <rect y="9.7" width="26" height="6.6" fill="#fff" />
-        <rect y="16.3" width="26" height="6.7" fill="#21468B" />
-      </>
-    ),
-    fr: (
-      <>
-        <rect y="3" width="8.7" height="20" fill="#0055A4" />
-        <rect x="8.7" y="3" width="8.6" height="20" fill="#fff" />
-        <rect x="17.3" y="3" width="8.7" height="20" fill="#EF4135" />
-      </>
-    ),
-    en: (
-      <>
-        <rect y="3" width="26" height="20" fill="#012169" />
-        <path d="M0 3l26 20M26 3L0 23" stroke="#fff" strokeWidth="4" />
-        <path d="M0 3l26 20M26 3L0 23" stroke="#C8102E" strokeWidth="1.5" />
-        <path d="M13 3v20M0 13h26" stroke="#fff" strokeWidth="6" />
-        <path d="M13 3v20M0 13h26" stroke="#C8102E" strokeWidth="3.4" />
-      </>
-    ),
-  }[taal];
-  return (
-    <svg width="30" height="20" viewBox="0 3 26 20" preserveAspectRatio="none" aria-hidden="true">
-      <defs>
-        <clipPath id={id}>
-          <rect x="0" y="3" width="26" height="20" rx="2.6" />
-        </clipPath>
-      </defs>
-      <g clipPath={`url(#${id})`}>{inhoud}</g>
-      <rect x=".5" y="3.5" width="25" height="19" rx="2.3" fill="none" stroke="rgba(0,0,0,.18)" />
-    </svg>
-  );
-};
 
 /* Particulier: één persoon. */
 const IcoPersoon = () => (
@@ -180,13 +133,6 @@ const IcoCheck = () => (
 const IcoPijl = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M5 12h14M13 6l6 6-6 6" />
-  </svg>
-);
-const IcoTruck = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M2 6h12v10H2zM14 10h4l3 3v3h-7" />
-    <circle cx="6" cy="17.5" r="1.8" />
-    <circle cx="17" cy="17.5" r="1.8" />
   </svg>
 );
 
@@ -412,12 +358,6 @@ const KeuzePopup = ({ onKlaar }: { onKlaar: () => void }) => {
               {t.verder} <IcoPijl />
             </button>
           </div>
-          {land !== "BE" && (
-            <div className="kp-note">
-              <IcoTruck />
-              <span>{t.buitenBelgie}</span>
-            </div>
-          )}
         </div>
       </div>
     </div>

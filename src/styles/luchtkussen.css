@@ -4,52 +4,169 @@
  * die niet hebben. De eerste versie had een eigen hero (`lk-hero`) met een foto
  * over de volle breedte die de hele eerste schermhoogte vulde, en een
  * kruimelpad in rood op rood.
+ *
+ * LET OP de dubbele klasse `.v3c.lk-page` in de selectoren hieronder. Met
+ * `.lk-page` alleen staan ze op dezelfde specificiteit als `.v3c .split-vis`
+ * uit v3-content.css, en die wint omdat hij in de gebouwde CSS later staat.
+ * Het bijschrift onder de uitlegfoto werd daardoor een flex-buur van de foto:
+ * 91 px breed, in de rand van het beeld geschoven (gemeten, 26-11-2026).
  */
 
-/* Kruimelpad boven de pulse-label, wit op de rode hero. */
-.lk-page .lk-crumb { display:flex; flex-wrap:wrap; gap:10px; font-size:12.5px; color:rgba(255,255,255,.6); margin-bottom:22px; }
-.lk-page .lk-crumb a { color:rgba(255,255,255,.85); }
-.lk-page .lk-crumb a:hover { color:#fff; }
-.lk-page .lk-crumb [aria-current] { color:rgba(255,255,255,.6); }
-
 /* De herofoto is 3:2, de gedeelde `framed`-regel snijdt naar 4:3. */
-.lk-page .hero-vis img.framed { aspect-ratio:3/2; }
+.v3c.lk-page .hero-vis img.framed { aspect-ratio:3/2; }
 
-/* Detailfoto naast de uitleg: breder dan de productfoto's waar split-vis voor bedoeld is. */
-.lk-page .lk-vis { display:block; }
-.lk-page .lk-vis img { display:block; width:100%; height:auto; border-radius:18px; filter:none; box-shadow:0 30px 60px -32px rgba(0,0,0,.45); }
-.lk-page .lk-cap { font-size:13px; line-height:1.6; color:var(--txt-mid); margin:12px 0 0; }
+/* ------------------------------------------------------------------ */
+/* Het schema naast de uitleg                                          */
+/* ------------------------------------------------------------------ */
+/*
+ * Hier stond de detailfoto van de slang onder de folie — bijna hetzelfde beeld
+ * als de herofoto erboven, twee foto's onder elkaar van dezelfde opstelling.
+ * Een tekening doet wat een foto hier niet deed: tonen wáár de lucht binnenkomt
+ * en weer weggaat. Wil je er toch een beeld van maken: zet `WERKING_BEELD` in
+ * de copy op een pad, dan rendert de pagina die foto in plaats van het schema.
+ */
+.v3c.lk-page .lk-vis { display:block; width:100%; }
+.v3c.lk-page .lk-vis img { display:block; width:100%; height:auto; border-radius:18px; filter:none; box-shadow:0 30px 60px -32px rgba(0,0,0,.45); }
+.v3c.lk-page .lk-cap { font-size:13px; line-height:1.6; color:var(--txt-mid); margin:12px 0 0; }
 
-/* Twee opstellingsfoto's met bijschrift, op de rode sectie als witte kaarten. */
-.lk-page figure { margin:0; }
-.lk-page .lk-images { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.lk-page .lk-images figure { border-radius:18px; background:#fff; overflow:hidden; color:var(--txt); }
-.lk-page .lk-images img { display:block; width:100%; height:auto; }
-.lk-page .lk-images figcaption { padding:18px 22px; font-size:14.5px; line-height:1.6; color:var(--txt-mid); }
-.lk-page .lk-geschikt { margin-top:16px; }
-.lk-page .sr .lk-geschikt .kaart { color:var(--txt); }
-.lk-page .sr .lk-geschikt .kaart h3 { color:var(--txt); }
-.lk-page .lk-note { font-size:12.5px; line-height:1.7; color:var(--txt-mid); margin:18px 0 0; }
-.lk-page .sr .lk-note { color:rgba(255,255,255,.7); }
+/* De tekening staat in een viewBox van 100 breed in een kolom van ongeveer
+   550 px: alles wordt met ~5,5 vermenigvuldigd. Een lijndikte van 0.3 is dus
+   1,6 px op het scherm, en tekst van 2.3 leest als 12,5 px. */
+.v3c.lk-page .lk-schema { border-radius:18px; background:var(--bg-alt); padding:20px 18px 14px; }
+.v3c.lk-page .lk-schema svg { display:block; width:100%; height:auto; overflow:visible; }
+.v3c.lk-page .lk-schema text { font-size:2.3px; font-weight:600; fill:var(--txt-mid); }
+.v3c.lk-page .lk-schema .sch-op-nat { fill:var(--txt); font-weight:700; }
+.v3c.lk-page .lk-schema .sch-nr circle { fill:var(--red); }
+.v3c.lk-page .lk-schema .sch-nr text { font-size:2.6px; font-weight:800; fill:#fff; }
+.v3c.lk-page .lk-schema .sch-leg circle { fill:#fff; stroke:var(--red); stroke-width:.35; }
+.v3c.lk-page .lk-schema .sch-legnr { font-size:2.4px; font-weight:800; fill:var(--red); }
+.v3c.lk-page .lk-schema .sch-wand { fill:#fff; stroke:var(--line, rgba(0,0,0,.12)); stroke-width:.3; }
+.v3c.lk-page .lk-schema .sch-nat { fill:rgba(37,99,235,.14); }
+.v3c.lk-page .lk-schema .sch-vlak { stroke:var(--txt); stroke-width:.4; stroke-linecap:round; fill:none; }
+.v3c.lk-page .lk-schema .sch-folie { fill:rgba(255,255,255,.55); stroke:var(--txt); stroke-width:.35; }
+.v3c.lk-page .lk-schema .sch-toestel { fill:var(--red); }
+.v3c.lk-page .lk-schema .sch-merk { fill:#fff; }
+.v3c.lk-page .lk-schema .sch-slang { stroke:var(--txt-mid); stroke-width:.9; stroke-linecap:round; fill:none; }
+.v3c.lk-page .lk-schema .sch-pijl { stroke:var(--red); stroke-width:.45; stroke-linecap:round; stroke-linejoin:round; fill:none; }
+/* De stippellijn is de luchtstroom zelf: van de toevoer links naar de uitlaat
+   rechtsboven. De beweging maakt in één oogopslag duidelijk welke kant op. */
+.v3c.lk-page .lk-schema .sch-stroom { stroke:var(--red); stroke-width:.45; stroke-linecap:round; fill:none; stroke-dasharray:1.6 2.2; animation:lkStroom 1.6s linear infinite; }
+@keyframes lkStroom { to { stroke-dashoffset:-3.8; } }
 
-/* Huurblok onder de stappen. */
-.lk-page .lk-related { margin-top:28px; background:var(--bg-alt); border-radius:18px; padding:28px; display:flex; align-items:center; justify-content:space-between; gap:28px; }
-.lk-page .lk-related h3 { font-size:20px; font-weight:800; margin:0 0 8px; }
-.lk-page .lk-related p { color:var(--txt-mid); font-size:15.5px; line-height:1.7; margin:0; max-width:720px; }
-
-@media(max-width:860px) {
-  .lk-page .lk-images { grid-template-columns:1fr; }
-  .lk-page .lk-related { flex-direction:column; align-items:flex-start; }
+/* ------------------------------------------------------------------ */
+/* De geanimeerde iconen van het techniekblok                          */
+/* ------------------------------------------------------------------ */
+/*
+ * Niet rood: zes rode tegels naast elkaar lazen als één vlak. De beweging doet
+ * hier het werk — zie src/components/content/LuchtkussenAnim.tsx.
+ */
+.v3c.lk-page .sr .kaart .ki.lka-ki { width:52px; height:52px; border-radius:14px; background:var(--bg-alt); color:var(--txt); }
+.v3c.lk-page .lka { width:28px; height:28px; stroke:currentColor; }
+.v3c.lk-page .lka-drop { fill:rgba(37,99,235,.12); stroke:#2563eb; transform-origin:16px 12px; animation:lkDruppel 2.2s ease-in-out infinite; }
+.v3c.lk-page .lka-drop2 { animation-delay:-1.1s; }
+.v3c.lk-page .lka-vlak { stroke:currentColor; }
+.v3c.lk-page .lka-rimpel { stroke:#2563eb; opacity:0; transform-origin:16px 25px; animation:lkRimpel 2.2s ease-out infinite; }
+@keyframes lkDruppel {
+  0% { transform:translateY(-3px) scale(.9); opacity:0; }
+  10%,52% { opacity:1; }
+  52% { transform:translateY(8px) scale(1); }
+  64%,100% { transform:translateY(10px) scale(.55); opacity:0; }
+}
+@keyframes lkRimpel {
+  0%,50% { opacity:0; transform:scaleX(.4); }
+  64% { opacity:.9; transform:scaleX(1); }
+  88%,100% { opacity:0; transform:scaleX(1.6); }
 }
 
-/* Slotplaat in de FAQ. De FAQ staat in deze pagina op rood, en een rode
-   manband daarin las als rood op rood. Daarom de witte variant, zoals
-   `.manband.lite` op /hoe-drogen-werkt. */
-.lk-page .manband.lite { background:#fff; }
-.lk-page .manband.lite .mb-t { color:var(--txt); }
-.lk-page .manband.lite .mbk { color:var(--red); }
-.lk-page .manband.lite h3 { color:var(--txt); }
-.lk-page .manband.lite p { color:var(--txt-mid); }
-.lk-page .manband.lite .lk-ghost { border-color:var(--line-2, rgba(0,0,0,.18)); color:var(--txt); }
-.lk-page .manband.lite .lk-ghost:hover { background:var(--bg-alt); color:var(--txt); }
-.lk-page .manband.lite img.mb-man { filter:drop-shadow(0 22px 28px rgba(0,0,0,.18)); }
+/* De drie luchtlijnen schuiven met een versprongen vertraging door, zodat er
+   altijd één onderweg is. Met dezelfde vertraging voor alle drie stond het
+   icoon een halve seconde per ronde leeg. */
+.v3c.lk-page .lka-lijn { stroke:currentColor; animation:lkSnel 1.4s cubic-bezier(.45,0,.3,1) infinite; }
+.v3c.lk-page .lka-l2 { animation-delay:.47s; }
+.v3c.lk-page .lka-l3 { animation-delay:.94s; }
+.v3c.lk-page .lka-punt { stroke:#2563eb; animation:lkPunt 1.4s ease-in-out infinite; }
+@keyframes lkSnel {
+  0% { transform:translateX(-5px); opacity:0; }
+  18%,70% { opacity:1; }
+  100% { transform:translateX(6px); opacity:0; }
+}
+@keyframes lkPunt { 0%,100% { transform:translateX(0); } 55% { transform:translateX(1.6px); } }
+
+.v3c.lk-page .lka-thermo path:first-of-type { stroke:currentColor; }
+.v3c.lk-page .lka-kolom { transform-origin:16px 24px; animation:lkThermo 4.4s ease-in-out infinite; }
+.v3c.lk-page .lka-streep { stroke:currentColor; opacity:.45; }
+@keyframes lkThermo {
+  0%,100% { transform:scaleY(.3); fill:#2563eb; }
+  45%,55% { transform:scaleY(1); fill:#e0761d; }
+}
+
+/* De kamer blijft stil; alleen de strook onder de folie licht op. */
+.v3c.lk-page .lka-kamer { stroke:currentColor; fill:none; }
+.v3c.lk-page .lka-strook { fill:#2563eb; animation:lkStrook 2.8s ease-in-out infinite; }
+.v3c.lk-page .lka-rust { stroke:currentColor; opacity:.3; }
+@keyframes lkStrook { 0%,100% { opacity:.25; } 50% { opacity:1; } }
+
+@media (prefers-reduced-motion:reduce) {
+  .v3c.lk-page .lka-drop,
+  .v3c.lk-page .lka-rimpel,
+  .v3c.lk-page .lka-lijn,
+  .v3c.lk-page .lka-kolom,
+  .v3c.lk-page .lka-punt,
+  .v3c.lk-page .lka-strook,
+  .v3c.lk-page .lk-schema .sch-stroom { animation:none; }
+  .v3c.lk-page .lka-drop { opacity:1; transform:none; }
+  .v3c.lk-page .lka-lijn { opacity:1; transform:none; }
+  .v3c.lk-page .lka-kolom { transform:scaleY(.7); fill:#2563eb; }
+  .v3c.lk-page .lka-strook { opacity:1; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Twee opstellingsfoto's met bijschrift, op de rode sectie            */
+/* ------------------------------------------------------------------ */
+.v3c.lk-page figure { margin:0; }
+.v3c.lk-page .lk-images { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.v3c.lk-page .lk-images figure { border-radius:18px; background:#fff; overflow:hidden; color:var(--txt); }
+.v3c.lk-page .lk-images img { display:block; width:100%; height:auto; }
+.v3c.lk-page .lk-images figcaption { padding:18px 22px; font-size:14.5px; line-height:1.6; color:var(--txt-mid); }
+.v3c.lk-page .lk-geschikt { margin-top:16px; }
+.v3c.lk-page .sr .lk-geschikt .kaart { color:var(--txt); }
+.v3c.lk-page .sr .lk-geschikt .kaart h3 { color:var(--txt); }
+.v3c.lk-page .lk-note { font-size:12.5px; line-height:1.7; color:var(--txt-mid); margin:18px 0 0; }
+.v3c.lk-page .sr .lk-note { color:rgba(255,255,255,.7); }
+
+/* Huurblok onder de stappen. */
+.v3c.lk-page .lk-related { margin-top:28px; background:var(--bg-alt); border-radius:18px; padding:28px; display:flex; align-items:center; justify-content:space-between; gap:28px; }
+.v3c.lk-page .lk-related h3 { font-size:20px; font-weight:800; margin:0 0 8px; }
+.v3c.lk-page .lk-related p { color:var(--txt-mid); font-size:15.5px; line-height:1.7; margin:0; max-width:720px; }
+
+/* ------------------------------------------------------------------ */
+/* Verzekeringsblok                                                     */
+/* ------------------------------------------------------------------ */
+/* Op rood, met witte kaarten: dezelfde opbouw als `.lk-geschikt`, maar met een
+   genummerde volgorde, want dit ís een volgorde — eerst aangeven, dan bewijs
+   verzamelen, dan de factuur. De slotregel blijft voorzichtig: wat een polis
+   vergoedt weten wij niet, en dat hoort op het scherm te staan. */
+.v3c.lk-page .lk-polis { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.v3c.lk-page .lk-polis .kaart { background:#fff; color:var(--txt); }
+.v3c.lk-page .lk-polis .kaart h3 { color:var(--txt); }
+.v3c.lk-page .lk-polis ul { list-style:none; margin:10px 0 0; padding:0; display:grid; gap:7px; }
+.v3c.lk-page .lk-polis li { display:flex; gap:9px; font-size:13.5px; line-height:1.6; color:var(--txt-mid); }
+.v3c.lk-page .lk-polis li svg { flex:none; margin-top:4px; color:var(--red); }
+.v3c.lk-page .lk-polis .kaart { position:relative; overflow:hidden; }
+.v3c.lk-page .lk-polis .num { width:34px; height:34px; font-size:15px; }
+/* Het icoon is versiering achter de tekst, geen tweede nummering: het nummer
+   draagt de volgorde. Daarom licht en aria-hidden. */
+.v3c.lk-page .lk-polis-ic { position:absolute; top:22px; right:20px; color:var(--red); opacity:.18; }
+.v3c.lk-page .lk-polis-meer { display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-top:22px; }
+.v3c.lk-page .sr .lk-polis-meer + .lk-note { margin-top:16px; }
+
+/* "Kies dit bij:" boven elke lijst van de keuzehulp. Zonder die regel waren het
+   twee kolommen met vinkjes waarvan niet te zien was of ze voorwaarden of
+   voordelen opsomden. */
+.v3c.lk-page .vscard .vskies { font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--txt-mid); margin:0 0 10px; }
+
+@media(max-width:860px) {
+  .v3c.lk-page .lk-images { grid-template-columns:1fr; }
+  .v3c.lk-page .lk-polis { grid-template-columns:1fr; }
+  .v3c.lk-page .lk-related { flex-direction:column; align-items:flex-start; }
+}

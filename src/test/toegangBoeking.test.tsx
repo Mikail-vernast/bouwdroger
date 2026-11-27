@@ -25,11 +25,11 @@ describe("toegang kiezen bij de boeking", () => {
     const choices = within(screen.getByRole("group", { name: "Hoe bereiken we de verdiepingen?" }));
     const buttons = choices.getAllByRole("button");
     expect(buttons).toHaveLength(4);
-    expect(choices.getByRole("button", { name: /Via de trap/ }).textContent).toContain("Inbegrepen");
-    expect(choices.getByRole("button", { name: /Via de lift/ }).textContent).toContain("Inbegrepen");
-    expect(choices.getByRole("button", { name: /Via een ladder/ }).textContent).toContain("+ € 39 eenmalig");
+    expect(choices.getByRole("button", { name: /^Trap/ }).textContent).toContain("Inbegrepen");
+    expect(choices.getByRole("button", { name: /^Lift/ }).textContent).toContain("Inbegrepen");
+    expect(choices.getByRole("button", { name: /^Ladder/ }).textContent).toContain("+ € 39 eenmalig");
     expect(choices.getByRole("button", { name: /Niets voorzien/ }).textContent).toContain("+ € 115 eenmalig");
-    for (const label of [/Via de trap/, /Via de lift/, /Via een ladder/, /Niets voorzien/]) {
+    for (const label of [/^Trap/, /^Lift/, /^Ladder/, /Niets voorzien/]) {
       const button = choices.getByRole("button", { name: label });
       expect(button.querySelector("img")?.getAttribute("src")).toMatch(/\.webp$/);
       fireEvent.click(button);

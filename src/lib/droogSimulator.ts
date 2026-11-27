@@ -26,7 +26,6 @@ import {
   DEFAULT_PD,
   PD_VALUES,
   SIZE_VALUES,
-  allItems,
   baseItems,
   configPrice,
   configWeeks,
@@ -36,7 +35,7 @@ import {
   type PackageConfig,
   type PackageItem,
 } from "./verhuur.js";
-import { droogTempo, type Tempo } from "./droogTempo.js";
+import { droogTempo } from "./droogTempo.js";
 import type { Taal } from "../i18n/taal.js";
 // The house itself (types, footprints, floor plans, devices per room) lives in src/huis3d/woning.ts,
 // shared with the damp simulator in Vernast-v2.0. This file only adds the rental and pricing rules.
@@ -44,7 +43,6 @@ export * from "../huis3d/woning.js";
 import {
   BREEDTES,
   Dak,
-  DeviceKey,
   Fase,
   MAX_KAMERS,
   MAX_VERDIEPINGEN,
@@ -69,8 +67,6 @@ export interface SimAnswers {
   fase: Fase;
   /** true = er wordt al verwarmd, dus geen kachels in het pakket */
   verwarmt: boolean;
-  /** how fast it has to be dry; sets the number of driers and the rental term */
-  tempo?: Tempo;
   /** rooms in total, from the floor plan; drives fans and inner-wall plaster */
   ruimtes?: number;
 }
@@ -140,8 +136,6 @@ export interface SimResultaat {
   dagen: number;
   capaciteit: number;
   luchtverzet: number;
-  /** toestellen bovenop het vaste pakket (bij "snel"); gaan mee naar de boeking */
-  extra: Partial<Record<DeviceKey, number>>;
   /** liter water dat de woning verlaat: een schatting uit het rekenmodel, alleen voor de film */
   water: number;
 }
@@ -155,9 +149,9 @@ export interface SimResultaat {
  * checkout aanrekende (rijwoning "rustig": € 719,55 in de simulator, € 596,40
  * bij het boeken).
  *
- * Het tempo kan de termijn niet verschuiven, die ligt per pakket vast. "Snel"
- * zet er een droger bij, als extra toestel zoals de boekingspagina dat kent en
- * de checkout server-side herrekent. Het rekenmodel (droogTempo) levert alleen
+ * De tempokeuze is er op 26-11-2026 uit: ze werd niet meer gevraagd, kon de
+ * termijn toch niet verschuiven (die ligt per pakket vast) en zette bij "snel"
+ * een droger bovenop het pakket. Het rekenmodel (droogTempo) levert hier alleen
  * nog de geschatte liters voor de film.
  */
 export function simResultaat(a: SimAnswers): SimResultaat | null {
@@ -165,10 +159,7 @@ export function simResultaat(a: SimAnswers): SimResultaat | null {
   const opp = Number(a.size);
   if (!Number.isFinite(opp) || opp <= 0) return null;
   const config = toPackageConfig(a);
-  const basis = baseItems(config);
-  const extra: Partial<Record<DeviceKey, number>> =
-    a.tempo === "snel" ? { [basis.some((it) => it.k === "medium") || !basis.some((it) => it.k === "small") ? "medium" : "small"]: 1 } : {};
-  const items = allItems(config, extra);
+  const items = baseItems(config);
   const weken = configWeeks(config);
   const { water } = droogTempo({
     type: a.woning,
@@ -181,7 +172,6 @@ export function simResultaat(a: SimAnswers): SimResultaat | null {
     cd: a.wat === "waterschade" ? WATERSCHADE_CM : Number(config.cd),
     pd: Number(config.pd),
     verwarmt: a.verwarmt,
-    tempo: "gemiddeld",
   });
   return {
     config: { ...config, weeks: weken },
@@ -191,7 +181,6 @@ export function simResultaat(a: SimAnswers): SimResultaat | null {
     dagen: dryingDays(config),
     capaciteit: totalCapacity(items),
     luchtverzet: totalAirflow(items),
-    extra,
     water,
   };
 }

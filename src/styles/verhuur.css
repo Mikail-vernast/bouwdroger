@@ -907,6 +907,9 @@
 .vh-book .fld select{width:100%;padding:13px 14px;border:1.5px solid var(--line-2);border-radius:11px;font-family:var(--fb);font-size:14.5px;color:var(--txt);background:#fff}
 .vh-book .fld input:focus,
 .vh-book .fld select:focus{outline:2px solid rgba(200,16,46,.22);border-color:var(--red)}
+/* Voetnoot onder een veld: de avonduren mogen gekozen worden, maar mogen er
+   niet uitzien als een vastgelegd uur. Vandaar klein en grijs. */
+.vh-book .fldn{display:block;margin-top:7px;font-size:12px;line-height:1.5;color:var(--txt-dim)}
 .vh-book .ktype{display:inline-flex;background:var(--bg-alt,#F1EFEF);border-radius:99px;padding:4px;margin-bottom:18px}
 .vh-book .ktype button{font-family:var(--fb);font-weight:700;font-size:13.5px;padding:10px 22px;border-radius:99px;border:0;background:transparent;color:var(--txt-mid);cursor:pointer;transition:all .15s}
 .vh-book .ktype button.active{background:var(--red);color:#fff}
