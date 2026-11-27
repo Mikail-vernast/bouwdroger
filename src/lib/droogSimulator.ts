@@ -46,7 +46,9 @@ import {
   Dak,
   DeviceKey,
   Fase,
+  LAGEN_PER_FASE,
   MAX_KAMERS,
+  MAX_VERDIEPINGEN,
   MIN_KAMERS,
   WONING,
   Wat,
@@ -110,6 +112,52 @@ export function geschatteOppervlakte(woning: Woning, verdiepingen: number): numb
 export function snapOppervlakte(m2: number): string {
   const hit = SIZE_VALUES.find((s) => Number(s) >= m2);
   return hit ?? "custom";
+}
+
+/**
+ * De catalogusmaat voor de werfsimulator: zoals `snapOppervlakte`, maar nooit
+ * boven het grootste pakket. Die simulator biedt geen maatwerk aan, zodat elke
+ * keuze op een pakket uit de catalogus uitkomt; een woning die groter geschat
+ * wordt, begint op de grootste stand.
+ */
+export function pakketMaat(m2: number): string {
+  const hit = snapOppervlakte(m2);
+  return hit === "custom" ? SIZE_VALUES[SIZE_VALUES.length - 1] : hit;
+}
+
+/**
+ * Hoeveel bouwlagen de werfsimulator per woningtype toelaat: zoveel als er passen
+ * zonder dat de geschatte oppervlakte boven het grootste pakket uitkomt (open
+ * bebouwing met vier lagen wordt ± 374 m²). Een appartement heeft er hoogstens twee.
+ * Zo begint de schuif nooit op een maat die de catalogus niet heeft.
+ */
+export function maxBouwlagen(woning: Woning): number {
+  const plafond = woning === "appartement" ? 2 : MAX_VERDIEPINGEN;
+  const grootste = Number(SIZE_VALUES[SIZE_VALUES.length - 1]);
+  let n = 1;
+  while (n < plafond && geschatteOppervlakte(woning, n + 1) <= grootste) n++;
+  return n;
+}
+
+/**
+ * Wat er nat is, afgeleid uit de fase en de twee diktes: alleen de lagen die er in
+ * die fase liggen tellen ("geen" laat een laag weg). Zonder lagen (ruwbouw, ramen)
+ * is het regenwater in de ruwbouw: het waterschadepakket. Null als niets nat is.
+ */
+export function watVoor(fase: Fase, pd: string, cd: string): Wat | null {
+  const lagen = LAGEN_PER_FASE[fase];
+  if (lagen.length === 0) return "waterschade";
+  const muur = lagen.includes("pd") && pd !== "geen";
+  const vloer = lagen.includes("cd") && cd !== "geen";
+  return muur && vloer ? "beide" : muur ? "pleister" : vloer ? "chape" : null;
+}
+
+/**
+ * Een gekozen laagdikte als geldige catalogusdikte: "weet ik niet" en "geen" (die
+ * laag telt niet mee, zie `watVoor`) worden de standaarddikte.
+ */
+export function laagWaarde(v: string, standaard: string): string {
+  return v === "onbekend" || v === "geen" ? standaard : v;
 }
 
 export function isMaatwerk(a: Pick<SimAnswers, "size">): boolean {

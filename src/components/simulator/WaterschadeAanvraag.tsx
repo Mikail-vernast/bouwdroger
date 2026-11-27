@@ -61,13 +61,15 @@ const OORZAAK_FOTO: Record<Exclude<Keuze["oorzaak"], "anders">, string> = {
 };
 
 interface Props {
-  /** Terug naar de keuze werf of waterschade. */
+  /** Terug vanaf de eerste vraag: de simulator verlaten. */
   onTerug: () => void;
+  /** "Naar het begin" na het versturen: opnieuw beginnen. Zonder deze prop: onTerug. */
+  onOpnieuw?: () => void;
   /** Meldt elke wijziging, zodat het 3D-huis de natte verdiepingen kan tonen. */
   onWijzig?: (antwoorden: Antwoorden) => void;
 }
 
-export default function WaterschadeAanvraag({ onTerug, onWijzig }: Props) {
+export default function WaterschadeAanvraag({ onTerug, onOpnieuw, onWijzig }: Props) {
   const t = useCopy(COPY);
   const taal = useTaal();
   const [scherm, setScherm] = useState<Scherm>(0);
@@ -160,7 +162,7 @@ export default function WaterschadeAanvraag({ onTerug, onWijzig }: Props) {
           </div>
         </div>
         <div className="ds-foot">
-          <button type="button" className="ds-back" onClick={onTerug}>{t.naarBegin}</button>
+          <button type="button" className="ds-back" onClick={onOpnieuw ?? onTerug}>{t.naarBegin}</button>
         </div>
       </>
     );

@@ -192,6 +192,11 @@ export const SEO_FR: Record<SeoSleutel, SeoEntry> = {
     description:
       "Choisissez votre logement, les niveaux, chape ou plafonnage et la phase du chantier. Voyez quel appareil va dans quelle pièce et le prix du pack de séchage.",
   },
+  verhuurWaterschadeSimulator: {
+    title: "Simulateur dégâts des eaux : où est-ce mouillé ? | Vernast",
+    description:
+      "Fuite, inondation ou eau d'extinction ? Indiquez dans la maison 3D où c'est mouillé et demandez de l'aide. Livraison des appareils en 24 heures.",
+  },
   verhuurAfhalen: {
     title: "Location d'appareils à enlever à Aartselaar | Vernast",
     description:

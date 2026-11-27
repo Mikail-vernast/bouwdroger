@@ -79,6 +79,9 @@
 /* .ds-sim ervoor: .vh-calc h2 (verhuur.css) weegt even zwaar en wint in de productiebuild, waar dat blad later laadt. */
 .ds-sim .ds-body h2{margin:0;font-weight:800;font-size:clamp(22px,3.4dvh,34px);line-height:1.1;letter-spacing:-.02em;text-wrap:balance;color:var(--ink)}
 .ds-sub{margin:-4px 0 0;font-size:clamp(13px,1.7dvh,15px);line-height:1.45;color:var(--mid)}
+/* Link op de eerste vraag van de werfsimulator naar de waterschadesimulator. */
+.ds-naar-ws{align-self:flex-start;font-size:13px;font-weight:600;color:var(--mid);text-decoration:underline;text-underline-offset:3px}
+.ds-naar-ws:hover{color:inherit}
 /*
   Geen hoofdletters meer. "VERDIEPEN BOVEN HET GELIJKVLOERS" op 11 px met
   letterspatiëring is een strookje dat je wegscant; het is een vraag, dus het

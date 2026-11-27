@@ -246,6 +246,11 @@ export const SEO = {
     description:
       "Kies uw woning, bouwlagen, chape of pleisterwerk en de bouwfase. Zie meteen welke bouwdrogers in welke kamer komen te staan en wat het droogpakket kost.",
   },
+  verhuurWaterschadeSimulator: {
+    title: "Waterschade droogsimulator: toon waar het nat is | Vernast",
+    description:
+      "Lek, overstroming of bluswater? Duid in de 3D-woning aan waar het nat is en vraag meteen hulp aan. Wij plannen de bouwdrogers en leveren binnen 24 uur.",
+  },
   verhuurAfhalen: {
     title: "Losse toestellen huren en afhalen in Aartselaar | Vernast",
     description:
