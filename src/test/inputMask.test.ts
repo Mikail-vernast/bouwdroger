@@ -9,6 +9,8 @@ import {
   maskName,
   maskPhone,
   maskPostcode,
+  maskBtw,
+  maskBedrijf,
   maskStreet,
   normalizePhone,
 } from "@/lib/inputMask";
@@ -156,5 +158,34 @@ describe("isValidHouseNumber", () => {
   it("eist minstens één cijfer vooraan", () => {
     expect(isValidHouseNumber("7")).toBe(true);
     expect(isValidHouseNumber("")).toBe(false);
+  });
+});
+
+describe("maskBtw", () => {
+  it("zet een Belgisch btw-nummer in de vorm BE 0123.456.789", () => {
+    expect(maskBtw("be0123456789")).toBe("BE 0123.456.789");
+    expect(maskBtw("BE 0123.456.789")).toBe("BE 0123.456.789");
+    expect(maskBtw("0123456789")).toBe("BE 0123.456.789");
+  });
+  it("groepeert al tijdens het typen", () => {
+    expect(maskBtw("BE")).toBe("BE");
+    expect(maskBtw("BE0123")).toBe("BE 0123");
+    expect(maskBtw("BE012345")).toBe("BE 0123.45");
+  });
+  it("laat niet meer dan tien Belgische cijfers toe", () => {
+    expect(maskBtw("BE01234567891234")).toBe("BE 0123.456.789");
+  });
+  it("laat een buitenlands btw-nummer in hoofdletters staan", () => {
+    expect(maskBtw("nl 123456789 b01")).toBe("NL123456789B01");
+  });
+});
+
+describe("maskBedrijf", () => {
+  it("laat de tekens van een bedrijfsnaam staan", () => {
+    expect(maskBedrijf("Bouw & Co. (Gent) BV")).toBe("Bouw & Co. (Gent) BV");
+    expect(maskBedrijf("De Smet-Peeters' bvba")).toBe("De Smet-Peeters' bvba");
+  });
+  it("haalt vreemde tekens en dubbele spaties weg", () => {
+    expect(maskBedrijf("  Vernast <script>  bv")).toBe("Vernast script bv");
   });
 });
