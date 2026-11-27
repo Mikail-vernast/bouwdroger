@@ -73,18 +73,26 @@ export function zoekPlaatsen(lijst: PlaatsLijst, invoer: string, max = 7): Plaat
 
   if (/^\d+$/.test(q)) {
     if (q.length > 4) return [];
-    const uit: Plaats[] = [];
-    const gezien = new Set<string>();
+    // Elke plaats op de postcode, niet alleen de bekendste: op 2500 liggen Lier
+    // én Koningshooikt, en wie in Lier bouwt, moet Lier kunnen kiezen.
+    const uit: (Plaats & { gewicht: number })[] = [];
     for (const land of LANDEN) {
-      for (const [, p] of lijst[land]) {
-        if (!p.startsWith(q) || gezien.has(land + p)) continue;
-        gezien.add(land + p);
-        uit.push({ land, postcode: p, naam: hoofdnaam(lijst[land], p) ?? "" });
+      for (const [naam, p] of lijst[land]) {
+        if (p.startsWith(q)) uit.push({ land, postcode: p, naam, gewicht: gewicht(lijst[land], naam) });
       }
     }
-    // Een volledige postcode die in beide landen bestaat: België eerst, dat is
-    // waar de meeste werven liggen.
-    return uit.sort((a, b) => a.postcode.localeCompare(b.postcode) || a.land.localeCompare(b.land)).slice(0, max);
+    // Per postcode België eerst (daar liggen de meeste werven), dan de naam met
+    // de meeste postcodes: Liège vóór Glain op 4000.
+    return uit
+      .sort(
+        (a, b) =>
+          a.postcode.localeCompare(b.postcode) ||
+          a.land.localeCompare(b.land) ||
+          b.gewicht - a.gewicht ||
+          a.naam.localeCompare(b.naam, "nl"),
+      )
+      .slice(0, max)
+      .map(({ land, postcode, naam }) => ({ land, postcode, naam }));
   }
 
   const kandidaten = new Map<string, Plaats & { score: number; gewicht: number }>();
