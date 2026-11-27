@@ -237,6 +237,9 @@ export function DroogSimulator({ soort }: { soort: "werf" | "water" }) {
   useEffect(() => {
     // Alleen de werf kiest een woningtype; de waterschade toont altijd dezelfde halfopen woning.
     if (soort !== "werf" || stap !== 0) return;
+    // Op een aanraakscherm niet allemaal vooraf: wie een tegel aanraakt, haalt die ene straat al
+    // binnen vóór de tik verwerkt is (onPointerDown). Dat scheelt een gsm ± 180 kB bij het openen.
+    if (window.matchMedia("(pointer: coarse)").matches) return;
     const b = budget3D();
     if (b === "geen" || b === "zuinig") return;
     const haal = () => (Object.keys(WONING) as Woning[]).forEach(laadStraatVan);
@@ -281,9 +284,11 @@ export function DroogSimulator({ soort }: { soort: "werf" | "water" }) {
   // Waterschade toont een bewoonde, afgewerkte woning; nat zodra er een plek aangevinkt is.
   const materiaal = soort === "water"
     ? materiaalVoor(wsPlekken.length ? "waterschade" : null, "afgewerkt", 1)
-    // Stap 1 en 2 (woning, opbouw en kamers): een afgewerkte, ingerichte woning, zodat de bezoeker
-    // zijn kamers herkent terwijl hij ze telt. Vanaf de bouwfase toont het huis de werf van die fase.
-    : materiaalVoor(stap >= 3 ? wat : null, stap >= 2 ? s.fase : "afgewerkt", FASE[antwoorden.fase].vocht);
+    // Opbouw en kamers (stap 2): een afgewerkte, ingerichte woning, zodat de bezoeker zijn kamers
+    // herkent terwijl hij ze telt. Vanaf de bouwfase toont het huis de werf van die fase. Niet al bij
+    // de woningvraag: daar is het huis dicht, en "afgewerkt" laat de 3D het meubelmodel (± 650 kB)
+    // binnenhalen terwijl de vragen nog moeten laden.
+    : materiaalVoor(stap >= 3 ? wat : null, stap >= 2 ? s.fase : stap === 1 ? "afgewerkt" : null, FASE[antwoorden.fase].vocht);
 
   // Het droogplan speelt als film (zie droogfilm): eerst plaatsen van onder naar
   // boven, dan drogen van boven naar beneden, en daarna staat de woning droog en
@@ -849,10 +854,16 @@ export function DroogSimulator({ soort }: { soort: "werf" | "water" }) {
                 </button>
               ) : resultaat ? (
                 /* De knop naar het pakket staat in het droogplan zelf; hier blijft
-                   alleen "opnieuw", anders staan er twee knoppen die hetzelfde doen. */
+                   alleen "opnieuw". Op een gsm past hij daar niet onder de lijst: dan
+                   staat hij hier, tussen Terug en Opnieuw (CSS toont er telkens één). */
+                <>
+                <Link className="ds-plan-knop ds-plan-knop--voet" to={lp(`/verhuur/pakket?${configToQuery(resultaat.config)}${extraNaarQuery(resultaat.extra)}`)}>
+                  {t.planKnop} <span aria-hidden="true">→</span>
+                </Link>
                 <button className="ds-rond ds-rond--rechts" type="button" aria-label={t.opnieuwBeginnen} title={t.opnieuw} onClick={() => { setS(START); naar(0); }}>
                   <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M4 10a6 6 0 1 0 2-4.5M4 3v3.5h3.5" /></svg>
                 </button>
+                </>
               ) : (
                 <button
                   className="ds-back ds-back--rechts"
