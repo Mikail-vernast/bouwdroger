@@ -186,6 +186,8 @@ export function DroogSimulator({ soort }: { soort: "werf" | "water" }) {
   const [s, setS] = useState<State>(START);
   /** Wat de bezoeker bij waterschade aanvinkte: de natte verdiepingen kleuren in het 3D-huis. */
   const [ws, setWs] = useState<Pick<WsAntwoorden, "plekken" | "nat"> | null>(null);
+  /** Telt op bij "naar het begin" na een verstuurde aanvraag: de aanvraag begint dan opnieuw. */
+  const [wsRonde, setWsRonde] = useState(0);
   const [stap, setStap] = useState(0);
   const [actief, setActief] = useState(0);
   const [handmatig, setHandmatig] = useState(false);
@@ -232,7 +234,8 @@ export function DroogSimulator({ soort }: { soort: "werf" | "water" }) {
     [lagen],
   );
   useEffect(() => {
-    if (stap !== 0) return;
+    // Alleen de werf kiest een woningtype; de waterschade toont altijd dezelfde halfopen woning.
+    if (soort !== "werf" || stap !== 0) return;
     const b = budget3D();
     if (b === "geen" || b === "zuinig") return;
     const haal = () => (Object.keys(WONING) as Woning[]).forEach(laadStraatVan);
@@ -241,7 +244,7 @@ export function DroogSimulator({ soort }: { soort: "werf" | "water" }) {
     if (document.readyState === "complete") na();
     else window.addEventListener("load", na, { once: true });
     return () => { window.removeEventListener("load", na); window.clearTimeout(t); };
-  }, [stap, laadStraatVan]);
+  }, [soort, stap, laadStraatVan]);
   // Wat de bezoeker koos, maar nooit meer kamers dan er op die bouwlaag passen: naast
   // elkaar langs de gevel (bv. na een wissel van open bebouwing naar rijwoning), en
   // binnen de gekozen oppervlakte (40 m² over twee lagen heeft geen acht kamers).
@@ -543,7 +546,12 @@ export function DroogSimulator({ soort }: { soort: "werf" | "water" }) {
 
             {soort === "water" ? (
               // Terug vanaf de eerste vraag (of na het versturen): naar de waterschadepagina.
-              <WaterschadeAanvraag onTerug={() => navigate(lp("/waterschade"))} onWijzig={(a) => setWs({ plekken: a.plekken, nat: a.nat })} />
+              <WaterschadeAanvraag
+                key={wsRonde}
+                onTerug={() => navigate(lp("/waterschade"))}
+                onOpnieuw={() => { setWs(null); setWsRonde((r) => r + 1); }}
+                onWijzig={(a) => setWs({ plekken: a.plekken, nat: a.nat })}
+              />
             ) : (
             <>
             <div className="ds-body" key={`${stap}-${toonDak ? 0 : 1}`}>
