@@ -2266,7 +2266,24 @@
   .ds-plan-lijst span:not(.ds-plan-geenbeeld){font-size:13px}
   .ds-plan-lijst b{font-size:15px}
   .ds-plan-knop{padding:12px;font-size:14px}
+  /* Op een gsm is het paneel onder de tekening laag: de knop onderaan het plan liep
+     over Terug en Opnieuw heen. Daar staat hij nu tussen die twee, in de voet; het
+     plan zelf toont alleen de lijst. Past ook die niet, dan schuift ze binnen haar
+     eigen vak in plaats van over de knoppen. */
+  .ds-plan .ds-plan-knop,.ds-plan .ds-plan-knopsub{display:none}
+  .ds-sim[data-stap="4"] .ds-body{overflow-y:auto;overscroll-behavior:contain}
+  .ds-plan-knop--voet{display:flex;flex:1;min-width:0;margin:0;padding:13px 14px;background:#141414;color:#fff!important}
+  .ds-plan-knop--voet:hover{color:#fff}
 }
+.ds-plan-knop--voet{display:none}
+@media (max-width:899px){ .ds-plan-knop--voet{display:flex} }
+/* Een laag paneel (iPhone SE en kleiner): de lijst compacter, zodat ze nog in één keer past. */
+@media (max-width:899px){ @container paneel (max-height:420px){
+  .ds-plan{padding-block:10px 8px}
+  .ds-plan-sub{display:none}
+  .ds-plan-lijst{margin-top:6px}
+  .ds-plan-lijst li{padding:4px 0}
+} }
 
 /* ───── stap 2: het dak als drie grote kaarten ─────────────────────────
   Ontwerp G, gekozen op 23-11-2026. Het dak is het enige in deze stap dat je
