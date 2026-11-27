@@ -176,7 +176,7 @@ const DroogPakketten = () => {
           <Button
             size="lg"
             className="font-bold"
-            onClick={() => navigate("/verhuur/calculator")}
+            onClick={() => navigate("/verhuur/simulator")}
           >
             Gratis Calculator
           </Button>

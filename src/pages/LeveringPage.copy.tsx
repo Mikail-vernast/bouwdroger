@@ -120,7 +120,7 @@ export const LEVERING_COPY = {
         pt: (lp, s) => (
           <>
             We overlopen de woning en verdelen ze in droogzones: welke ruimtes moeten drogen, hoe zijn ze verbonden en waar zit het meeste vocht? Daarna controleren we elektriciteit, afvoermogelijkheden en omstandigheden. Wijkt de situatie sterk af van uw{" "}
-            <a href={lp("/verhuur/calculator")} style={s}>berekening</a>, dan bespreken we dat eerst.
+            <a href={lp("/verhuur/simulator")} style={s}>berekening</a>, dan bespreken we dat eerst.
           </>
         ),
         chips: ["Droogzones", "Elektriciteit", "Afvoer", "Temperatuur"],
@@ -140,7 +140,7 @@ export const LEVERING_COPY = {
         pt: (lp, s, pomp) => (
           <>
             Kiest u de <a href={lp("/verhuur/toebehoren/condenspomp")} style={s}>condenspomp</a> ({pomp} per bouwdroger per dag), dan sluiten we een continue condensafvoer aan naar een afvoer, douche, lavabo of vloerput. Zo hoeft u geen reservoirs te legen en draait het toestel dag en nacht door, ook in het weekend. Zonder pomp leegt u het reservoir zelf gemiddeld 2 keer per dag. Optioneel, maar aangeraden: u voegt de pomp toe tijdens het{" "}
-            <a href={lp("/verhuur/calculator")} style={s}>berekenen van uw pakket</a>.
+            <a href={lp("/verhuur/simulator")} style={s}>berekenen van uw pakket</a>.
           </>
         ),
         chips: ["Geen kuip legen", "24/7 doorwerken", "Proper condenswater"],
@@ -305,7 +305,7 @@ export const LEVERING_COPY = {
         pt: (lp, s) => (
           <>
             Nous parcourons l'habitation et la divisons en zones de séchage&nbsp;: quelles pièces doivent sécher, comment sont-elles reliées et où se trouve le plus d'humidité&nbsp;? Ensuite, nous contrôlons l'électricité, les possibilités d'évacuation et les conditions. Si la situation s'écarte fortement de votre{" "}
-            <a href={lp("/verhuur/calculator")} style={s}>calcul</a>, nous en discutons d'abord.
+            <a href={lp("/verhuur/simulator")} style={s}>calcul</a>, nous en discutons d'abord.
           </>
         ),
         chips: ["Zones de séchage", "Électricité", "Évacuation", "Température"],
@@ -325,7 +325,7 @@ export const LEVERING_COPY = {
         pt: (lp, s, pomp) => (
           <>
             Si vous choisissez la <a href={lp("/verhuur/toebehoren/condenspomp")} style={s}>pompe à condensats</a> ({pomp} par déshumidificateur par jour), nous raccordons une évacuation continue des condensats vers un égout, une douche, un lavabo ou un siphon de sol. Vous n'avez plus de réservoir à vider et l'appareil tourne jour et nuit, même le week-end. Sans pompe, vous videz vous-même le réservoir en moyenne 2 fois par jour. En option, mais recommandé&nbsp;: vous ajoutez la pompe lors du{" "}
-            <a href={lp("/verhuur/calculator")} style={s}>calcul de votre pack</a>.
+            <a href={lp("/verhuur/simulator")} style={s}>calcul de votre pack</a>.
           </>
         ),
         chips: ["Pas de bac à vider", "Fonctionne 24 h/24", "Eau de condensation propre"],
@@ -495,7 +495,7 @@ export const LEVERING_COPY = {
         pt: (lp, s) => (
           <>
             We go through the home and divide it into drying zones: which rooms need drying, how are they connected and where is the most moisture? Then we check the electrics, drainage options and conditions. If the situation differs greatly from your{" "}
-            <a href={lp("/verhuur/calculator")} style={s}>calculation</a>, we discuss that first.
+            <a href={lp("/verhuur/simulator")} style={s}>calculation</a>, we discuss that first.
           </>
         ),
         chips: ["Drying zones", "Electrics", "Drainage", "Temperature"],
@@ -515,7 +515,7 @@ export const LEVERING_COPY = {
         pt: (lp, s, pomp) => (
           <>
             If you choose the <a href={lp("/verhuur/toebehoren/condenspomp")} style={s}>condensate pump</a> ({pomp} per dehumidifier per day), we connect a continuous condensate drain to a drain, shower, washbasin or floor drain. That way you never have to empty a tank and the machine keeps running day and night, weekends included. Without a pump you empty the tank yourself about twice a day. Optional, but recommended: you add the pump when{" "}
-            <a href={lp("/verhuur/calculator")} style={s}>calculating your package</a>.
+            <a href={lp("/verhuur/simulator")} style={s}>calculating your package</a>.
           </>
         ),
         chips: ["No tray to empty", "Runs 24/7", "Clean condensate"],

@@ -141,7 +141,7 @@ const NotFound = () => {
           <h1>{t.h1}</h1>
           <p className="nf-lead">{t.lead}</p>
           <div className="nf-btns">
-            <Link className="nf-btn nf-btn-r" to={lp("/verhuur/calculator")}>
+            <Link className="nf-btn nf-btn-r" to={lp("/verhuur/simulator")}>
               {t.primair} <span aria-hidden="true">→</span>
             </Link>
             <Link className="nf-btn nf-btn-o" to={lp("/")}>

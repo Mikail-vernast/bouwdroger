@@ -155,7 +155,7 @@ const ContactBlok = ({
               <AanvraagError error={error} mailto={mailto} />
               <div className="fsend">
                 <small>
-                  {t.privacy} <Link to={lp("/verhuur/calculator")}>{t.bereken}</Link>.
+                  {t.privacy} <Link to={lp("/verhuur/simulator")}>{t.bereken}</Link>.
                 </small>
                 <div className="fbtns">
                   <a className="btn btn-line" href={`tel:${CONTACT.phoneE164}`}>

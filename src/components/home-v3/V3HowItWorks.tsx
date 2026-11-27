@@ -83,9 +83,9 @@ const COPY = {
         step: "Stap 01",
         tab: "Bereken uw pakket",
         heading: "U berekent, wij dimensioneren.",
-        body: "Geef uw oppervlakte, plafondhoogte en situatie in. De Calculator berekent uw volume en stelt het exacte pakket samen: toestellen, droogtijd en één all-in prijs.",
-        linkLabel: "Start de Calculator →",
-        linkTo: "/verhuur/calculator",
+        body: "Kies uw woning, de verdiepingen, de bouwfase en wat er moet drogen. De droogsimulator stelt het exacte pakket samen: toestellen, droogtijd en één all-in prijs.",
+        linkLabel: "Start de droogsimulator →",
+        linkTo: "/verhuur/simulator",
       },
       {
         step: "Stap 02",
@@ -93,7 +93,7 @@ const COPY = {
         heading: "Boeken, betalen en inplannen in één flow.",
         body: "U kiest uw leverdatum en installatiemoment, betaalt veilig online en ontvangt meteen uw bevestiging. Geen offertes, geen telefoontjes nodig.",
         linkLabel: "Bekijk hoe het boeken werkt →",
-        linkTo: "/verhuur/calculator",
+        linkTo: "/verhuur/simulator",
       },
       {
         step: "Stap 03",
@@ -101,7 +101,7 @@ const COPY = {
         heading: "Wij leveren, plaatsen en stellen af.",
         body: "Geleverd op uw gekozen datum. Onze technicus positioneert de toestellen, sluit de condensafvoer aan en stelt de streefvochtigheid in. U hoeft niets te tillen.",
         linkLabel: "Alles over levering →",
-        linkTo: "/verhuur/calculator",
+        linkTo: "/verhuur/simulator",
       },
       {
         step: "Stap 04",
@@ -118,7 +118,7 @@ const COPY = {
         heading: "Droog gemeten? Wij halen alles op.",
         body: "De eindmeting bevestigt dat uw woning 100% droog is. Wij plannen de ophaling en sluiten de huur af. Niet droog? Dan verlengt u maximaal kosteloos.",
         linkLabel: "Gratis Calculator →",
-        linkTo: "/verhuur/calculator",
+        linkTo: "/verhuur/simulator",
       },
     ],
     mock: {
@@ -160,9 +160,9 @@ const COPY = {
         step: "Étape 01",
         tab: "Calculez votre pack",
         heading: "Vous calculez, nous dimensionnons.",
-        body: "Indiquez votre surface, la hauteur sous plafond et votre situation. Le calculateur détermine votre volume et compose le pack exact : appareils, durée de séchage et un prix tout compris.",
-        linkLabel: "Lancer le calculateur →",
-        linkTo: "/verhuur/calculator",
+        body: "Choisissez votre logement, les étages, la phase du chantier et ce qui doit sécher. Le simulateur compose le pack exact : appareils, durée de séchage et un prix tout compris.",
+        linkLabel: "Lancer le simulateur →",
+        linkTo: "/verhuur/simulator",
       },
       {
         step: "Étape 02",
@@ -170,7 +170,7 @@ const COPY = {
         heading: "Réserver, payer et planifier en un seul parcours.",
         body: "Vous choisissez votre date de livraison et le moment de l'installation, payez en ligne en toute sécurité et recevez immédiatement votre confirmation. Pas de devis, pas d'appels nécessaires.",
         linkLabel: "Voir comment se passe la réservation →",
-        linkTo: "/verhuur/calculator",
+        linkTo: "/verhuur/simulator",
       },
       {
         step: "Étape 03",
@@ -178,7 +178,7 @@ const COPY = {
         heading: "Nous livrons, installons et réglons.",
         body: "Livré à la date de votre choix. Notre technicien positionne les appareils, raccorde l'évacuation des condensats et règle l'humidité cible. Vous n'avez rien à porter.",
         linkLabel: "Tout sur la livraison →",
-        linkTo: "/verhuur/calculator",
+        linkTo: "/verhuur/simulator",
       },
       {
         step: "Étape 04",
@@ -195,7 +195,7 @@ const COPY = {
         heading: "Mesuré sec ? Nous reprenons tout.",
         body: "La mesure finale confirme que votre habitation est sèche à 100 %. Nous planifions l'enlèvement et clôturons la location. Pas sec ? Vous prolongez alors au maximum sans frais.",
         linkLabel: "Calculateur gratuit →",
-        linkTo: "/verhuur/calculator",
+        linkTo: "/verhuur/simulator",
       },
     ],
     mock: {
@@ -234,9 +234,9 @@ const COPY = {
         step: "Step 01",
         tab: "Calculate your package",
         heading: "You calculate, we size it.",
-        body: "Enter your floor area, ceiling height and situation. The Calculator works out your volume and puts together the exact package: units, drying time and one all-in price.",
-        linkLabel: "Start the Calculator →",
-        linkTo: "/verhuur/calculator",
+        body: "Choose your property, the floors, the building phase and what needs drying. The drying simulator puts together the exact package: units, drying time and one all-in price.",
+        linkLabel: "Start the drying simulator →",
+        linkTo: "/verhuur/simulator",
       },
       {
         step: "Step 02",
@@ -244,7 +244,7 @@ const COPY = {
         heading: "Booking, paying and scheduling in one flow.",
         body: "You choose your delivery date and installation slot, pay securely online and get your confirmation straight away. No quotes, no phone calls needed.",
         linkLabel: "See how booking works →",
-        linkTo: "/verhuur/calculator",
+        linkTo: "/verhuur/simulator",
       },
       {
         step: "Step 03",
@@ -252,7 +252,7 @@ const COPY = {
         heading: "We deliver, set up and adjust.",
         body: "Delivered on the date you choose. Our technician positions the units, connects the condensate drain and sets the target humidity. You do not have to lift a thing.",
         linkLabel: "All about delivery →",
-        linkTo: "/verhuur/calculator",
+        linkTo: "/verhuur/simulator",
       },
       {
         step: "Step 04",
@@ -269,7 +269,7 @@ const COPY = {
         heading: "Measured dry? We collect everything.",
         body: "The final reading confirms that your home is 100% dry. We schedule the collection and close the hire. Not dry? Then you extend at no extra cost, up to the maximum.",
         linkLabel: "Free Calculator →",
-        linkTo: "/verhuur/calculator",
+        linkTo: "/verhuur/simulator",
       },
     ],
     mock: {

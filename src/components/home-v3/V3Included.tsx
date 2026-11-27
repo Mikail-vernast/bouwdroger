@@ -300,7 +300,7 @@ const V3Included = () => {
         <div className="ob-body">
           <h3>{t.obH3}</h3>
           <p>{t.obP}</p>
-          <Link className="ob-btn" to={lp("/verhuur/calculator")}>
+          <Link className="ob-btn" to={lp("/verhuur/simulator")}>
             {t.obBtn}
             <ArrowRightIcon size={14} />
           </Link>

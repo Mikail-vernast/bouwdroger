@@ -106,9 +106,9 @@ const nl = {
   kaartMeer: (kort: string) => `Bekijk de ${kort}`,
   note: (lp: Lp): ReactNode => (
     <>
-      <b>Niet zeker welk formaat?</b> De <Link to={lp("/verhuur/calculator")}>droogcalculator</Link> rekent uit
+      <b>Niet zeker welk formaat?</b> De <Link to={lp("/verhuur/simulator")}>droogcalculator</Link> rekent uit
       hoeveel liter per dag uw ruimte nodig heeft. Wil u meteen een volledig pakket met ventilatoren en
-      levering, gebruik dan de <Link to={lp("/verhuur/calculator")}>droogcalculator</Link>. Alle bedragen per
+      levering, gebruik dan de <Link to={lp("/verhuur/simulator")}>droogcalculator</Link>. Alle bedragen per
       periode staan op <Link to={lp("/prijzen")}>onze prijspagina</Link>.
     </>
   ),
@@ -237,10 +237,10 @@ const fr: typeof nl = {
   kaartMeer: (kort: string) => `Voir le ${kort}`,
   note: (lp: Lp): ReactNode => (
     <>
-      <b>Pas sûr du format ?</b> Le <Link to={lp("/verhuur/calculator")}>calculateur de séchage</Link> calcule
+      <b>Pas sûr du format ?</b> Le <Link to={lp("/verhuur/simulator")}>calculateur de séchage</Link> calcule
       combien de litres par jour votre pièce nécessite. Vous voulez directement un pack complet avec
       ventilateurs et livraison ? Utilisez alors le{" "}
-      <Link to={lp("/verhuur/calculator")}>calculateur de séchage</Link>. Tous les montants par période
+      <Link to={lp("/verhuur/simulator")}>calculateur de séchage</Link>. Tous les montants par période
       figurent sur <Link to={lp("/prijzen")}>notre page des prix</Link>.
     </>
   ),
@@ -377,9 +377,9 @@ const en: typeof nl = {
   kaartMeer: (kort: string) => `View the ${kort}`,
   note: (lp: Lp): ReactNode => (
     <>
-      <b>Not sure which size?</b> The <Link to={lp("/verhuur/calculator")}>drying calculator</Link> works out
+      <b>Not sure which size?</b> The <Link to={lp("/verhuur/simulator")}>drying calculator</Link> works out
       how many litres a day your space needs. If you want a complete package with fans and delivery
-      straight away, use the <Link to={lp("/verhuur/calculator")}>drying calculator</Link>. All amounts per
+      straight away, use the <Link to={lp("/verhuur/simulator")}>drying calculator</Link>. All amounts per
       period are on <Link to={lp("/prijzen")}>our prices page</Link>.
     </>
   ),

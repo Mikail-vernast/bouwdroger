@@ -121,7 +121,7 @@ const V3Hero = () => {
         <h1>{t.h1}</h1>
         <p>{t.intro}</p>
         <div className="h-ctas">
-          <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+          <Link className="btn btn-white" to={lp("/verhuur/simulator")}>
             {t.cta}
             <ArrowRightIcon />
           </Link>

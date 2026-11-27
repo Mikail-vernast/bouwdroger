@@ -198,7 +198,7 @@ export const ONTSCHIMMELING_COPY = {
       <>
         <b>Droog eerst, behandel daarna.</b> Een muur die droog oogt kan vanbinnen nog nat zijn.
         Daarom meten wij het vochtgehalte in de ondergrond, en drogen we zo nodig eerst met{" "}
-        <Link to={lp("/verhuur/calculator")}>een berekend droogpakket</Link>. Pas als de meting droog
+        <Link to={lp("/verhuur/simulator")}>een berekend droogpakket</Link>. Pas als de meting droog
         zegt, heeft afwerken zin.
       </>
     ),
@@ -403,7 +403,7 @@ export const ONTSCHIMMELING_COPY = {
         <b>D'abord sécher, ensuite traiter.</b> Un mur qui a l'air sec peut encore être humide à
         l'intérieur. C'est pourquoi nous mesurons le taux d'humidité du support et, si nécessaire,
         séchons d'abord avec{" "}
-        <Link to={lp("/verhuur/calculator")}>un pack de séchage calculé</Link>. Ce n'est que lorsque
+        <Link to={lp("/verhuur/simulator")}>un pack de séchage calculé</Link>. Ce n'est que lorsque
         la mesure indique «&nbsp;sec&nbsp;» que la finition a du sens.
       </>
     ),
@@ -609,7 +609,7 @@ export const ONTSCHIMMELING_COPY = {
       <>
         <b>Dry first, treat afterwards.</b> A wall that looks dry can still be wet inside. That is
         why we measure the moisture content of the substrate, and dry first if necessary with{" "}
-        <Link to={lp("/verhuur/calculator")}>a calculated drying package</Link>. Only when the reading
+        <Link to={lp("/verhuur/simulator")}>a calculated drying package</Link>. Only when the reading
         says dry does finishing off make sense.
       </>
     ),

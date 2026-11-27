@@ -317,7 +317,7 @@ const V3Regio = () => {
                 {t.huren(inRegio(region))}
                 <ArrowRightIcon size={14} />
               </Link>
-              <Link className="btn btn-out" to={lp("/verhuur/calculator")}>
+              <Link className="btn btn-out" to={lp("/verhuur/simulator")}>
                 {t.calculator}
                 <ArrowRightIcon size={14} />
               </Link>

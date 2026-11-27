@@ -247,7 +247,7 @@ const GidsShell = ({
             <h1>{h1}</h1>
             {intro}
             <div className="hcta">
-              <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+              <Link className="btn btn-white" to={lp("/verhuur/simulator")}>
                 {t.bereken}
                 <Arrow />
               </Link>

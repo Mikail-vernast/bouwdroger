@@ -283,7 +283,7 @@ export const COPY = {
     rwNote: (
       <>
         <b>Welk pakket hoort bij uw vloer?</b> De{" "}
-        <Link to={lp("/verhuur/calculator")}>droogcalculator</Link> vraagt uw oppervlakte, wat u droogt en de
+        <Link to={lp("/verhuur/simulator")}>droogcalculator</Link> vraagt uw oppervlakte, wat u droogt en de
         dikte, en toont het pakket met het aantal toestellen, de huurtermijn en de prijs. Hoe dat bij een
         volledige nieuwbouw verloopt, staat op{" "}
         <Link to={lp("/nieuwbouw-drogen")}>chape en pleisterwerk drogen in nieuwbouw</Link>.
@@ -564,7 +564,7 @@ export const COPY = {
     rwNote: (
       <>
         <b>Quel pack convient à votre sol ?</b> Le{" "}
-        <Link to={lp("/verhuur/calculator")}>calculateur de séchage</Link> vous demande votre surface, ce que
+        <Link to={lp("/verhuur/simulator")}>calculateur de séchage</Link> vous demande votre surface, ce que
         vous séchez et l'épaisseur, et affiche le pack avec le nombre d'appareils, la durée de location et le
         prix. Comment cela se passe dans une nouvelle construction complète est expliqué sur{" "}
         <Link to={lp("/nieuwbouw-drogen")}>séchage de chape et de plafonnage en nouvelle construction</Link>.
@@ -845,7 +845,7 @@ export const COPY = {
     rwNote: (
       <>
         <b>Which package suits your floor?</b> The{" "}
-        <Link to={lp("/verhuur/calculator")}>drying calculator</Link> asks for your floor area, what you
+        <Link to={lp("/verhuur/simulator")}>drying calculator</Link> asks for your floor area, what you
         are drying and the thickness, and shows the package with the number of units, the hire period and
         the price. How this works for a complete new build is explained on{" "}
         <Link to={lp("/nieuwbouw-drogen")}>drying screed and plaster in new builds</Link>.

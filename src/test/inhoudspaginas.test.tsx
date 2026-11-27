@@ -79,7 +79,7 @@ describe("inhoudspagina's", () => {
     expect(regioLinks.length).toBeGreaterThanOrEqual(1);
     for (const h of regioLinks) expect(regios.has(h)).toBe(true);
 
-    expect(hrefs).toContain("/verhuur/calculator");
+    expect(hrefs).toContain("/verhuur/simulator");
   });
 });
 

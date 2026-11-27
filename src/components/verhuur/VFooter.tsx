@@ -26,16 +26,16 @@ const VFooter = () => (
           <h4>Diensten</h4>
           <ul>
             <li>
-              <Link to="/verhuur/calculator">Pleisterwerk drogen</Link>
+              <Link to="/verhuur/simulator">Pleisterwerk drogen</Link>
             </li>
             <li>
-              <Link to="/verhuur/calculator">Chape drogen</Link>
+              <Link to="/verhuur/simulator">Chape drogen</Link>
             </li>
             <li>
-              <Link to="/verhuur/calculator">Waterschade drogen</Link>
+              <Link to="/verhuur/waterschade-simulator">Waterschade drogen</Link>
             </li>
             <li>
-              <Link to="/verhuur/calculator">Kelder drogen</Link>
+              <Link to="/verhuur/simulator">Kelder drogen</Link>
             </li>
             <li>
               <Link to="/verhuur/pakket">Alles in één Droogservice</Link>
@@ -49,7 +49,7 @@ const VFooter = () => (
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/verhuur/calculator">Gratis Calculator</Link>
+              <Link to="/verhuur/simulator">Gratis Calculator</Link>
             </li>
             <li>
               <Link to="/#techniek">Alles over drogen</Link>

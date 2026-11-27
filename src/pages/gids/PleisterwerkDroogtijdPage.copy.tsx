@@ -198,7 +198,7 @@ export const COPY = {
       rwNote: (
         <>
           <b>Welk pakket hoort bij uw werf?</b> De{" "}
-          <Link to={lp("/verhuur/calculator")}>droogcalculator</Link> vraagt uw oppervlakte, wat u droogt en de
+          <Link to={lp("/verhuur/simulator")}>droogcalculator</Link> vraagt uw oppervlakte, wat u droogt en de
           laagdikte, en toont het pakket met het aantal toestellen, de huurtermijn en de prijs. Droogt u
           ook de vloer, kijk dan op{" "}
           <Link to={lp("/gids/hoe-lang-moet-chape-drogen")}>hoe lang chape moet drogen</Link>.
@@ -522,7 +522,7 @@ export const COPY = {
       rwNote: (
         <>
           <b>Quel pack convient à votre chantier ?</b> Le{" "}
-          <Link to={lp("/verhuur/calculator")}>calculateur de séchage</Link> vous demande votre surface, ce que vous
+          <Link to={lp("/verhuur/simulator")}>calculateur de séchage</Link> vous demande votre surface, ce que vous
           séchez et l'épaisseur, et affiche le pack avec le nombre d'appareils, la durée de location et le prix.
           Vous séchez aussi le sol ? Consultez alors{" "}
           <Link to={lp("/gids/hoe-lang-moet-chape-drogen")}>combien de temps une chape doit sécher</Link>.
@@ -841,7 +841,7 @@ export const COPY = {
       rwNote: (
         <>
           <b>Which package suits your site?</b> The{" "}
-          <Link to={lp("/verhuur/calculator")}>drying calculator</Link> asks for your floor area, what you are
+          <Link to={lp("/verhuur/simulator")}>drying calculator</Link> asks for your floor area, what you are
           drying and the coat thickness, and shows the package with the number of units, the hire period and
           the price. Drying the floor as well? Then see{" "}
           <Link to={lp("/gids/hoe-lang-moet-chape-drogen")}>how long screed takes to dry</Link>.

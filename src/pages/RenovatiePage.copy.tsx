@@ -157,7 +157,7 @@ export const RN_COPY = {
     checkP2: (lp) => (
       <>
         Twijfelt u welk toestel bij uw volume past? De{" "}
-        <Link to={lp("/verhuur/calculator")}>droogcalculator</Link> rekent het uit op oppervlakte en
+        <Link to={lp("/verhuur/simulator")}>droogcalculator</Link> rekent het uit op oppervlakte en
         plafondhoogte, en <Link to={lp("/hoe-drogen-werkt")}>hoe drogen werkt</Link> legt uit waarom
         de combinatie van warmte, luchtbeweging en ontvochtiging het werk doet.
       </>
@@ -350,7 +350,7 @@ export const RN_COPY = {
       {
         kop: "Plannen en verder lezen",
         links: [
-          { to: lp("/verhuur/calculator"), label: "Bereken een droogpakket op oppervlakte" },
+          { to: lp("/verhuur/simulator"), label: "Bereken een droogpakket op oppervlakte" },
           { to: lp("/waterschade"), label: "Kelder ondergelopen? Waterschade drogen" },
           { to: lp("/bouwdroger-huren-west-vlaanderen"), label: "Bouwdroger huren in West-Vlaanderen" },
           { to: lp("/bouwdroger-huren-antwerpen"), label: "Bouwdroger huren in de provincie Antwerpen" },
@@ -427,7 +427,7 @@ export const RN_COPY = {
     checkP2: (lp) => (
       <>
         Vous hésitez sur l’appareil adapté à votre volume ? Le{" "}
-        <Link to={lp("/verhuur/calculator")}>calculateur de séchage</Link> le détermine à partir de
+        <Link to={lp("/verhuur/simulator")}>calculateur de séchage</Link> le détermine à partir de
         la surface et de la hauteur sous plafond, et la page{" "}
         <Link to={lp("/hoe-drogen-werkt")}>comment fonctionne le séchage</Link> explique pourquoi la
         combinaison de chaleur, de mouvement d’air et de déshumidification fait le travail.
@@ -642,7 +642,7 @@ export const RN_COPY = {
       {
         kop: "Planifier et en savoir plus",
         links: [
-          { to: lp("/verhuur/calculator"), label: "Calculez un pack de séchage selon la surface" },
+          { to: lp("/verhuur/simulator"), label: "Calculez un pack de séchage selon la surface" },
           { to: lp("/waterschade"), label: "Cave inondée ? Sécher des dégâts des eaux" },
           { to: lp("/bouwdroger-huren-west-vlaanderen"), label: "Louer un déshumidificateur de chantier en Flandre occidentale" },
           { to: lp("/bouwdroger-huren-antwerpen"), label: "Louer un déshumidificateur de chantier dans la province d’Anvers" },
@@ -714,7 +714,7 @@ export const RN_COPY = {
     checkP2: (lp) => (
       <>
         Not sure which machine suits your volume? The{" "}
-        <Link to={lp("/verhuur/calculator")}>drying calculator</Link> works it out from floor area and
+        <Link to={lp("/verhuur/simulator")}>drying calculator</Link> works it out from floor area and
         ceiling height, and <Link to={lp("/hoe-drogen-werkt")}>how drying works</Link> explains why
         the combination of heat, air movement and dehumidification does the job.
       </>
@@ -910,7 +910,7 @@ export const RN_COPY = {
       {
         kop: "Planning and further reading",
         links: [
-          { to: lp("/verhuur/calculator"), label: "Calculate a drying package by floor area" },
+          { to: lp("/verhuur/simulator"), label: "Calculate a drying package by floor area" },
           { to: lp("/waterschade"), label: "Flooded basement? Drying water damage" },
           { to: lp("/bouwdroger-huren-west-vlaanderen"), label: "Dehumidifier hire in West Flanders" },
           { to: lp("/bouwdroger-huren-antwerpen"), label: "Dehumidifier hire in the province of Antwerp" },

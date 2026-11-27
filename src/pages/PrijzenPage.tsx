@@ -203,7 +203,7 @@ const PrijzenPage = () => {
             <h1>{t.heroH1}</h1>
             <p>{t.heroP}</p>
             <div className="hcta">
-              <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+              <Link className="btn btn-white" to={lp("/verhuur/simulator")}>
                 {t.berekenPrijs}
                 <ArrowRightIcon />
               </Link>
@@ -261,7 +261,7 @@ const PrijzenPage = () => {
             <h3>{t.pakketH3}</h3>
             <p>{t.pakketP}</p>
             {t.pakketLijst(PROCENT_ONLINE)}
-            <Link className="btn" to={lp("/verhuur/calculator")}>
+            <Link className="btn" to={lp("/verhuur/simulator")}>
               {t.pakketBtn}
               <ArrowRightIcon />
             </Link>
@@ -358,7 +358,7 @@ const PrijzenPage = () => {
             <p className="lede">{t.vbLede1(VOORBEELD.weeks)}</p>
             <p className="lede">{t.vbLede2}</p>
             <div className="hcta" style={{ marginTop: "26px" }}>
-              <Link className="btn" to={lp("/verhuur/calculator")}>
+              <Link className="btn" to={lp("/verhuur/simulator")}>
                 {t.vbBtn}
                 <ArrowRightIcon />
               </Link>
@@ -585,7 +585,7 @@ const PrijzenPage = () => {
           <h3>{t.slotH3}</h3>
           <p>{t.slotP(PROCENT_ONLINE)}</p>
           <div className="mb-cta">
-            <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+            <Link className="btn btn-white" to={lp("/verhuur/simulator")}>
               {t.berekenPrijs}
               <ArrowRightIcon />
             </Link>

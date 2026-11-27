@@ -108,7 +108,7 @@ describe("de fiche van de condenspomp", () => {
   it("wijst naar de twee manieren waarop de pomp bij de klant raakt", () => {
     const container = toon(<ToebehorenCondenspompPage />);
     const paden = [...container.querySelectorAll("a[href]")].map((a) => a.getAttribute("href"));
-    expect(paden).toContain("/verhuur/calculator");
+    expect(paden).toContain("/verhuur/simulator");
     expect(paden).toContain("/verhuur/afhalen?pomp=1");
   });
 });

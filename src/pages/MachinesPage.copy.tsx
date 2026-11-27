@@ -59,7 +59,7 @@ const nl = {
       <b>Losse toestellen haalt u af in Aartselaar</b>, tegen lagere afhaalprijzen, via de{" "}
       <Link to={lp("/verhuur/afhalen")}>afhaal-checkout</Link>. Leveren, plaatsen en afstellen doen
       wij enkel per pakket: alleen dan kunnen we de <Link to={lp("/drooggarantie")}>drooggarantie</Link>{" "}
-      waarmaken. De <Link to={lp("/verhuur/calculator")}>Calculator</Link> stelt dat pakket samen.
+      waarmaken. De <Link to={lp("/verhuur/simulator")}>Calculator</Link> stelt dat pakket samen.
     </>
   ),
 
@@ -217,7 +217,7 @@ const nl = {
     {
       kop: "Kiezen en berekenen",
       links: [
-        { to: "/verhuur/calculator", label: "Bereken welk pakket bij uw ruimte past" },
+        { to: "/verhuur/simulator", label: "Bereken welk pakket bij uw ruimte past" },
         { to: "/gids/condensdroger-of-adsorptiedroger", label: "Gids: condensdroger of adsorptiedroger?" },
         { to: "/gids/stroomverbruik-bouwdroger", label: "Gids: wat verbruikt een bouwdroger aan stroom?" },
         { to: "/prijzen", label: "Huurprijzen per dag en per week" },
@@ -287,7 +287,7 @@ const fr: typeof nl = {
       <Link to={lp("/verhuur/afhalen")}>réservation pour enlèvement</Link>. Livrer, placer et régler,
       nous le faisons uniquement par pack : ce n'est qu'ainsi que nous pouvons tenir la{" "}
       <Link to={lp("/drooggarantie")}>garantie de séchage</Link>. Le{" "}
-      <Link to={lp("/verhuur/calculator")}>calculateur</Link> compose ce pack.
+      <Link to={lp("/verhuur/simulator")}>calculateur</Link> compose ce pack.
     </>
   ),
 
@@ -446,7 +446,7 @@ const fr: typeof nl = {
     {
       kop: "Choisir et calculer",
       links: [
-        { to: "/verhuur/calculator", label: "Calculez le pack adapté à votre espace" },
+        { to: "/verhuur/simulator", label: "Calculez le pack adapté à votre espace" },
         { to: "/gids/condensdroger-of-adsorptiedroger", label: "Guide : condensation ou adsorption ?" },
         { to: "/gids/stroomverbruik-bouwdroger", label: "Guide : que consomme un déshumidificateur en électricité ?" },
         { to: "/prijzen", label: "Prix de location par jour et par semaine" },
@@ -516,7 +516,7 @@ const en: typeof nl = {
       <Link to={lp("/verhuur/afhalen")}>collection checkout</Link>. We only deliver, install and
       set up as part of a package: that is the only way we can honour the{" "}
       <Link to={lp("/drooggarantie")}>drying guarantee</Link>. The{" "}
-      <Link to={lp("/verhuur/calculator")}>Calculator</Link> puts that package together.
+      <Link to={lp("/verhuur/simulator")}>Calculator</Link> puts that package together.
     </>
   ),
 
@@ -674,7 +674,7 @@ const en: typeof nl = {
     {
       kop: "Choosing and calculating",
       links: [
-        { to: "/verhuur/calculator", label: "Calculate which package suits your space" },
+        { to: "/verhuur/simulator", label: "Calculate which package suits your space" },
         { to: "/gids/condensdroger-of-adsorptiedroger", label: "Guide: condensation or desiccant dehumidifier?" },
         { to: "/gids/stroomverbruik-bouwdroger", label: "Guide: how much electricity does a construction dehumidifier use?" },
         { to: "/prijzen", label: "Hire prices per day and per week" },

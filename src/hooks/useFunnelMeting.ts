@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from "react";
-import { cleanUrl, type FunnelEvent, type FunnelEventType } from "@/lib/funnel";
+import { cleanUrl, type FunnelEvent, type FunnelEventType, type FunnelFlow } from "@/lib/funnel";
 
 /**
  * Meet de huurflow voor Vernast › Marketing › Conversies: `view` bij het openen
@@ -11,6 +11,27 @@ import { cleanUrl, type FunnelEvent, type FunnelEventType } from "@/lib/funnel";
  */
 
 const SESSION_KEY = "vernast_funnel_session:bouwdroger-huren";
+const FLOW_KEY = "vernast_funnel_flow:bouwdroger-huren";
+
+/**
+ * De ingang (calculator of simulator) blijft in de sessie staan, zodat de
+ * pakket- en boekingspagina hun stappen bij dezelfde conversie tellen.
+ */
+function rememberFlow(flow: FunnelFlow): void {
+  try {
+    window.sessionStorage.setItem(FLOW_KEY, flow);
+  } catch {
+    /* geen opslag: dan telt het als calculator */
+  }
+}
+
+function currentFlow(): FunnelFlow {
+  try {
+    return window.sessionStorage.getItem(FLOW_KEY) === "simulator" ? "simulator" : "calculator";
+  } catch {
+    return "calculator";
+  }
+}
 
 function uuid(): string {
   if (typeof crypto.randomUUID === "function") return crypto.randomUUID();
@@ -61,6 +82,7 @@ function send(type: FunnelEventType, step?: number, stepKey?: string): void {
     utm_source: url.searchParams.get("utm_source"),
     utm_medium: url.searchParams.get("utm_medium"),
     utm_campaign: url.searchParams.get("utm_campaign"),
+    flow: currentFlow(),
   };
   // keepalive: de submit valt vlak voor een navigatie, en die mag hem niet afbreken.
   void fetch("/api/funnel", {
@@ -75,19 +97,26 @@ interface Options {
   /** Huidige stap, of null zolang er geen stap in beeld is. */
   step: number | null;
   stepKey?: string;
+  /** Alleen op een ingangspagina: welke conversie de rest van de sessie telt. */
+  flow?: FunnelFlow;
+  /** false = deze pagina meet niet (bv. de waterschadesimulator, geen boeking). */
+  enabled?: boolean;
 }
 
-export function useFunnelMeting({ step, stepKey }: Options) {
+export function useFunnelMeting({ step, stepKey, flow, enabled = true }: Options) {
   // Een re-render of terugklikken mag niet opnieuw tellen; de database vangt
   // het ook af, maar dan na een netwerkrondje.
   const sent = useRef<Set<string>>(new Set());
 
   const once = useCallback((type: FunnelEventType, s?: number, key?: string) => {
+    if (!enabled) return;
+    // Vóór het eerste event, zodat ook de view van deze pagina bij de juiste conversie telt.
+    if (flow) rememberFlow(flow);
     const k = `${type}:${s ?? -1}`;
     if (sent.current.has(k)) return;
     sent.current.add(k);
     send(type, s, key);
-  }, []);
+  }, [enabled, flow]);
 
   useEffect(() => {
     once("view");

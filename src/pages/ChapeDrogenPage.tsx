@@ -66,7 +66,7 @@ const LEES_DOELEN: { to: string; toestel?: string }[][] = [
     { to: toestelPad("radiaal2250"), toestel: "radiaal2250" },
     { to: toestelPad("teddh30"), toestel: "teddh30" },
   ],
-  [{ to: "/verhuur/calculator" }, { to: "/prijzen" }, { to: "/levering" }, { to: "/afhalen" }],
+  [{ to: "/verhuur/simulator" }, { to: "/prijzen" }, { to: "/levering" }, { to: "/afhalen" }],
 ];
 
 const ChapeDrogenPage = () => {
@@ -125,7 +125,7 @@ const ChapeDrogenPage = () => {
             <h1>{t.heroH1}</h1>
             <p>{t.heroP}</p>
             <div className="hcta">
-              <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+              <Link className="btn btn-white" to={lp("/verhuur/simulator")}>
                 {t.ctaPakket}
                 <ArrowRightIcon />
               </Link>
@@ -344,7 +344,7 @@ const ChapeDrogenPage = () => {
             <h3>{t.mbH3}</h3>
             <p>{t.mbP}</p>
             <div className="mb-cta">
-              <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+              <Link className="btn btn-white" to={lp("/verhuur/simulator")}>
                 {t.ctaPakket}
                 <ArrowRightIcon />
               </Link>

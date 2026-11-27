@@ -1,9 +1,19 @@
 import { describe, expect, it } from "vitest";
-import { CALCULATOR_CONVERSION_ID, boekingStep, cleanUrl, funnelArgs } from "../lib/funnel";
+import { CALCULATOR_CONVERSION_ID, SIMULATOR_CONVERSION_ID, boekingStep, cleanUrl, funnelArgs } from "../lib/funnel";
 
 const SESSIE = "0b54f322-fdc8-46dd-bfb2-1e6fd5500fd2";
 
 describe("funnelArgs", () => {
+  it("telt een sessie die in de simulator begon bij de simulatorconversie", () => {
+    expect(funnelArgs({ session_id: SESSIE, event_type: "view", flow: "simulator" })?.p_conversion_id).toBe(SIMULATOR_CONVERSION_ID);
+    expect(funnelArgs({ session_id: SESSIE, event_type: "view", flow: "calculator" })?.p_conversion_id).toBe(CALCULATOR_CONVERSION_ID);
+  });
+
+  it("valt zonder of met een onbekende ingang terug op de calculator", () => {
+    expect(funnelArgs({ session_id: SESSIE, event_type: "view" })?.p_conversion_id).toBe(CALCULATOR_CONVERSION_ID);
+    expect(funnelArgs({ session_id: SESSIE, event_type: "view", flow: "iets" })?.p_conversion_id).toBe(CALCULATOR_CONVERSION_ID);
+  });
+
   it("zet de conversie zelf, ook als de aanvraag een andere meestuurt", () => {
     const args = funnelArgs({ session_id: SESSIE, event_type: "view", p_conversion_id: "iets-anders" });
     expect(args?.p_conversion_id).toBe(CALCULATOR_CONVERSION_ID);

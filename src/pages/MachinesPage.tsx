@@ -600,7 +600,7 @@ const MachinesPage = () => {
               <h3>{t.slotH3}</h3>
               <p>{t.slotP}</p>
               <div className="mb-cta">
-                <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+                <Link className="btn btn-white" to={lp("/verhuur/simulator")}>
                   {t.slotBtn}
                   <ArrowRightIcon />
                 </Link>

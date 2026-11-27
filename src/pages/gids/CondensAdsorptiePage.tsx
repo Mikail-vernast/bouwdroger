@@ -171,7 +171,7 @@ const COPY = {
       <>
         Dagprijzen exclusief btw, zoals ze op de toestelpagina's en in de boekingsmodule staan. Losse
         toestellen haalt u af in <Link to={lp("/verhuur/afhalen")}>ons magazijn in Aartselaar</Link>; een
-        volledig pakket met levering berekent u in de <Link to={lp("/verhuur/calculator")}>droogcalculator</Link>.
+        volledig pakket met levering berekent u in de <Link to={lp("/verhuur/simulator")}>droogcalculator</Link>.
       </>
     ),
     adsorptie: "Adsorptie",
@@ -297,7 +297,7 @@ const COPY = {
         Prix journaliers tels qu'ils figurent sur les pages des appareils et dans le module de
         réservation. Vous enlevez les appareils seuls dans{" "}
         <Link to={lp("/verhuur/afhalen")}>notre entrepôt d'Aartselaar</Link> ; un pack complet avec
-        livraison se calcule dans le <Link to={lp("/verhuur/calculator")}>calculateur de séchage</Link>.
+        livraison se calcule dans le <Link to={lp("/verhuur/simulator")}>calculateur de séchage</Link>.
       </>
     ),
     adsorptie: "Adsorption",
@@ -420,7 +420,7 @@ const COPY = {
       <>
         Daily prices as shown on the machine pages and in the booking module. You collect individual
         machines from <Link to={lp("/verhuur/afhalen")}>our warehouse in Aartselaar</Link>; a complete
-        package with delivery is calculated in the <Link to={lp("/verhuur/calculator")}>drying calculator</Link>.
+        package with delivery is calculated in the <Link to={lp("/verhuur/simulator")}>drying calculator</Link>.
       </>
     ),
     adsorptie: "Desiccant",

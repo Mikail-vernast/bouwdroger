@@ -305,7 +305,7 @@ const MobileNav = ({
       </div>
 
       <div className="mnav-foot">
-        <Link className="mnav-cta mnav-rise" style={rise(6)} to={lp("/verhuur/calculator")}>
+        <Link className="mnav-cta mnav-rise" style={rise(6)} to={lp("/verhuur/simulator")}>
           {t.berekenPakket}
           <ArrowRight />
         </Link>

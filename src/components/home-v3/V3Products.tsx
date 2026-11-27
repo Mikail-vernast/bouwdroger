@@ -766,7 +766,7 @@ const V3Products = () => {
           </p>
         </div>
         <div className="pkb-b">
-          <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+          <Link className="btn btn-white" to={lp("/verhuur/simulator")}>
             {t.pkbBtn}
             <ArrowRightIcon />
           </Link>

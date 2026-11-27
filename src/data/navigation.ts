@@ -12,7 +12,7 @@
  * hier; dan kan ze niet opnieuw een wees worden.
  *
  * Ankertekst beschrijft de bestemming. "Bereken uw pakket" zegt een zoekmachine
- * meer over /verhuur/calculator dan "Meer info", en dezelfde tekst hoort niet
+ * meer over /verhuur/simulator dan "Meer info", en dezelfde tekst hoort niet
  * naar twee verschillende URL's te wijzen.
  */
 import { PRODUCTS, PRODUCT_ORDER } from "./verhuur.js";
@@ -110,10 +110,10 @@ export const TOEBEHOREN_LINKS: NavLinkItem[] = TOEBEHOREN.map((toebehoren) => ({
  * plaats en dat is er één te veel om met de hand bij te houden.
  */
 export const PAKKETTEN: NavLinkItem[] = [
-  { label: "Pleisterwerk drogen", path: "/verhuur/calculator" },
-  { label: "Chape drogen", path: "/verhuur/calculator" },
-  { label: "Pleisterwerk + chape", path: "/verhuur/calculator" },
-  { label: "Waterschade drogen", path: "/verhuur/calculator" },
+  { label: "Pleisterwerk drogen", path: "/verhuur/simulator" },
+  { label: "Chape drogen", path: "/verhuur/simulator" },
+  { label: "Pleisterwerk + chape", path: "/verhuur/simulator" },
+  { label: "Waterschade drogen", path: "/verhuur/waterschade-simulator" },
   { label: "Alles in één Droogservice", path: "/verhuur/pakket" },
 ];
 
@@ -195,7 +195,6 @@ export const SERVICE: NavLinkItem[] = [
  * `path`.
  */
 export const KIEZEN: NavLinkItem[] = [
-  { label: "Bereken uw droogpakket", path: "/verhuur/calculator" },
   { label: "Droogsimulator voor uw woning", path: "/verhuur/simulator" },
   { label: "Droogsimulator bij waterschade", path: "/verhuur/waterschade-simulator" },
   { label: "Ons volledige gamma", path: "/machines" },

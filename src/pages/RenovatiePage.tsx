@@ -228,7 +228,7 @@ const RenovatiePage = () => {
             <h1>{t.h1}</h1>
             <p>{t.heroP}</p>
             <div className="hcta">
-              <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+              <Link className="btn btn-white" to={lp("/verhuur/simulator")}>
                 {t.cta}
                 <ArrowRightIcon />
               </Link>
@@ -540,7 +540,7 @@ const RenovatiePage = () => {
           <h3>{t.slotH3}</h3>
           <p>{t.slotP}</p>
           <div className="mb-cta">
-            <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+            <Link className="btn btn-white" to={lp("/verhuur/simulator")}>
               {t.cta}
               <ArrowRightIcon />
             </Link>

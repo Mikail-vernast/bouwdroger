@@ -756,7 +756,7 @@ const StroomverbruikPage = () => {
             <span className="mbk">{t.mbKick}</span>
             <h3>{t.mbH3}</h3>
             <p>{t.mbP}</p>
-            <Link className="btn btn-white mb-cta" to={lp("/verhuur/calculator")}>
+            <Link className="btn btn-white mb-cta" to={lp("/verhuur/simulator")}>
               {t.mbCta}
               <Arrow />
             </Link>
